@@ -13,14 +13,14 @@ import ru.korotkov.womencalendar.model.date.DateRange
 import ru.korotkov.womencalendar.model.date.daysInMonth
 import ru.korotkov.womencalendar.model.date.monthStringId
 
-class StepsCalendarAdapter (val context: Context, private val dateRange: DateRange): RecyclerView.Adapter<StepsCalendarAdapter.ViewHolder>() {
+class StepsCalendarAdapter (val context: Context, private val dateRange: DateRange, val listener: (Date) -> Unit): RecyclerView.Adapter<StepsCalendarAdapter.ViewHolder>() {
 
     override fun getItemCount() = dateRange.numberOfMonth()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val itemDateStart = dateRange.start.incMonth(position)
-        val itemDateEnd = Date(itemDateStart.getYear(), itemDateStart.getMonth(), daysInMonth(itemDateStart.getYear(), itemDateStart.getMonth()))
+        val itemDateEnd = Date(itemDateStart.getYear(), itemDateStart.getMonth(), daysInMonth(itemDateStart.getMonth(), itemDateStart.getYear()))
 
         holder.bind(itemDateStart..itemDateEnd)
     }
@@ -37,7 +37,7 @@ class StepsCalendarAdapter (val context: Context, private val dateRange: DateRan
             this.month = m
             itemView.stepsMonthName.text = context.getText(monthStringId(month.start.getMonth()))
             itemView.stepsMonthRecycler.layoutManager = GridLayoutManager(context, 7)
-            itemView.stepsMonthRecycler.adapter = StepsMonthAdapter(context, month)
+            itemView.stepsMonthRecycler.adapter = StepsMonthAdapter(context, month, listener)
         }
     }
 }

@@ -19,7 +19,7 @@
             android:id="@+id/toolbar">
 
         <com.shuhart.stepview.StepView
-                android:id="@+id/stepTopView"
+                android:id="@+id/stepsTopView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="0dp"
+                android:animateLayoutChanges="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_marginStart="0dp"
@@ -73,7 +74,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="0dp"
                 android:layout_marginEnd="0dp"
-                android:id="@+id/linear_buttons">
+                android:id="@+id/stepsBottomContainer">
             <RadioButton
                     android:text="@string/forgot"
                     android:layout_width="wrap_content"
@@ -87,7 +88,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:fontFamily="@font/open_sans_extrabold"
                     android:layout_weight="1"
-                    android:button="@drawable/radio_bg"/>
+                    android:button="@drawable/radio_bg" android:visibility="gone"/>
             <Button
                     android:text="@string/next"
                     android:layout_margin="20dp"
@@ -95,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:id="@+id/stepsNext"/>
+                    android:id="@+id/stepsNext" android:visibility="visible"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -115,7 +116,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="0dp"
                 android:layout_marginEnd="0dp"
-                android:layout_above="@+id/linear_buttons"
+                android:layout_above="@+id/stepsBottomContainer"
                 android:id="@+id/stepsRecycler"/>
     </RelativeLayout>
 

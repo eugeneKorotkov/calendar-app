@@ -14,7 +14,7 @@ import ru.korotkov.womencalendar.model.date.dayOfWeek
 import ru.korotkov.womencalendar.model.date.daysInMonth
 
 
-class StepsMonthAdapter (val context: Context, private val month: DateRange): RecyclerView.Adapter<StepsMonthAdapter.ViewHolder>() {
+class StepsMonthAdapter (val context: Context, private val month: DateRange, private val listener: (Date) -> Unit): RecyclerView.Adapter<StepsMonthAdapter.ViewHolder>() {
 
     private var firstDay = month.elementAt(0)
     private var dayOfWeek = dayOfWeek(firstDay.getYear(), firstDay.getMonth(), firstDay.getDay())
@@ -26,7 +26,7 @@ class StepsMonthAdapter (val context: Context, private val month: DateRange): Re
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder.itemViewType) {
             0 -> holder.hide()
-            1 -> holder.bind(month.elementAt(position))
+            1 -> holder.bind(month.elementAt(position), listener)
         }
     }
 
@@ -37,11 +37,10 @@ class StepsMonthAdapter (val context: Context, private val month: DateRange): Re
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        private lateinit var day: Date
 
-        fun bind(day: Date) {
-            this.day = day
+        fun bind(day: Date, listener: (Date) -> Unit) = with(itemView) {
             itemView.stepsDayTitle.text = day.toString()
+            setOnClickListener {listener(day)}
         }
 
         fun hide() {
