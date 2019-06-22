@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">Calendar</string>
+
+    <string name="title_today">сегодня</string>
+    <string name="title_calendar">календарь</string>
+    <string name="title_advices">советы</string>
+    <string name="title_more">больше</string>
+
+    <string name="accept_all">принять всё</string>
+    <string name="next">далее</string>
+
+    <string name="skip">пропустить</string>
+    <string name="pass">пароль</string>
+    <string name="email">e-mail</string>
+    <string name="error_email">not valid e-mail</string>
+    <string name="error_pass">not valid pass</string>
+
+    <string name="description_login">введите свой e-mail и пароль</string>
+
+    <string name="license_comment">*Вы можете отозвать своё согласие в любое время,
+        написав по адресу example@rtrd.hert
+    </string>
+    <string name="choose_date">Выберите первый день месячных</string>
+
+    <string name="license_checkbox_0">Я соглашаюсь с
+        <a href="https://google.com">Политикой конфиденциальности</a>
+        и
+        <a href="https://google.com">Условиями использования</a>
+    </string>
+    <string name="license_checkbox_1">Я соглашаюсь с обработкой персональных
+        данных о здоровье для целей функционирования приложения. Узнайте больше
+        в
+        <a href="https://google.com">Политике конфиденциальности</a>
+    </string>
+    <string name="license_checkbox_2">Я соглащаюсь на использования моих
+        <a href='https://google.com'>персональных данных</a>
+        для персонализации предложений,
+        включая партнёрские рекомендации**
+    </string>
+    <string name="license_checkbox_3">Я соглашаюсь с тем, что appflayer и его
+        интегрированные партнёры могут получать мои личные данные с целью
+        расширения аудитории и популяризации приложения*
+    </string>
+
+    <!-- New User -->
+    <string name="new_user_question_0">Когда начались ваши последние месячные?</string>
+    <string name="new_user_question_1">Сколько в среднем у вас идут месячные?</string>
+    <string name="new_user_question_2">Сколько в среднем длится ваш цикл?</string>
+    <string name="new_user_question_3">Ваш год рождения?</string>
+
+    <string name="pregnant_question">На какой вы неделе беременности?</string>
+    <string name="change_language">сменить язык</string>
+    <string name="average_length_cycle">средняя длина цикла</string>
+
+    <!--month names -->
+    <string name="jan">январь</string>
+    <string name="feb">февраль</string>
+    <string name="mar">март</string>
+    <string name="apr">апрель</string>
+    <string name="may">май</string>
+    <string name="jun">июнь</string>
+    <string name="jul">июль</string>
+    <string name="aug">август</string>
+    <string name="sep">сентябрь</string>
+    <string name="oct">октябрь</string>
+    <string name="nov">ноябрь</string>
+    <string name="dec">декабрь</string>
+
+    <!--day on week names-->
+
+    <string name="mon">понедельник</string>
+    <string name="tue">вторник</string>
+    <string name="wed">среда</string>
+    <string name="thu">четверг</string>
+    <string name="fri">пятница</string>
+    <string name="sat">суббота</string>
+    <string name="sun">воскресенье</string>
+
+    <string name="week">неделя</string>
+    <string name="month">месяц</string>
+    <string name="year">год</string>
+
+    <string name="butt_menstrual_days">отметить месячные</string>
+    <string name="next_cycle">скоро</string>
+    <string name="ovulation">овуляция</string>
+    
+    <string name="tip_today_new">легче забеременеть</string>
+    <string name="tip_today_old">есть вероятность забеременеть</string>
+    <string name="menstrual">месячные</string>
+    <string name="length_cycle">длина цикла</string>
+    <string name="length_menstrual_cycle">длина месячных</string>
+
+    <string name="tip_pref_0">Изначально Vio
+        делает прогнозы повведеным здесь
+        длинам цикла и менструации. регулярно отмечая
+        месячные,вы дадите приложению возможность
+         выстраивать прогнозы по этим данным</string>
+    
+    <string name="forgot">Не помню</string>
+    <string name="tip_pref_1">При отключении этого параметра вы будете видеть
+    только день овуляции без вероятности забеременеть</string>
+    
+    <string name="chance_get_pregnant">вероятность забеременнеть</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <string name="facebook_app_id">988568198018105</string>
+
+</resources>
