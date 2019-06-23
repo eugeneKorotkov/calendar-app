@@ -1,5 +1,5 @@
 package ru.korotkov.womencalendar.ui.calendar
-
+/*
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -33,4 +33,4 @@ class CalendarAdapter (private val months: List<Month>, val context: Context): R
         }
     }
 
-}
+}*/

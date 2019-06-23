@@ -5,13 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import ru.korotkov.womencalendar.R
-import ru.korotkov.womencalendar.model.MenstrualCalendar
-import ru.korotkov.womencalendar.model.MenstrualScreenCalendar
-import ru.korotkov.womencalendar.model.Month
-import java.time.LocalDate
 
 class CalendarFragment: Fragment() {
 
@@ -25,7 +19,7 @@ class CalendarFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        /*
 
         val list = ArrayList<Month>()
 
@@ -56,7 +50,7 @@ class CalendarFragment: Fragment() {
         calendarRecyclerView.isNestedScrollingEnabled = false
         calendarRecyclerView.adapter = CalendarAdapter(list, context!!)
 
-
+        */
 
     }
 

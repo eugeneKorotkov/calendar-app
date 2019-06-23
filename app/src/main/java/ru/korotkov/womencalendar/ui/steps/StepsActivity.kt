@@ -26,7 +26,7 @@ class StepsActivity : AppCompatActivity() {
     private val inBirthday: IntArray = IntRange(1900, 2005).toList().toIntArray()
 
     private val snapHelper = LinearSnapHelper()
-    var stepCounter = 0
+    private var stepCounter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +65,9 @@ class StepsActivity : AppCompatActivity() {
         when (i) {
             0 -> {
                 stepsTitle.show()
+                stepsTopView.go(0, true)
                 stepsRecycler.layoutManager = LinearLayoutManager(this)
+
                 stepsRecycler.adapter = StepsCalendarAdapter(this, Dates.provideClearDates(3)) {
                     Log.d("StepsActivity", "clicked: " + it.getYear() + ", " + it.getMonth() + ", " + it.getDay() )
                 }
@@ -83,13 +85,13 @@ class StepsActivity : AppCompatActivity() {
                 stepsTitle.text = getText(R.string.new_user_question_2)
                 sliderAdapter = SliderAdapter(inLengthCycle)
                 stepsRecycler.adapter = sliderAdapter
-                stepsTopView.go(1, true)
+                stepsTopView.go(2, true)
             }
             3 -> {
                 stepsTitle.text = getText(R.string.new_user_question_3)
                 sliderAdapter = SliderAdapter(inBirthday)
                 stepsRecycler.adapter = sliderAdapter
-                stepsTopView.go(1, true)
+                stepsTopView.go(3, true)
             }
         }
     }

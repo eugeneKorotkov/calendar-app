@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.day_item_row.view.*
 import ru.korotkov.womencalendar.R
 import ru.korotkov.womencalendar.inflate
-import ru.korotkov.womencalendar.model.Day
-
+/*
 class TodayRecyclerAdapter(private val days: ArrayList<Day>): RecyclerView.Adapter<TodayRecyclerAdapter.DayViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
         val inflatedView = parent.inflate(R.layout.day_item_row)
@@ -43,3 +42,4 @@ class TodayRecyclerAdapter(private val days: ArrayList<Day>): RecyclerView.Adapt
 
     }
 }
+        */

@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
         login_next.setOnClickListener {
 
-            email_input.validate({
+            emailInput.validate({
                 s -> s.isValidEmail()
             }, getString(R.string.error_email))
 
@@ -33,9 +33,9 @@ class LoginActivity : AppCompatActivity() {
                 s -> s.isValidPass()
             }, getString(R.string.error_pass))
 
-            if (email_input.text.toString().isValidEmail() &&
+            if (emailInput.text.toString().isValidEmail() &&
                 pass_input.text.toString().isValidPass()) {
-                sendPostRequest(login = email_input.text.toString(), pass = pass_input.text.toString())
+                sendPostRequest(login = emailInput.text.toString(), pass = pass_input.text.toString())
             }
         }
 
@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    fun goToMainActivity() {
+    private fun goToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

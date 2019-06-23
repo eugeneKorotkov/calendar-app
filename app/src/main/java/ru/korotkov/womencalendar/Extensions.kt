@@ -34,7 +34,7 @@ fun EditText.validate(validator: (String) -> Boolean, message: String)  {
 }
 
 fun View.show() {
-    this.animate().alpha(1f).setDuration(100)
+    this.animate().alpha(1f).setDuration(1000)
 }
 fun View.hide() {
     this.animate().alpha(0f).duration = 100

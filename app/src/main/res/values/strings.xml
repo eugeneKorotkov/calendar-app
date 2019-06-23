@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Calendar</string>
 
+
     <string name="title_today">сегодня</string>
     <string name="title_calendar">календарь</string>
     <string name="title_advices">советы</string>

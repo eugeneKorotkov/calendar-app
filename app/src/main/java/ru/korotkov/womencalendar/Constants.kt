@@ -11,5 +11,7 @@ object Constants {
     const val START_YEAR = "full.first.year"
     const val LUTEAL_LENGTH = 10
     const val OVULATION_LENGTH = 7
+    const val API_KEY = "847de5af-b835-44f6-8ce1-90282a7312e2"
+
 
 }

@@ -12,7 +12,7 @@ class DateRange(override val start: Date, override val endInclusive: Date)
     fun numberOfMonth(): Int {
 
         if (endInclusive.getYear() == start.getYear()) {
-            return start.getMonth() - endInclusive.getMonth() + 1
+            return endInclusive.getMonth() - start.getMonth() + 1
         }
         return MONTHS_IN_A_YEAR - start.getMonth() + endInclusive.getMonth() + 1
     }

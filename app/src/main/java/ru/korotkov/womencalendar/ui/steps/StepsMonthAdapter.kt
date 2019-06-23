@@ -26,7 +26,7 @@ class StepsMonthAdapter (val context: Context, private val month: DateRange, pri
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder.itemViewType) {
             0 -> holder.hide()
-            1 -> holder.bind(month.elementAt(position), listener)
+            1 -> holder.bind(month.elementAt(position + dayOfWeek), listener)
         }
     }
 
@@ -39,7 +39,7 @@ class StepsMonthAdapter (val context: Context, private val month: DateRange, pri
 
 
         fun bind(day: Date, listener: (Date) -> Unit) = with(itemView) {
-            itemView.stepsDayTitle.text = day.toString()
+            itemView.stepsDayTitle.text = day.getDay().toString()
             setOnClickListener {listener(day)}
         }
 
