@@ -13,8 +13,8 @@
     <string name="skip">пропустить</string>
     <string name="pass">пароль</string>
     <string name="email">e-mail</string>
-    <string name="error_email">not valid e-mail</string>
-    <string name="error_pass">not valid pass</string>
+    <string name="error_email">not valid</string>
+    <string name="error_pass">not valid </string>
 
     <string name="description_login">введите свой e-mail и пароль</string>
 
