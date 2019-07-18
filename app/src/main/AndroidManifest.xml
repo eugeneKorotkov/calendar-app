@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.vio.womencalendar">
+          xmlns:tools="http://schemas.android.com/tools" package="com.vio.calendar">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-            android:name="com.vio.womencalendar.app.CalendarApplication"
+            android:name="com.vio.calendar.app.CalendarApplication"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:logo="@drawable/iconvio"
+            android:icon="@drawable/iconvio"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@drawable/iconvio"
             android:supportsRtl="true"
             android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme.NoActionBar" tools:targetApi="m">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="ca-app-pub-1890073619173649~8908748583"/>
-        <activity android:name="com.vio.womencalendar.ui.login.LoginActivity">
+
+        <activity android:name="com.vio.calendar.ui.main.MainActivity"
+                  android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name="com.vio.womencalendar.ui.main.MainActivity">
+        <activity android:name="com.vio.calendar.ui.steps.StepsActivity"
+                  android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name="com.vio.calendar.ui.license.LicenseActivity"
+                  android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name="com.vio.calendar.preferences.PreferenceActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Theme.AppCompat">
+        </activity>
+
+        <activity android:name="com.vio.calendar.ui.details.DetailsActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/Theme.AppCompat">
+        </activity>
+
+        <activity
+                android:name="com.vio.calendar.ui.splash.SplashActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.vio.womencalendar.ui.steps.StepsActivity">
 
-        </activity>
-        <activity android:name="com.vio.womencalendar.ui.license.LicenseActivity">
-
-        </activity>
-        <activity
-                android:name="com.vio.womencalendar.ui.splash.SplashActivity"
-                android:theme="@style/SplashTheme">
-        </activity>
+        <activity android:name=".ui.ListActivity"/>
 
         <meta-data
                 android:name="preloaded_fonts"

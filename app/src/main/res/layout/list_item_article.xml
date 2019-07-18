@@ -8,12 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/ic_advices"
-            android:id="@+id/articleImage"/>
     <TextView
             android:text="TextView"
             android:layout_margin="10dp"
@@ -24,10 +18,37 @@
             android:textColor="@android:color/black"
             android:layout_height="wrap_content"
             android:id="@+id/articleTitle"/>
-    <TextView
+    <com.borjabravo.readmoretextview.ReadMoreTextView
             android:text="TextView"
             android:layout_margin="10dp"
+            app:trimExpandedText="@string/read_more"
+            app:showTrimExpandedText="false"
+            app:trimLength="25"
+            app:trimMode="trimModeLength"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/articleShortDescription"/>
+            android:id="@+id/articleContent"/>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/ic_advices"
+            android:id="@+id/articleImage"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_height="match_parent" android:id="@+id/articleLikePanel" android:visibility="gone">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_like_false"
+                android:id="@+id/articleLikeImage"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/articleLikeCount"/>
+    </LinearLayout>
+
 </LinearLayout>

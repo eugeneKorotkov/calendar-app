@@ -7,10 +7,6 @@
             android:title="@string/title_today"/>
 
     <item
-            android:id="@+id/navigation_calendar"
-            android:icon="@drawable/ic_calendar"
-            android:title="@string/title_calendar"/>
-    <item
             android:id="@+id/navigation_advices"
             android:icon="@drawable/ic_advices"
             android:title="@string/title_advices"/>

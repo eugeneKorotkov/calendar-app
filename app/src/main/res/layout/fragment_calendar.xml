@@ -1,11 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/calendarRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-</RelativeLayout>
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTopHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.125" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottomHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.375"/>
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTopBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.350" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottomBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+
+    <LinearLayout
+            android:id="@+id/headerCalendar"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/rounded_linear_red"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTopHeader"
+            app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+                android:text="5 день"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:layout_weight="0.4"
+                app:autoSizeTextType="uniform"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/titleHeader"/>
+        <TextView
+                android:text="Овуляция"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:layout_weight="0.2"
+                app:autoSizeTextType="uniform"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/infoHeader"/>
+
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"/>
+
+        <Button
+                android:text="Button"
+                android:gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="0.2"
+                android:autoSizeTextType="uniform"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/rounded_button_calendar"
+                android:id="@+id/headerButton"/>
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"/>
+    </LinearLayout>
+    <ViewFlipper
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottomBody"
+            app:layout_constraintTop_toTopOf="@id/guidelineTopBody"
+            android:id="@+id/viewFlipper">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_linear_white">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineTopMonthNameFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineBottomMonthFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.2"/>
+
+            <TextView
+                    android:id="@+id/monthNameFirst"
+                    android:text="Июль"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    android:textColor="@color/colorRedMonthName"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineBottomMonthFirst"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineTopMonthNameFirst"/>
+
+            <GridView
+                    android:id="@+id/weekDayNamesFirst"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:numColumns="7"
+                    app:layout_constraintTop_toTopOf="@id/guidelineBottomMonthFirst"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/calendarRecyclerFirst"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_linear_white">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineTopMonthNameSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineBottomMonthSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.2"/>
+
+            <TextView
+                    android:text="Июнь"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    app:autoSizeTextType="uniform"
+                    android:textColor="@color/colorRedMonthName"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineBottomMonthSecond"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineTopMonthNameSecond"
+                    android:id="@+id/monthNameSecond"/>
+
+            <GridView
+                    android:id="@+id/weekDayNamesSecond"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:numColumns="7"
+                    app:layout_constraintTop_toTopOf="@id/guidelineBottomMonthSecond"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/calendarRecyclerSecond"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="parent">
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ViewFlipper>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

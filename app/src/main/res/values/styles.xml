@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -17,12 +16,11 @@
 
     </style>
 
-    <style name="ToolbarTheme" parent="Widget.Design.AppBarLayout">
 
+    <style name="ToolbarTheme" parent="Widget.Design.AppBarLayout">
         <item name="android:background">@drawable/toolbar_bg</item>
         <item name="android:textColorPrimary">@color/colorMainGreen</item>
         <item name="android:textColorSecondary">@color/colorMainGreen</item>
-
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
@@ -42,6 +40,26 @@
     <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@color/colorMainGray</item>
+    </style>
+
+    <style name="AppThemeSec" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="AppThemeSec.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#7bc1ba</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:background">#424242</item>
     </style>
 
 </resources>

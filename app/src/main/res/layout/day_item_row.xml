@@ -1,15 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.vio.calendar.ui.calendar.SquareConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/dayLinear">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/dayLinear"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/dayName"
-            android:text="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:gravity="center"/>
-</LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="5"/>
+</com.vio.calendar.ui.calendar.SquareConstraintLayout>

@@ -10,9 +10,30 @@
     <color name="colorPinkGray">#d38788</color>
     <color name="colorBackPink">#b48484</color>
 
+    <color name="colorFertility">#D1A043</color>
+
     <color name="textGray">#AAAAAA</color>
 
     <color name="transparentRed">#BFb5414e</color>
 
+    <color name="colorRedMonthName">#B5414E</color>
+
+    <color name="colorMenstrualHeader">#BFB5414E</color>
+
+    <color name="transparent">#00100001</color>
+
+    <color name="colorMenstrualFuture">#7Fe7adae</color>
+
+
+    <color name="colorOvulationText">#D1A043</color>
+    <color name="colorOvulationFuture">#7FD1A043</color>
+    <color name="colorOvulationHeader">#BFD1A043</color>
+
+
+    <color name="colorFertilityText">#5094A9</color>
+    <color name="colorFertilityHeader">#BF5094A9</color>
+    <color name="colorFertilityFuture">#7F5094A9</color>
+
     <color name="transparentWhite">#7FFFFFFF</color>
+
 </resources>
