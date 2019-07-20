@@ -2,7 +2,9 @@ package com.vio.calendar
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +12,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.*
 import android.widget.EditText
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
@@ -22,6 +25,12 @@ import java.net.URLEncoder
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+}
+
+fun Activity.startActivityForResult(activityClass: Class<Any>) {
+    startActivity(
+        Intent(this, activityClass)
+    )
 }
 
 fun EditText.validate(validator: (String) -> Boolean, message: String)  {
@@ -77,6 +86,14 @@ fun sendPostRequest(login:String, pass:String): String {
             return token
         }
     }
+}
+
+fun TextView.underline(){
+    /*
+        Keyword 'this' represent the object/widget which functionality
+        we want to extend. In this function 'this' represent the 'TextView'
+     */
+    this.paintFlags = this.paintFlags or Paint.UNDERLINE_TEXT_FLAG;
 }
 
 fun String.isValidEmail(): Boolean

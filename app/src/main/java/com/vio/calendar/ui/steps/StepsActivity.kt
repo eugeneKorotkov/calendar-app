@@ -17,6 +17,7 @@ import com.vio.calendar.getMonthNameId
 import com.vio.calendar.model.date.CalendarCell
 import com.vio.calendar.show
 import com.vio.calendar.ui.main.MainActivity
+import com.vio.calendar.utils.PreferenceUtils
 import kotlinx.android.synthetic.main.activity_steps.*
 import kotlinx.android.synthetic.main.weekday_name.view.*
 import java.util.*
@@ -242,6 +243,9 @@ class StepsActivity : AppCompatActivity() {
             val date = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
             Log.d("StepsActivity", "i tried to mark: $date")
             (application as CalendarApplication).dbMain.addPeriod(date)
+
+            val preferences = PreferenceUtils(this)
+            preferences.edit().putInt("dates_range", datesRange).apply()
 
             val dateSecond = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
             dateSecond.add(GregorianCalendar.DATE, datesRange)

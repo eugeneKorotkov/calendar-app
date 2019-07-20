@@ -1,11 +1,49 @@
 <com.vio.calendar.ui.calendar.SquareConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/dayLinear"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStartHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEndHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTopHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottomHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+    <LinearLayout
+            android:id="@+id/dayLinear"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEndHalf"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineBottomHalf"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStartHalf"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTopHalf"
+            android:orientation="horizontal">
+
+    </LinearLayout>
     <TextView
             android:id="@+id/dayName"
             android:layout_width="wrap_content"
@@ -14,6 +52,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/calendar_empty"
             app:autoSizeTextType="uniform"
             android:gravity="center"
             android:text="5"/>

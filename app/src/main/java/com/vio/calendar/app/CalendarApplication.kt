@@ -7,8 +7,10 @@ import com.onesignal.OneSignal
 import com.vio.calendar.Constants
 import com.vio.calendar.Constants.API_KEY
 import com.vio.calendar.db.PeriodicalDatabase
+import com.vio.calendar.utils.LocaleUtils
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
+import java.util.*
 
 
 class CalendarApplication: Application() {
@@ -40,7 +42,9 @@ class CalendarApplication: Application() {
 
         prefs = this.getSharedPreferences(Constants.PREFERENCES_NAME, 0)
 
-
+        //set Locale
+        LocaleUtils.setLocale(Locale(prefs.getString("language", Locale.getDefault().toString())))
+        LocaleUtils.updateConfig(this, baseContext.resources.configuration);
     }
 
     fun initDatabase() {

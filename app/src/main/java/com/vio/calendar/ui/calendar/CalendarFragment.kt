@@ -1,10 +1,10 @@
 package com.vio.calendar.ui.calendar
 
-import android.app.AlertDialog
 import android.app.backup.BackupManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,12 +42,16 @@ class CalendarFragment : Fragment() {
     private val monthToday = calToday.get(GregorianCalendar.MONTH) + 1
     private val yearToday = calToday.get(GregorianCalendar.YEAR)
 
+    private val STATE_MONTH = "month"
+    private val STATE_YEAR = "year"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        val view = inflater.inflate(R.layout.fragment_calendar, container, false)
+        view.setGestureListener({goNext()}, {goPrev()})
+        return view
     }
 
 
@@ -75,12 +79,29 @@ class CalendarFragment : Fragment() {
         weekDayNamesFirst.adapter = dayWeekAdapter
         weekDayNamesSecond.adapter = dayWeekAdapter
 
-        viewFlipper.setGestureListener(
+        calendarRecyclerSecond.isNestedScrollingEnabled = false
+        calendarRecyclerFirst.isNestedScrollingEnabled = false
+
+
+        firstConstraint.setGestureListener(
             {goNext()},
             {goPrev()}
         )
 
+        secondConstraint.setGestureListener(
+            {goNext()},
+            {goPrev()}
+        )
+
+        initMonth()
+
         initCalendar()
+    }
+
+    private fun initMonth() {
+        val cal = GregorianCalendar()
+        monthCurrent = cal.get(Calendar.MONTH) + 1
+        yearCurrent = cal.get(Calendar.YEAR)
     }
 
     private fun updateFirstCalendar() {
@@ -142,24 +163,127 @@ class CalendarFragment : Fragment() {
                             infoHeader.setTextColor(Color.WHITE)
                             titleHeader.setTextColor(Color.WHITE)
                             infoHeader.text = getText(R.string.fertility_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorFertilityHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
                         OVULATION_PREDICTED, OVULATION_FUTURE -> {
                             headerCalendar.setBackgroundResource(R.drawable.rounded_linear_ovulation)
                             infoHeader.setTextColor(Color.WHITE)
                             titleHeader.setTextColor(Color.WHITE)
                             infoHeader.text = getText(R.string.ovulation_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorOvulationHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
-                        PERIOD_START, PERIOD_PREDICTED, PERIOD_CONFIRMED -> {
+                        PERIOD_PREDICTED -> {
                             headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
                             infoHeader.setTextColor(Color.WHITE)
                             titleHeader.setTextColor(Color.WHITE)
                             infoHeader.text = getText(R.string.menstrual_title)
+
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
+                        }
+                        PERIOD_START, PERIOD_CONFIRMED -> {
+                            headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
+                            infoHeader.setTextColor(Color.WHITE)
+                            titleHeader.setTextColor(Color.WHITE)
+                            infoHeader.text = getText(R.string.menstrual_title)
+                            headerButton.text = getText(R.string.delete_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
                         INFERTILE_FUTURE, INFERTILE_PREDICTED -> {
                             headerCalendar.setBackgroundResource(R.drawable.rounded_linear_infertility)
                             infoHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
                             titleHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
                             infoHeader.text = getText(R.string.infertility_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
+                        }
+                        EMPTY -> {
+                            headerCalendar.setBackgroundResource(R.drawable.rounded_linear_red)
+                            infoHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                            titleHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                            infoHeader.text = getText(R.string.empty_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.transparentRed))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
 
                     }
@@ -181,84 +305,135 @@ class CalendarFragment : Fragment() {
                 FERTILITY_PREDICTED, FERTILITY_FUTURE -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_fertility)
                     infoHeader.setTextColor(Color.WHITE)
-                    titleHeader.setTextColor(Color.WHITE)
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorFertilityHeader))
                     infoHeader.text = getText(R.string.fertility_title)
+                    titleHeader.setTextColor(Color.WHITE)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorFertilityHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
                 OVULATION_PREDICTED, OVULATION_FUTURE -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_ovulation)
                     infoHeader.setTextColor(Color.WHITE)
-                    titleHeader.setTextColor(Color.WHITE)
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorOvulationHeader))
                     infoHeader.text = getText(R.string.ovulation_title)
+                    titleHeader.setTextColor(Color.WHITE)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorOvulationHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
-                PERIOD_START, PERIOD_PREDICTED, PERIOD_CONFIRMED -> {
+                PERIOD_PREDICTED -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
                     infoHeader.setTextColor(Color.WHITE)
                     titleHeader.setTextColor(Color.WHITE)
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
                     infoHeader.text = getText(R.string.menstrual_title)
+
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
+                }
+
+                PERIOD_START, PERIOD_CONFIRMED -> {
+                    headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
+                    infoHeader.setTextColor(Color.WHITE)
+                    titleHeader.setTextColor(Color.WHITE)
+                    infoHeader.text = getText(R.string.menstrual_title)
+                    headerButton.text = getText(R.string.delete_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
                 INFERTILE_FUTURE, INFERTILE_PREDICTED -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_infertility)
+                    infoHeader.text = getText(R.string.infertility_title)
                     infoHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
                     titleHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
-                    infoHeader.text = getText(R.string.infertility_title)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
+                }
+                EMPTY -> {
+                    headerCalendar.setBackgroundResource(R.drawable.rounded_linear_red)
+                    infoHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                    titleHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                    infoHeader.text = getText(R.string.empty_title)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.transparentRed))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
             }
+            calendarRecyclerFirst.invalidate()
 
-
-        }), ({
-
-            val builder = AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
-            val date = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
-            val type = ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
-            if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
-                builder.setMessage(
-                    resources.getString(
-                        R.string.calendaraction_add
-                    )
-                )
-                builder.setPositiveButton(
-                    resources.getString(R.string.calendaraction_ok)
-                ) { _, _ ->
-                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
-                    handleDatabaseEdit()
-                }
-
-                builder.setNegativeButton(
-                    resources.getString(R.string.calendaraction_cancel)
-                ) { _, _ -> }
-
-                builder.setNeutralButton(
-                    resources.getString(R.string.calendaraction_details)
-                ) { dialog, which -> (activity as MainActivity).showDetailsActivity(yearCurrent, monthCurrent, it.day) }
-            } else {
-                if (type == PERIOD_START)
-                    builder.setMessage(resources.getString(R.string.calendaraction_removeperiod))
-                else
-                    builder.setMessage(resources.getString(R.string.calendaraction_remove))
-                builder.setPositiveButton(
-                    resources.getString(R.string.calendaraction_ok)
-                ) { _, _ ->
-                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
-                    handleDatabaseEdit()
-                }
-
-                builder.setNegativeButton(
-                    resources.getString(R.string.calendaraction_cancel)
-                ) { _, _ -> }
-
-                builder.setNeutralButton(
-                    resources.getString(R.string.calendaraction_details)
-                ) { _, _ ->
-                    (activity as MainActivity).showDetailsActivity(yearCurrent, monthCurrent, it.day) }
-            }
-            builder.show()
-            true
         }))
-        calendarRecyclerFirst.invalidate()
     }
 
     private fun updateSecondCalendar() {
@@ -321,28 +496,131 @@ class CalendarFragment : Fragment() {
                             infoHeader.setTextColor(Color.WHITE)
                             titleHeader.setTextColor(Color.WHITE)
                             infoHeader.text = getText(R.string.fertility_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorFertilityHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
                         OVULATION_PREDICTED, OVULATION_FUTURE -> {
                             headerCalendar.setBackgroundResource(R.drawable.rounded_linear_ovulation)
                             infoHeader.setTextColor(Color.WHITE)
                             titleHeader.setTextColor(Color.WHITE)
                             infoHeader.text = getText(R.string.ovulation_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorOvulationHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
-                        PERIOD_START, PERIOD_PREDICTED, PERIOD_CONFIRMED -> {
+                        PERIOD_PREDICTED -> {
                             headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
                             infoHeader.setTextColor(Color.WHITE)
                             titleHeader.setTextColor(Color.WHITE)
                             infoHeader.text = getText(R.string.menstrual_title)
+
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
+                        }
+
+                        PERIOD_START, PERIOD_CONFIRMED -> {
+                            headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
+                            infoHeader.setTextColor(Color.WHITE)
+                            titleHeader.setTextColor(Color.WHITE)
+                            infoHeader.text = getText(R.string.menstrual_title)
+                            headerButton.text = getText(R.string.delete_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
                         INFERTILE_FUTURE, INFERTILE_PREDICTED -> {
                             headerCalendar.setBackgroundResource(R.drawable.rounded_linear_infertility)
                             infoHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
                             titleHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
                             infoHeader.text = getText(R.string.infertility_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
+                        }
+                        EMPTY -> {
+                            headerCalendar.setBackgroundResource(R.drawable.rounded_linear_red)
+                            infoHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                            titleHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                            infoHeader.text = getText(R.string.empty_title)
+                            headerButton.text = getText(R.string.check_menstrual)
+                            headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.transparentRed))
+                            var day = calendarCell.day
+                            headerButton.setOnClickListener {
+                                val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                                val type =
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                                if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                                    handleDatabaseEdit()
+                                } else {
+                                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                                    handleDatabaseEdit()
+                                }
+                            }
                         }
 
                     }
-
                 }
 
                 calSecond.add(GregorianCalendar.DATE, 1)
@@ -354,90 +632,159 @@ class CalendarFragment : Fragment() {
         calendarRecyclerSecond.adapter = CalendarRecyclerAdapter(listSecond, firstDayOfWeekSecond, ({
 
             titleHeader.text = it.day.toString() + " " + getText(getMonthNameForTitle(monthCurrent))
+
+
             when (it.type) {
                 FERTILITY_PREDICTED, FERTILITY_FUTURE -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_fertility)
                     infoHeader.setTextColor(Color.WHITE)
-                    titleHeader.setTextColor(Color.WHITE)
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorFertilityHeader))
                     infoHeader.text = getText(R.string.fertility_title)
+                    titleHeader.setTextColor(Color.WHITE)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorFertilityHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
                 OVULATION_PREDICTED, OVULATION_FUTURE -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_ovulation)
                     infoHeader.setTextColor(Color.WHITE)
-                    titleHeader.setTextColor(Color.WHITE)
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorOvulationHeader))
                     infoHeader.text = getText(R.string.ovulation_title)
+                    titleHeader.setTextColor(Color.WHITE)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorOvulationHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
-                PERIOD_START, PERIOD_PREDICTED, PERIOD_CONFIRMED -> {
+                PERIOD_PREDICTED -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
                     infoHeader.setTextColor(Color.WHITE)
                     titleHeader.setTextColor(Color.WHITE)
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
                     infoHeader.text = getText(R.string.menstrual_title)
+
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
+                }
+
+                PERIOD_START, PERIOD_CONFIRMED -> {
+                    headerCalendar.setBackgroundResource(R.drawable.rounded_linear_menstrual)
+                    infoHeader.setTextColor(Color.WHITE)
+                    titleHeader.setTextColor(Color.WHITE)
+                    infoHeader.text = getText(R.string.menstrual_title)
+
+                    headerButton.text = getText(R.string.delete_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorMenstrualHeader))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
                 INFERTILE_FUTURE, INFERTILE_PREDICTED -> {
                     headerCalendar.setBackgroundResource(R.drawable.rounded_linear_infertility)
+                    infoHeader.text = getText(R.string.infertility_title)
                     infoHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
                     titleHeader.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
-                    headerButton.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
-                    infoHeader.text = getText(R.string.infertility_title)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.colorRedMonthName))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
+                }
+                EMPTY -> {
+                    headerCalendar.setBackgroundResource(R.drawable.rounded_linear_red)
+                    infoHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                    titleHeader.setTextColor(ContextCompat.getColor(context!!, android.R.color.white))
+                    infoHeader.text = getText(R.string.empty_title)
+                    headerButton.text = getText(R.string.check_menstrual)
+                    headerButton.setTextColor(ContextCompat.getColor(context!!, R.color.transparentRed))
+                    var day = it.day
+                    headerButton.setOnClickListener {
+                        val date = GregorianCalendar(yearCurrent, monthCurrent - 1, day)
+                        val type =
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
+                        if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
+                            handleDatabaseEdit()
+                        } else {
+                            ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
+                            handleDatabaseEdit()
+                        }
+                    }
                 }
             }
-        }), ({
-
-            val builder = AlertDialog.Builder(context, R.style.MyAlertDialogStyle)
-            val date = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
-            val type = ((activity as MainActivity).application as CalendarApplication).dbMain.getEntryType(date)
-            if (type != PERIOD_START && type != PERIOD_CONFIRMED) {
-                builder.setMessage(
-                    resources.getString(
-                        R.string.calendaraction_add
-                    )
-                )
-                builder.setPositiveButton(
-                    resources.getString(R.string.calendaraction_ok)
-                ) { _, _ ->
-                    ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(date)
-                    handleDatabaseEdit()
-                }
-
-                builder.setNegativeButton(
-                    resources.getString(R.string.calendaraction_cancel)
-                ) { _, _ -> }
-
-                builder.setNeutralButton(
-                    resources.getString(R.string.calendaraction_details)
-                ) { dialog, which -> (activity as MainActivity).showDetailsActivity(yearCurrent, monthCurrent, it.day) }
-            } else {
-                if (type == PERIOD_START)
-                    builder.setMessage(resources.getString(R.string.calendaraction_removeperiod))
-                else
-                    builder.setMessage(resources.getString(R.string.calendaraction_remove))
-                builder.setPositiveButton(
-                    resources.getString(R.string.calendaraction_ok)
-                ) { _, _ ->
-                    ((activity as MainActivity).application as CalendarApplication).dbMain.removePeriod(date)
-                    handleDatabaseEdit()
-                }
-
-                builder.setNegativeButton(
-                    resources.getString(R.string.calendaraction_cancel)
-                ) { _, _ -> }
-
-                builder.setNeutralButton(
-                    resources.getString(R.string.calendaraction_details)
-                ) { _, _ ->
-                    (activity as MainActivity).showDetailsActivity(yearCurrent, monthCurrent, it.day) }
-            }
-            builder.show()
-            true
         }))
         calendarRecyclerSecond.invalidate()
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("firstIsShowing", firstIsShowing)
+    }
+
     private fun initCalendar() {
-        updateFirstCalendar()
+        Log.d("CalendarFragment", "init working: $firstIsShowing")
+        firstIsShowing = if (firstIsShowing) {
+            updateSecondCalendar()
+            viewFlipper.showNext()
+            false
+        } else {
+            updateFirstCalendar()
+            true
+        }
     }
 
     private fun goNext() {
@@ -486,7 +833,11 @@ class CalendarFragment : Fragment() {
     private fun handleDatabaseEdit() {
         // Update calculated values
         ((activity as MainActivity).application as CalendarApplication).dbMain.loadCalculatedData()
-        initCalendar()
+        if (firstIsShowing) {
+            updateFirstCalendar()
+        } else {
+            updateSecondCalendar()
+        }
 
         // Notify backup agent about the change and mark DB as clean
         val bm = BackupManager(getAppContext())
@@ -526,7 +877,6 @@ class CalendarFragment : Fragment() {
             return view
         }
     }
-
 
 
 

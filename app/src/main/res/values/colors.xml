@@ -4,6 +4,21 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="calendar_empty">#7A5E63</color>
+
+    <color name="period_predicted">#E6ABAD</color>
+    <color name="period_future">#6FE6ABAD</color>
+    <color name="fertility_predicted_text">#4A98A0</color>
+    <color name="fertility_future_text">#6F4A98A0</color>
+
+    <color name="infertility_predicted_text">#B4404D</color>
+    <color name="infertility_future_text">#6FB4404D</color>
+    <color name="ovulation_predicted">#D0A244</color>
+    <color name="ovulation_future">#6FD0A244</color>
+
+
+
+
     <color name="colorMainGreen">#37977b</color>
     <color name="colorMainGray">#f6f6f6</color>
     <color name="colorPinkWhite">#e7adae</color>

@@ -143,8 +143,8 @@ public class PeriodicalDatabase {
                         "select eventtype, eventdate from data_old;");
                 db.execSQL("drop table data_old;");
 
-                // Create records for existing confirmed period entries
-                // based on the global period length setting
+                // Create records for existing confirmed period_predicted entries
+                // based on the global period_predicted length setting
                 PreferenceUtils preferences = new PreferenceUtils(context);
                 int periodlength;
                 periodlength = preferences.getInt("period_length", DEFAULT_PERIOD_LENGTH);
@@ -152,7 +152,7 @@ public class PeriodicalDatabase {
                 String statement;
 
                 // Workaround for a bug introduced in release 0.35 which stored the
-                // maximum cycle as "period length", so it is not usable at all :-(
+                // maximum cycle as "period_predicted length", so it is not usable at all :-(
                 String option = "maximum_cycle_length";
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt(option, DEFAULT_CYCLE_LENGTH);
@@ -162,7 +162,7 @@ public class PeriodicalDatabase {
                 statement = "insert into options (name, value) values (?, ?)";
                 db.execSQL(statement, new String[]{option, DEFAULT_CYCLE_LENGTH.toString()});
 
-                // Fill database with additional entries for the period days
+                // Fill database with additional entries for the period_predicted days
                 statement = "select eventtype, eventdate from data order by eventdate desc";
                 Cursor result = db.rawQuery(statement, null);
                 while (result.moveToNext()) {
@@ -175,7 +175,7 @@ public class PeriodicalDatabase {
                     GregorianCalendar eventdate = new GregorianCalendar(eventyear,
                             eventmonth - 1, eventday);
 
-                    // Add default intensity for existing period
+                    // Add default intensity for existing period_predicted
                     int intensity = 2;
                     statement = format(
                             "update data set intensity=%d where eventdate='%s'",
@@ -186,7 +186,7 @@ public class PeriodicalDatabase {
                                     eventdate.get(GregorianCalendar.DAY_OF_MONTH)));
                     db.execSQL(statement);
 
-                    // Add additional entries for each day of the period
+                    // Add additional entries for each day of the period_predicted
                     if(eventtype == DayEntry.PERIOD_START) {
                         eventtype = DayEntry.PERIOD_CONFIRMED;
 
@@ -255,7 +255,7 @@ public class PeriodicalDatabase {
          * Day within current cycle (beginning with 1)
          *
          * @param intensity
-         * Intensity of the period (1-4)
+         * Intensity of the period_predicted (1-4)
          */
         public DayEntry(int type, GregorianCalendar date, int dayofcycle, int intensity) {
             this.type = type;
@@ -325,7 +325,7 @@ public class PeriodicalDatabase {
     }
 
     /**
-     * Add a period entry for a specific day to the database
+     * Add a period_predicted entry for a specific day to the database
      *
      * @param date
      * Date of the entry
@@ -343,7 +343,7 @@ public class PeriodicalDatabase {
         dateLocal.add(GregorianCalendar.DATE, -1);
         int type = getEntryType(dateLocal);
         if(type == DayEntry.PERIOD_START || type == DayEntry.PERIOD_CONFIRMED) {
-            // Continue existing period to the future
+            // Continue existing period_predicted to the future
             type = DayEntry.PERIOD_CONFIRMED;
             db.beginTransaction();
             statement = format(
@@ -361,7 +361,7 @@ public class PeriodicalDatabase {
             dateLocal.add(GregorianCalendar.DATE, +2);
             type = getEntryType(dateLocal);
             if(type == DayEntry.PERIOD_START) {
-                // Continue existing period to the past
+                // Continue existing period_predicted to the past
                 db.beginTransaction();
 
                 statement = format(
@@ -386,7 +386,7 @@ public class PeriodicalDatabase {
                 db.setTransactionSuccessful();
                 db.endTransaction();
             } else {
-                // This day is a regular new period
+                // This day is a regular new period_predicted
                 int periodlength;
 
                 PreferenceUtils preferences = new PreferenceUtils(context);
@@ -442,7 +442,7 @@ public class PeriodicalDatabase {
 
         db.beginTransaction();
 
-        // Remove period entry for the selected and all following days
+        // Remove period_predicted entry for the selected and all following days
         while(true) {
             int type = getEntryType(dateLocal);
             if(type == DayEntry.PERIOD_START || type == DayEntry.PERIOD_CONFIRMED) {
@@ -498,7 +498,7 @@ public class PeriodicalDatabase {
         dayEntries.removeAllElements();
 
         // Determine minimum entry count for
-        // shortest/longest period calculation
+        // shortest/longest period_predicted calculation
         result = db.rawQuery(format("select count(*) from data where eventtype = %d", DayEntry.PERIOD_START), null);
         if (result.moveToNext()) {
             countlimit = result.getInt(0);
@@ -507,7 +507,7 @@ public class PeriodicalDatabase {
         }
         result.close();
 
-        // Get all period related entries from the database to fill the calendar
+        // Get all period_predicted related entries from the database to fill the calendar
         result = db.rawQuery(
                 format("select eventdate, eventtype, intensity from data " +
                                 "where " +
@@ -540,7 +540,7 @@ public class PeriodicalDatabase {
                     entry = new DayEntry(eventtype, eventdate, 1, intensity);
                     int length = entryPreviousStart.date.diffDayPeriods(entry.date);
 
-                    // Add calculated values from the last date to this day, if the period has not
+                    // Add calculated values from the last date to this day, if the period_predicted has not
                     // unusual lengths (e.g. after a longer pause because of pregnancy etc.)
                     if (length <= maximumcyclelength) {
                         count++;
@@ -548,7 +548,7 @@ public class PeriodicalDatabase {
                         // Update values which are used to calculate the fertility
                         // window for the last 12 entries
                         if (count == countlimit) {
-                            // If we have at least one period the shortest and
+                            // If we have at least one period_predicted the shortest and
                             // and longest value is automatically the current length
                             this.cycleShortest = length;
                             this.cycleLongest = length;
@@ -629,7 +629,7 @@ public class PeriodicalDatabase {
                     int type;
 
                     if (day <= periodlength) {
-                        // Predicted days of period
+                        // Predicted days of period_predicted
                         type = DayEntry.PERIOD_PREDICTED;
                     } else if (day == ovulationday) {
                         // Day of ovulation
@@ -1001,7 +1001,7 @@ public class PeriodicalDatabase {
         return value;
     }
 
-    private int getOption(String name, int defaultvalue) {
+    public int getOption(String name, int defaultvalue) {
         int value = defaultvalue;
 
         String statement = "select value from options where name = ?";

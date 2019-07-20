@@ -7,8 +7,19 @@
     <string name="title_advices">tips</string>
     <string name="title_more">more</string>
 
+    <string name="change_language">change language</string>
+    <string name="title_notification_settings">напоминания</string>
+    
+    <string name="notification_question_0">Месячные через пару дней</string>
+    <string name="notification_question_1">Окончание месячных</string>
+    <string name="notification_question_2">Начало месячных</string>
+    <string name="notification_question_3">Овуляция</string>
+
     <string name="accept_all">accept all</string>
     <string name="next">further</string>
+
+
+    <string name="info_restart_application">перезагрузите приложение, чтобы изменения вступило в силу</string>
 
     <string name="skip">skip</string>
     <string name="pass">password</string>
@@ -17,13 +28,22 @@
     <string name="error_pass">not valid pass</string>
 
     <string name="description_login">enter your e-mail and password</string>
+    <string name="choose_date">Select the first day of your period</string>
+
+    <!--license -->
+
+    <string-array name="license_menu">
+        <item>@string/license_checkbox_0</item>
+        <item>@string/license_checkbox_1</item>
+        <item>@string/license_checkbox_2</item>
+        <item>@string/license_checkbox_3</item>
+    </string-array>
 
     <string name="license_comment">
         *You can withdraw your consent at any time by writing in example@rtrd.hert
     </string>
-    <string name="choose_date">Select the first day of your period</string>
 
-    <string name="license_checkbox_0"> I agree to
+    <string name="license_checkbox_0">I agree to
         <a href="https://google.com">Privacy Policy</a>
         and
         <a href="https://google.com">Terms of Use</a>
@@ -33,12 +53,13 @@
         in the
         <a href="https://google.com">Privacy Policy</a>
     </string>
-    <string name="license_checkbox_2"> I consent to the use of my
+    <string name="license_checkbox_2">I consent to the use of my
         <a href='https://google.com'>personal information</a>
         including partner recommendations**
     </string>
     <string name="license_checkbox_3">
-        I consent to making my personal information available to appflayer and its integrated partners for the purpose of expanding the audience and promoting the app*
+        I consent to making my personal information available to appflayer and its integrated partners for the purpose
+        of expanding the audience and promoting the app*
     </string>
 
     <!-- New User -->
@@ -48,7 +69,6 @@
     <string name="new_user_question_3">What’s your year of birth?</string>
 
     <string name="pregnant_question">Which week of pregnancy are you in currently?</string>
-    <string name="change_language">change language</string>
     <string name="average_length_cycle">average length cycle</string>
 
     <!--month names -->
@@ -75,6 +95,9 @@
     <string name="sat">Saturday</string>
     <string name="sun">Sunday</string>
 
+    <string name="check_menstrual" translatable="false">отметить месячные</string>
+    <string name="delete_menstrual" translatable="false">удалить месячные</string>
+
     <string name="week">a week</string>
     <string name="month">month</string>
     <string name="year">year</string>
@@ -89,10 +112,32 @@
     <string name="length_cycle">cycle length</string>
     <string name="length_menstrual_cycle">monthly length</string>
 
-    <string name="tip_pref_0">Initially, Vio makes predictions based on the cycle and menstruation length entered here; by regularly entering info on your periods, you will enable the application to build forecasts based on this info</string>
+    <string name="tip_pref_0">Initially, Vio makes predictions based on the cycle and menstruation length entered here;
+        by regularly entering info on your periods, you will enable the application to build forecasts based on this
+        info
+    </string>
 
     <string name="forgot">I do not remember</string>
-    <string name="tip_pref_1">If you disable this option, you will only see the day of ovulation, without indication of the probability of getting pregnant</string>
+    <string name="tip_pref_1">If you disable this option, you will only see the day of ovulation, without indication of
+        the probability of getting pregnant
+    </string>
+
+    <!--more activity -->
+    <string-array name="more_menu">
+        <item>@string/cycle_settings</item>
+        <item>@string/change_language</item>
+        <item>@string/title_notification_settings</item>
+    </string-array>
+
+    <string name="more_title">больше</string>
+    <string name="cycle_settings">цикл и овуляция</string>
+
+    <string name="probability_pregnant">вероятность забеременнеть</string>
+
+    <string name="cycle_length">длина цикла</string>
+    <string name="menstrual_length">длина месячных</string>
+
+    <string name="cycle_sett_info">Изначально VIO делает прогнозы по введённым здесь данным</string>
 
     <string name="chance_get_pregnant">chance to get pregnant</string>
 
@@ -166,7 +211,9 @@
     <string name="restore_cancel">Cancel</string>
     <string name="restore_finished">Restore done</string>
     <string name="restore_failed">Restore failed!</string>
-    <string name="permissions_needed">To create or restore backups, Periodical needs permission to access file storage.</string>
+    <string name="permissions_needed">To create or restore backups, Periodical needs permission to access file
+        storage.
+    </string>
     <string name="permissions_needed_ok">OK</string>
     <string name="event_periodstart">Period started</string>
     <string name="event_periodlength">cycle %s days</string>
@@ -249,5 +296,9 @@
     <string name="ovulation_title">Высокая вероятность забеременеть</string>
     <string name="menstrual_title">Месячные</string>
     <string name="infertility_title">Вероятность забеременеть низкая</string>
+    <string name="empty_title">Пусто</string>
+    <string name="days">дней</string>
+    <string name="language">language</string>
+
 
 </resources>

@@ -36,7 +36,7 @@ public class PreferenceActivity extends AppCompatPreferenceActivity implements S
         addPreferencesFromResource(R.xml.preferences);
         initSummary(getPreferenceScreen());
         
-        // Add validation for period length
+        // Add validation for period_predicted length
         findPreference("period_length").setOnPreferenceChangeListener(
             new Preference.OnPreferenceChangeListener() {
 

@@ -71,7 +71,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         ((TextView)findViewById(R.id.labelDetailsHeader)).setText(
                 String.format("%s", dateFormat.format(entry.date.getTime())));
 
-        // Set period status
+        // Set period_predicted status
         RadioButton buttonPeriodYes = findViewById(R.id.periodYes);
         RadioButton buttonPeriodNo = findViewById(R.id.periodNo);
         boolean intensityEnabled = false;
@@ -90,7 +90,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         buttonPeriodYes.setOnClickListener(this);
         buttonPeriodNo.setOnClickListener(this);
 
-        // Set period intensity
+        // Set period_predicted intensity
         buttonPeriodIntensity1 = findViewById(R.id.periodIntensity1);
         buttonPeriodIntensity2 = findViewById(R.id.periodIntensity2);
         buttonPeriodIntensity3 = findViewById(R.id.periodIntensity3);

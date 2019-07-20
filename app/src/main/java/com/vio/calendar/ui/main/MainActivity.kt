@@ -16,15 +16,18 @@ import com.vio.calendar.ui.ListActivity
 import com.vio.calendar.ui.articles.ArticlesFragment
 import com.vio.calendar.ui.calendar.CalendarFragment
 import com.vio.calendar.ui.details.DetailsActivity
+import com.vio.calendar.ui.more.MoreActivity
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         const val SET_OPTIONS = 2
+        const val MORE_ACTIVITY = 3
         const val DETAILS_CLOSED = 5  // Details: closed
 
     }
+    private var par = true
 
     private var adsCounter = 1
 
@@ -38,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mInterstitialAdScreens: InterstitialAd
     private var mDelayHandler: Handler? = null
     private val SPLASH_DELAY: Long = 3000 //3 seconds
+    private val SPLASH_DELAY_SECOND: Long = 5000 //5 seconds
+    private val SPLASH_DELAY_THIRD: Long = 10000 //10 seconds
 
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             }
             R.id.navigation_more -> {
-                showOptions()
+                showMoreActivity()
                 return@OnNavigationItemSelectedListener true
 
             }
@@ -83,9 +88,13 @@ class MainActivity : AppCompatActivity() {
 
         loadSplashAd()
         mDelayHandler = Handler()
-
-        //Navigate with delay
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
+
+        mDelayHandler = Handler()
+        mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY_SECOND)
+
+        mDelayHandler = Handler()
+        mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY_THIRD)
 
 
         mInterstitialAdScreens = InterstitialAd(this)
@@ -136,6 +145,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun showMoreActivity() {
+        startActivityForResult(
+            Intent(this@MainActivity, MoreActivity::class.java), 1
+        )
+    }
+
     private fun showList() {
         startActivityForResult(
             Intent(this@MainActivity, ListActivity::class.java), 1
@@ -143,7 +158,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val mRunnable: Runnable = Runnable {
-        if (mAdSplash.isLoaded) mAdSplash.show()
+        if (mAdSplash.isLoaded && par) {
+            par = false
+            mAdSplash.show()
+        }
     }
 }
 
