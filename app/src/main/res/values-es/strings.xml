@@ -1,0 +1,104 @@
+<resources>
+    <string name="title_today">hoy</string>
+    <string name="title_calendar">el calendario</string>
+    <string name="title_advices">consejo</string>
+    <string name="title_more">Más</string>
+
+    <string name="accept_all">aceptar todo</string>
+    <string name="next">promover</string>
+    
+    <string name="skip">omitir</string>
+    <string name="pass">contraseña</string>
+    <string name="email">e-mail</string>
+    <string name="error_email">correo no válido</string>
+    <string name="error_pass">pase no válido</string>
+
+    <string name="description_login">Introduce tu correo electrónico y contraseña</string>
+
+    <string name="license_comment">*Puedes retirar tu consentimiento en cualquier momento escribiendo por example@rtrd.hert
+    </string>
+    <string name="choose_date">Selecciona el primer día de tu periodo</string>
+
+    <string name="license_checkbox_0">Estoy de acuerdo con la
+      <a href="https://google.com">Política de Privacidad</a>
+      y los
+      <a href="https://google.com">Términos de Uso</a>
+    </string>
+    <string name="license_checkbox_1">
+      Acepto el procesamiento de datos personales de salud para el funcionamiento de la aplicación. Saber más
+      en la
+      <a href="https://google.com">Política de Privacidad</a>
+    </string>
+    <string name="license_checkbox_2">Autorizo el uso de mis
+      <a href='https://google.com'>datos personales</a>
+      incluyendo recomendaciones de socios**
+    </string>
+    <string name="license_checkbox_3">
+      Autorizo que mis datos personales estén disponibles  para appflayer y sus socios integrados con el fin de ampliar el público y promocionar la aplicación.*
+    </string>
+
+    <!-- New User -->
+    <string name="new_user_question_0">Cuándo comenzó tu último periodo?</string>
+    <string name="new_user_question_1">Cuál es la duración media de tu periodo?</string>
+    <string name="new_user_question_2">Cuál es la duración media de tu ciclo?</string>
+    <string name="new_user_question_3">Cuál es tu año de nacimiento?</string>
+
+    <string name="pregnant_question">En qué semana del embarazo estás actualmente?</string>
+    <string name="change_language">cambiar idioma</string>
+    <string name="average_length_cycle">ciclo de duración promedio</string>
+
+    <!--month names -->
+    <string name="jan">Enero</string>
+    <string name="feb">Febrero</string>
+    <string name="mar">Marzo</string>
+    <string name="apr">Abril</string>
+    <string name="may">Mayo</string>
+    <string name="jun">Junio</string>
+    <string name="jul">Julio</string>
+    <string name="aug">Agosto</string>
+    <string name="sep">Septiembre</string>
+    <string name="oct">Octubre</string>
+    <string name="nov">Noviembre</string>
+    <string name="dec">Diciembre</string>
+
+    <!--day on week names-->
+
+    <string name="mon">lunes</string>
+    <string name="tue">martes</string>
+    <string name="wed">Miercoles</string>
+    <string name="thu">jueves</string>
+    <string name="fri">viernes</string>
+    <string name="sat">sabado</string>
+    <string name="sun">domingo</string>
+
+    <string name="week">la semana</string>
+    <string name="month">mes</string>
+    <string name="year">año</string>
+
+    <string name="butt_menstrual_days">marcar mensualmente</string>
+    <string name="next_cycle">pronto</string>
+    <string name="ovulation">ovulación</string>
+    
+    <string name="tip_today_new">más fácil quedarse embarazada</string>
+    <string name="tip_today_old">hay una posibilidad de quedarse embarazada</string>
+    <string name="menstrual">mensual</string>
+    <string name="length_cycle">duración del ciclo</string>
+    <string name="length_menstrual_cycle">duración mensual</string>
+
+    <string name="tip_pref_0">Inicialmente, Vio realiza predicciones basadas en el ciclo y la duración de la menstruación introducidas aquí; al introducir información sobre tus periodos de manera regular, permitirás que la aplicación forme predicciones según dicha información</string>
+    
+    <string name="forgot">No recuerdo</string>
+    <string name="tip_pref_1">Si desactivas esta opción, solo verás el día de ovulación sin indicación de la probabilidad de quedarte embarazada</string>
+    
+    <string name="chance_get_pregnant">posibilidad de quedarse embarazada</string>
+
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+</resources>
