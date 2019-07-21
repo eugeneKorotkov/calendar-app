@@ -8,15 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textViewStyle">@style/SansTextViewStyle</item>
-        <item name="android:buttonStyle">@style/SansButtonStyle</item>
-
     </style>
-
-
+    
     <style name="ToolbarTheme" parent="Widget.Design.AppBarLayout">
         <item name="android:background">@drawable/toolbar_bg</item>
         <item name="android:textColorPrimary">@color/colorMainGreen</item>
@@ -26,14 +23,9 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
-
-    <style name="SansTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/open_sans_extrabold</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
+    
     <style name="SansButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">@font/open_sans_extrabold</item>
+        <item name="android:fontFamily">@font/open_sans_extra_bold</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
@@ -52,14 +44,22 @@
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
     </style>
+    
+    <style name="RadioButtonGreen" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorMainGreen</item>
+        <item name="colorControlActivated">@color/colorMainGreen</item>
+    </style>
 
-    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <!-- Used for the buttons -->
-        <item name="colorAccent">#7bc1ba</item>
-        <!-- Used for the title and text -->
-        <item name="android:textColorPrimary">#FFFFFF</item>
-        <!-- Used for the background -->
-        <item name="android:background">#424242</item>
+    <style name="TextViewRegular" parent="Theme.AppCompat.Light">
+        <item name="android:textColorLink">@color/license_link</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+    </style>
+
+    <style name="TextViewHeader" parent="Theme.AppCompat.Light">
+        <item name="android:fontFamily">@font/open_sans_extra_bold</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

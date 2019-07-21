@@ -48,12 +48,8 @@
             android:layout_width="match_parent"
             android:layout_margin="20dp"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            android:textAlignment="center"
-            android:text="@string/new_user_question_0"
-            app:fontFamily="@font/open_sans_extrabold"/>
+            android:theme="@style/TextViewHeader"
+            android:text="@string/new_user_question_0"/>
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -75,28 +71,16 @@
                 android:layout_marginRight="0dp"
                 android:layout_marginEnd="0dp"
                 android:id="@+id/stepsBottomContainer">
-            <RadioButton
-                    android:text="@string/forgot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/stepsSkip"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textAllCaps="true"
-                    android:layout_margin="10dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:fontFamily="@font/open_sans_extrabold"
-                    android:layout_weight="1"
-                    android:button="@drawable/radio_bg" android:visibility="gone"/>
             <Button
                     android:text="@string/next"
                     android:layout_margin="20dp"
-                    android:background="@drawable/rounded_button"
+                    android:background="@drawable/button_green"
+                    android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:id="@+id/stepsNext" android:visibility="visible"/>
+                    android:id="@+id/stepsNext"
+                    android:visibility="visible"/>
         </LinearLayout>
         <com.super_rabbit.wheel_picker.WheelPicker
                 android:id="@+id/numberPicker"

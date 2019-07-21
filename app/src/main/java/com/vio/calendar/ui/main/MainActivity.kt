@@ -10,23 +10,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.ads.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vio.calendar.R
-import com.vio.calendar.preferences.PreferenceActivity
 import com.vio.calendar.setTransparentStatusBar
-import com.vio.calendar.ui.ListActivity
 import com.vio.calendar.ui.articles.ArticlesFragment
 import com.vio.calendar.ui.calendar.CalendarFragment
-import com.vio.calendar.ui.details.DetailsActivity
 import com.vio.calendar.ui.more.MoreActivity
 
 
 class MainActivity : AppCompatActivity() {
 
-    companion object {
-        const val SET_OPTIONS = 2
-        const val MORE_ACTIVITY = 3
-        const val DETAILS_CLOSED = 5  // Details: closed
-
-    }
     private var par = true
 
     private var adsCounter = 1
@@ -123,19 +114,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showOptions() {
-        startActivityForResult(
-            Intent(this@MainActivity, PreferenceActivity::class.java), SET_OPTIONS)
-    }
-
-
-    fun showDetailsActivity(year: Int, month: Int, day: Int) {
-        val details = Intent(this@MainActivity, DetailsActivity::class.java)
-        details.putExtra("year", year)
-        details.putExtra("month", month)
-        details.putExtra("day", day)
-        startActivityForResult(details, DETAILS_CLOSED)
-    }
 
     private fun loadSplashAd() {
 
@@ -151,11 +129,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun showList() {
-        startActivityForResult(
-            Intent(this@MainActivity, ListActivity::class.java), 1
-        )
-    }
 
     private val mRunnable: Runnable = Runnable {
         if (mAdSplash.isLoaded && par) {

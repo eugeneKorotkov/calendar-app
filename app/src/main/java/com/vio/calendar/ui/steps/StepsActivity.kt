@@ -1,6 +1,5 @@
 package com.vio.calendar.ui.steps
 
-import android.animation.LayoutTransition
 import android.app.backup.BackupManager
 import android.content.Context
 import android.content.Intent
@@ -28,9 +27,6 @@ class StepsActivity : AppCompatActivity() {
     private var monthCurrent = GregorianCalendar().get(Calendar.MONTH) + 1
     private var yearCurrent = GregorianCalendar().get(Calendar.YEAR)
 
-    private lateinit var dateFirst: GregorianCalendar
-    private lateinit var dateSecond: GregorianCalendar
-
     private var datesRange = 28
 
     private var stepCounter = 0
@@ -38,8 +34,6 @@ class StepsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
-
-        (stepsBottomContainer as ViewGroup).layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
         stepsTopView.state
             .stepsNumber(3)
@@ -303,12 +297,12 @@ class StepsActivity : AppCompatActivity() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val name = this.namesDayWeek[position]
-
-            var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            var view = inflator.inflate(R.layout.weekday_name, null)
+            val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view = inflator.inflate(R.layout.weekday_name, null)
             view.dayWeekName.text = name
             return view
         }
     }
+
 
 }

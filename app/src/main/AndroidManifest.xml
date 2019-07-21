@@ -9,24 +9,24 @@
     <application
             android:name=".app.CalendarApplication"
             android:allowBackup="true"
-            android:icon="@drawable/iconvio"
+            android:icon="@drawable/icon_vio"
+            android:roundIcon="@drawable/icon_vio"
+            android:logo="@drawable/icon_vio"
             android:label="@string/app_name"
-            android:logo="@drawable/iconvio"
-            android:roundIcon="@drawable/iconvio"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:targetApi="m">
-        <activity android:name=".ui.more.NotificationSettingsActivity">
-        </activity>
-        <activity android:name=".ui.more.CycleSettingsActivity">
-        </activity>
-        <activity android:name=".ui.more.LanguageActivity">
-        </activity>
+        <activity android:name=".ui.more.NotificationSettingsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.more.CycleSettingsActivity"
+                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.more.LanguageActivity"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".ui.more.MoreActivity"
                 android:screenOrientation="portrait"/>
-
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"
                 android:value="@string/facebook_app_id"/>
@@ -46,27 +46,16 @@
                 android:name=".ui.license.LicenseActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity
-                android:name=".preferences.PreferenceActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat">
-        </activity>
-        <activity
-                android:name=".ui.details.DetailsActivity"
-                android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat">
-        </activity>
+
         <activity
                 android:name=".ui.splash.SplashActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ListActivity"/>
 
         <meta-data
                 android:name="preloaded_fonts"

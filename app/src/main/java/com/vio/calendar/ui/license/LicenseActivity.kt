@@ -5,41 +5,43 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vio.calendar.Constants
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
 import com.vio.calendar.ui.steps.StepsActivity
+import com.vio.calendar.ui.license.LicenseRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_license.*
+
+
 
 class LicenseActivity : AppCompatActivity() {
 
     private lateinit var adapter: LicenseRecyclerAdapter
-    private lateinit var licenseContent: ArrayList<LicenseItem>
+    private val licenseContent = ArrayList<LicenseItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_license)
 
-        for (itemString in resources.getStringArray(R.array.more_menu)) {
+        for (itemString in resources.getStringArray(R.array.license_menu)) {
             licenseContent.add(LicenseItem(false, itemString))
         }
 
         adapter = LicenseRecyclerAdapter(licenseContent) {
-            it.isChecked = it.isChecked.not()
+            it.isChecked = true
             if (adapter.isAllChecked()) {
-                button_next.isClickable = true
-                button_next.setTextColor(ContextCompat.getColor(this, android.R.color.white))
-                button_next.setBackgroundResource(R.drawable.rounded_button)
-                button_accept_all.visibility = View.GONE
-            } else
-                button_next.isClickable = false
-                button_next.setBackgroundResource(android.R.color.transparent)
+                licenseAgree()
+            }
         }
+
+        recyclerViewLicense.layoutManager = LinearLayoutManager(this)
         recyclerViewLicense.adapter = adapter
 
         button_accept_all.setOnClickListener {
             adapter.checkAll()
+            licenseAgree()
         }
 
         button_next.setOnClickListener {
@@ -48,8 +50,12 @@ class LicenseActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
     }
 
-
+    private fun licenseAgree() {
+        button_next.isClickable = true
+        button_next.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+        button_next.setBackgroundResource(R.drawable.button_green)
+        button_accept_all.visibility = View.GONE
+    }
 }

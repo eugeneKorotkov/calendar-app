@@ -31,13 +31,13 @@
                 android:textAllCaps="true"
                 android:layout_margin="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:fontFamily="@font/open_sans_extrabold"
+                android:fontFamily="@font/open_sans_extra_bold"
                 android:layout_weight="1"
                 android:button="@drawable/radio_bg"/>
         <Button
                 android:text="@string/next"
                 android:layout_margin="20dp"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/button_green"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"

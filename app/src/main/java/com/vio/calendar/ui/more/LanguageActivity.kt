@@ -3,9 +3,12 @@ package com.vio.calendar.ui.more
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
 import kotlinx.android.synthetic.main.activity_language.*
+
 
 class LanguageActivity : AppCompatActivity() {
 
@@ -20,15 +23,20 @@ class LanguageActivity : AppCompatActivity() {
                 _ -> onBackPressed()
         }
 
-        listLanguages.add(LanguageItem(R.drawable.ic_like_false, "ru", "Русский"))
-        listLanguages.add(LanguageItem(R.drawable.ic_like_false, "en", "English"))
-        listLanguages.add(LanguageItem(R.drawable.ic_like_false, "es", "Spain"))
+        listLanguages.add(LanguageItem(R.drawable.flag_ru, "ru", "Русский"))
+        listLanguages.add(LanguageItem(R.drawable.flag_uk, "en", "English"))
+        listLanguages.add(LanguageItem(R.drawable.flag_es, "es", "Spain"))
 
         adapter = LanguageRecyclerAdapter(listLanguages) {
             CalendarApplication.prefs.edit().putString("language", it.code).apply()
             Toast.makeText(this, getString(R.string.info_restart_application), Toast.LENGTH_LONG).show()
         }
 
+        recyclerViewLanguage.layoutManager = LinearLayoutManager(this)
+        val dividerItemDecoration = DividerItemDecoration(
+            recyclerViewLanguage.context, LinearLayoutManager.VERTICAL
+        )
+        recyclerViewLanguage.addItemDecoration(dividerItemDecoration)
         recyclerViewLanguage.adapter = adapter
 
 

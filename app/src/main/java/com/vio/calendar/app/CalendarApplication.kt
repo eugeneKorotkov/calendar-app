@@ -53,4 +53,21 @@ class CalendarApplication: Application() {
         dbMain.loadCalculatedData()
     }
 
+    fun get() {
+        val integerArray = ArrayList<Int>()
+
+        val reader = Scanner(System.`in`)
+        var integer: Int = reader.nextInt()
+        for (i in 0..integer) {
+            integerArray.add(reader.nextInt())
+        }
+        val integerSet = integerArray.toSet()
+
+        var sum = 0
+        for (i in integerSet) {
+            sum =+ i
+        }
+        print(sum)
+    }
+
 }

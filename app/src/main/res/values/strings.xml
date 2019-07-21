@@ -33,33 +33,32 @@
     <!--license -->
 
     <string-array name="license_menu">
-        <item>@string/license_checkbox_0</item>
-        <item>@string/license_checkbox_1</item>
-        <item>@string/license_checkbox_2</item>
-        <item>@string/license_checkbox_3</item>
+        <item>@string/license_0</item>
+        <item>@string/license_1</item>
+        <item>@string/license_2</item>
+        <item>@string/license_3</item>
     </string-array>
 
     <string name="license_comment">
         *You can withdraw your consent at any time by writing in example@rtrd.hert
     </string>
 
-    <string name="license_checkbox_0">I agree to
-        <a href="https://google.com">Privacy Policy</a>
-        and
-        <a href="https://google.com">Terms of Use</a>
+    <string name="license_0"><![CDATA[I agree to
+        <a href="https://google.com">Privacy Policy</a> and
+        <a href="https://google.com">Terms of Use</a>]]>
     </string>
-    <string name="license_checkbox_1">
+    <string name="license_1"><![CDATA[
         I agree to the processing of personal health data for application functioning. Find out more
         in the
-        <a href="https://google.com">Privacy Policy</a>
+        <a href="https://google.com">Privacy Policy</a>]]>
     </string>
-    <string name="license_checkbox_2">I consent to the use of my
-        <a href='https://google.com'>personal information</a>
-        including partner recommendations**
+    <string name="license_2"><![CDATA[I consent to the use of my
+        <a href="https://google.com">personal information</a>
+        including partner recommendations**]]>
     </string>
-    <string name="license_checkbox_3">
+    <string name="license_3"><![CDATA[
         I consent to making my personal information available to appflayer and its integrated partners for the purpose
-        of expanding the audience and promoting the app*
+        of expanding the audience and promoting the app*]]>
     </string>
 
     <!-- New User -->
@@ -149,6 +148,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
     <!--month for title names -->
 
     <string name="jant">января</string>
@@ -167,7 +167,7 @@
 
     <!--day on week names-->
 
-    <string name="facebook_app_id" translatable="false">988568198018105</string>
+    <string name="facebook_app_id" translatable="false">336077194008249</string>
 
     <string name="day" tools:ignore="MissingTranslation">день</string>
 
