@@ -1,32 +1,25 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference
-            android:title="@string/pref_periodlength"
-            android:defaultValue="4"
-            android:key="period_length"
-            android:inputType="number" />
-    <EditTextPreference
-            android:title="@string/pref_luteallength"
-            android:defaultValue="14"
-            android:key="luteal_length"
-            android:inputType="number" />
-    <ListPreference
-            android:title="@string/pref_startofweek"
-            android:defaultValue="0"
-            android:key="startofweek"
-            android:entries="@array/list_startofweek"
-            android:entryValues="@array/values_startofweek" />
-    <EditTextPreference
-        android:title="@string/pref_maximum_cycle_length"
-        android:defaultValue="183"
-        android:key="maximum_cycle_length"
-        android:inputType="number" />
-    <CheckBoxPreference
-        android:title="@string/pref_direct_details"
-        android:defaultValue="false"
-        android:key="direct_details" />
-    <CheckBoxPreference
-        android:title="@string/pref_show_cycle"
-        android:defaultValue="true"
-        android:key="show_cycle" />
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceScreen
+            app:fragment="com.vio.calendar.prefs.PreferencesActivity$PreferencesCycleFragment"
+            android:icon="@drawable/ic_cycle_settings"
+            android:title="@string/cycle_settings">
+    </PreferenceScreen>
+
+    <PreferenceScreen
+            app:fragment="com.vio.calendar.prefs.PreferencesActivity$PreferencesNotificationFragment"
+            android:icon="@drawable/ic_notifications"
+            android:title="@string/notification_settings">
+    </PreferenceScreen>
+
+    <PreferenceScreen
+            android:title="@string/change_language"
+            android:icon="@drawable/ic_change_language"
+            android:summary="@string/change_language">
+        <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.vio.calendar"
+                android:targetClass="com.vio.calendar.ui.more.LanguageActivity" />
+    </PreferenceScreen>
 </PreferenceScreen>

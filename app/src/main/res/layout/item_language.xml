@@ -23,14 +23,12 @@
             android:id="@+id/imageLanguage"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/ic_like_false"
             app:layout_constraintStart_toStartOf="@+id/guidelineStartPic"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEndPic"
             app:layout_constraintTop_toTopOf="@+id/textLanguage"
             app:layout_constraintBottom_toBottomOf="@+id/textLanguage"/>
     <TextView
             android:id="@+id/textLanguage"
-            android:text="@string/language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

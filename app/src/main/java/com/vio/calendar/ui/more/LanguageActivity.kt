@@ -1,18 +1,15 @@
 package com.vio.calendar.ui.more
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.R
-import com.vio.calendar.app.CalendarApplication
 import kotlinx.android.synthetic.main.activity_language.*
 
+class LanguageActivity : LocalizationActivity() {
 
-class LanguageActivity : AppCompatActivity() {
-
-    private val listLanguages = ArrayList<LanguageItem>()
+    private val languages = ArrayList<LanguageItem>()
     private lateinit var adapter: LanguageRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,22 +20,15 @@ class LanguageActivity : AppCompatActivity() {
                 _ -> onBackPressed()
         }
 
-        listLanguages.add(LanguageItem(R.drawable.flag_ru, "ru", "Русский"))
-        listLanguages.add(LanguageItem(R.drawable.flag_uk, "en", "English"))
-        listLanguages.add(LanguageItem(R.drawable.flag_es, "es", "Spain"))
+        languages.add(LanguageItem(R.drawable.ic_english, "en", "English"))
+        languages.add(LanguageItem(R.drawable.ic_spain, "es", "Spain"))
+        languages.add(LanguageItem(R.drawable.ic_russia, "ru", "Русский"))
 
-        adapter = LanguageRecyclerAdapter(listLanguages) {
-            CalendarApplication.prefs.edit().putString("language", it.code).apply()
-            Toast.makeText(this, getString(R.string.info_restart_application), Toast.LENGTH_LONG).show()
-        }
-
-        recyclerViewLanguage.layoutManager = LinearLayoutManager(this)
-        val dividerItemDecoration = DividerItemDecoration(
-            recyclerViewLanguage.context, LinearLayoutManager.VERTICAL
-        )
-        recyclerViewLanguage.addItemDecoration(dividerItemDecoration)
-        recyclerViewLanguage.adapter = adapter
+        adapter = LanguageRecyclerAdapter(languages) {it -> setLanguage(it.code)}
 
 
+        recyclerLanguage.layoutManager = LinearLayoutManager(this)
+        recyclerLanguage.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        recyclerLanguage.adapter = adapter
     }
 }

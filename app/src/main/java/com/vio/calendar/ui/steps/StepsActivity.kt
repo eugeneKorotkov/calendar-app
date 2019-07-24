@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.BaseAdapter
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
 import com.vio.calendar.db.PeriodicalDatabase
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.weekday_name.view.*
 import java.util.*
 
 
-class StepsActivity : AppCompatActivity() {
+class StepsActivity : LocalizationActivity() {
 
     private var monthCurrent = GregorianCalendar().get(Calendar.MONTH) + 1
     private var yearCurrent = GregorianCalendar().get(Calendar.YEAR)
@@ -68,7 +68,7 @@ class StepsActivity : AppCompatActivity() {
         when (i) {
             0 -> {
                 stepsTitle.show()
-                stepsTitle.text = getText(R.string.new_user_question_1)
+                //stepsTitle.text = getText(R.string.new_user_question_1)
                 stepsTopView.go(0, true)
 
                 numberPicker.setSelectorRoundedWrapPreferred(true)
@@ -94,7 +94,7 @@ class StepsActivity : AppCompatActivity() {
                 numberPicker.setMin(21)
                 numberPicker.reset()
 
-                stepsTitle.text = getText(R.string.new_user_question_2)
+                //stepsTitle.text = getText(R.string.new_user_question_2)
                 stepsTopView.go(1, true)
             }
 
@@ -151,7 +151,7 @@ class StepsActivity : AppCompatActivity() {
 
                 gridViewSteps.adapter = DayWeekAdapter(this!!, nameDayWeekList)
 
-                stepsTitle.text = getText(R.string.new_user_question_0)
+                //stepsTitle.text = getText(R.string.new_user_question_0)
                 stepsTopView.go(2, true)
                 stepsRecycler.layoutManager = GridLayoutManager(this, 7)
                 calendarUpdate()

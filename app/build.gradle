@@ -37,7 +37,7 @@ android {
         ]
 
         applicationId "com.vio.calendar"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         multiDexEnabled true
@@ -97,7 +97,11 @@ dependencies {
     implementation 'org.jetbrains.anko:anko-commons:0.10.0'
 
     implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
+    implementation 'androidx.preference:preference:1.0.0'
 
+    implementation'com.akexorcist:localizationactivity:1.2.2'
+
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
 
     implementation 'com.facebook.android:facebook-android-sdk:5.1.0'

@@ -4,19 +4,19 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.gms.ads.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vio.calendar.R
+import com.vio.calendar.prefs.PreferencesActivity
 import com.vio.calendar.setTransparentStatusBar
 import com.vio.calendar.ui.articles.ArticlesFragment
 import com.vio.calendar.ui.calendar.CalendarFragment
-import com.vio.calendar.ui.more.MoreActivity
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : LocalizationActivity() {
 
     private var par = true
 
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMoreActivity() {
         startActivityForResult(
-            Intent(this@MainActivity, MoreActivity::class.java), 1
+            Intent(this@MainActivity, PreferencesActivity::class.java), 1
         )
     }
 

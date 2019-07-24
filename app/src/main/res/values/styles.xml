@@ -13,6 +13,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
+    <!-- Light application theme -->
     
     <style name="ToolbarTheme" parent="Widget.Design.AppBarLayout">
         <item name="android:background">@drawable/toolbar_bg</item>
@@ -27,11 +30,6 @@
     <style name="SansButtonStyle" parent="android:Widget.Holo.Button">
         <item name="android:fontFamily">@font/open_sans_extra_bold</item>
         <item name="android:textAllCaps">true</item>
-    </style>
-
-    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@color/colorMainGray</item>
     </style>
 
     <style name="AppThemeSec" parent="Theme.AppCompat.Light.DarkActionBar" />
@@ -61,5 +59,16 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="BottomNavigationTheme">
+        <item name="android:background">@color/colorBottomPanelDefault</item>
+        <item name="itemBackground">@color/colorBottomPanelDefault</item>
+        <item name="itemIconTint">@android:color/white</item>
+        <item name="itemTextColor">@android:color/white</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@color/colorMainGray</item>
+    </style>
+
+
 
 </resources>

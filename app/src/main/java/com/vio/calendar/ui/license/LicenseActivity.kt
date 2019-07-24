@@ -3,19 +3,18 @@ package com.vio.calendar.ui.license
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.Constants
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
 import com.vio.calendar.ui.steps.StepsActivity
-import com.vio.calendar.ui.license.LicenseRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_license.*
 
 
 
-class LicenseActivity : AppCompatActivity() {
+class LicenseActivity : LocalizationActivity() {
 
     private lateinit var adapter: LicenseRecyclerAdapter
     private val licenseContent = ArrayList<LicenseItem>()

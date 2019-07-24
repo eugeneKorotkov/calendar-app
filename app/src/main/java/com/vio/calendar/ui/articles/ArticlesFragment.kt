@@ -19,8 +19,8 @@ class ArticlesFragment: Fragment()  {
     private val adapter = ArticleAdapter(mutableListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_articles, container, false)
 
+        val view = inflater.inflate(R.layout.fragment_articles, container, false)
         articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
 
         return view
@@ -37,6 +37,8 @@ class ArticlesFragment: Fragment()  {
         articlesSwipeRefresh.setOnRefreshListener {
             getArticles()
         }
+
+
     }
 
     private fun getArticles() {

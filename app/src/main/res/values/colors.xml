@@ -53,4 +53,10 @@
 
     <color name="transparentWhite">#7FFFFFFF</color>
 
+    <color name="colorBottomPanelDefault">#E6ABAD</color>
+    <color name="colorBottomPanelChecked">#D28688</color>
+
+    <color name="articleBackground">#FDF2F8</color>
+
+
 </resources>
