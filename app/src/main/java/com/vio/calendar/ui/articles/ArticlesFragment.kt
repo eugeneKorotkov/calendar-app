@@ -9,14 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vio.calendar.R
-import com.vio.calendar.model.arcticle.Article
+import com.vio.calendar.model.article.Article
+import com.vio.calendar.ui.main.MainActivity
 import com.vio.calendar.viewmodel.ArticleViewModel
 import kotlinx.android.synthetic.main.fragment_articles.*
 
 class ArticlesFragment: Fragment()  {
 
     private lateinit var articleViewModel: ArticleViewModel
-    private val adapter = ArticleAdapter(mutableListOf())
+    private lateinit var adapter: ArticleAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -30,6 +31,7 @@ class ArticlesFragment: Fragment()  {
         super.onViewCreated(view, savedInstanceState)
 
         articlesRecyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = ArticleAdapter(mutableListOf(), activity as MainActivity)
         articlesRecyclerView.adapter = adapter
 
         getArticles()

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#000000</color>
 
     <color name="calendar_empty">#7A5E63</color>
     
@@ -53,10 +53,14 @@
 
     <color name="transparentWhite">#7FFFFFFF</color>
 
-    <color name="colorBottomPanelDefault">#E6ABAD</color>
+    <color name="colorPink">#E6ABAD</color>
     <color name="colorBottomPanelChecked">#D28688</color>
 
+    <color name="cherryBlossomColor">#FCC9B9</color>
+
     <color name="articleBackground">#FDF2F8</color>
+
+    <color name="prefsBackground">#FAE7E5</color>
 
 
 </resources>

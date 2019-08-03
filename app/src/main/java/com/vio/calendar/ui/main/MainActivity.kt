@@ -1,19 +1,20 @@
 package com.vio.calendar.ui.main
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.gms.ads.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vio.calendar.R
-import com.vio.calendar.prefs.PreferencesActivity
 import com.vio.calendar.setTransparentStatusBar
 import com.vio.calendar.ui.articles.ArticlesFragment
 import com.vio.calendar.ui.calendar.CalendarFragment
+import com.vio.calendar.ui.prefs.PrefsFragment
 
 
 class MainActivity : LocalizationActivity() {
@@ -24,6 +25,7 @@ class MainActivity : LocalizationActivity() {
 
     private val articlesFragment = ArticlesFragment()
     private val todayFragment = CalendarFragment()
+    private val prefsFragment = PrefsFragment()
 
     lateinit var mAdView : AdView
 
@@ -51,7 +53,7 @@ class MainActivity : LocalizationActivity() {
 
             }
             R.id.navigation_more -> {
-                showMoreActivity()
+                switchToFragment(prefsFragment)
                 return@OnNavigationItemSelectedListener true
 
             }
@@ -72,8 +74,17 @@ class MainActivity : LocalizationActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         this.setTransparentStatusBar()
         setContentView(R.layout.activity_main)
+
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         MobileAds.initialize(this, "ca-app-pub-1890073619173649~8908748583")
 
@@ -89,7 +100,7 @@ class MainActivity : LocalizationActivity() {
 
 
         mInterstitialAdScreens = InterstitialAd(this)
-        mInterstitialAdScreens.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAdScreens.adUnitId = "ca-app-pub-1890073619173649/8078882648"
         mInterstitialAdScreens.adListener = object : AdListener() {
             override fun onAdClosed() {
                 mInterstitialAdScreens.loadAd(AdRequest.Builder().build())
@@ -118,15 +129,9 @@ class MainActivity : LocalizationActivity() {
     private fun loadSplashAd() {
 
         mAdSplash = InterstitialAd(this)
-        mAdSplash.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mAdSplash.adUnitId = "ca-app-pub-1890073619173649/2395311128"
         mAdSplash.loadAd(AdRequest.Builder().build())
 
-    }
-
-    private fun showMoreActivity() {
-        startActivityForResult(
-            Intent(this@MainActivity, PreferencesActivity::class.java), 1
-        )
     }
 
 

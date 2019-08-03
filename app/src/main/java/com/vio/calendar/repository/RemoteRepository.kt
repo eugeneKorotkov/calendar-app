@@ -3,7 +3,8 @@ package com.vio.calendar.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.vio.calendar.app.Injection
-import com.vio.calendar.model.arcticle.Article
+import com.vio.calendar.model.article.Article
+import com.vio.calendar.model.article.LikesCount
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,6 +16,24 @@ object RemoteRepository: Repository {
 
     private val api = Injection.provideServerAPI()
 
+    fun getArticleLikeCount(id: String): LiveData<LikesCount> {
+        val liveData = MutableLiveData<LikesCount>()
+
+        api.getArticleCount(id).enqueue(object: Callback<LikesCount> {
+            override fun onResponse(call: Call<LikesCount>, response: Response<LikesCount>) {
+                if (response != null && response.isSuccessful) {
+                    liveData.value = response.body()
+                } else {
+                }
+            }
+
+            override fun onFailure(call: Call<LikesCount>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
+        return liveData
+    }
     override fun getArticles(): LiveData<List<Article>> {
         val liveData = MutableLiveData<List<Article>>()
 

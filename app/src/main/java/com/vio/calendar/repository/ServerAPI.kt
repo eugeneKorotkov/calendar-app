@@ -2,8 +2,8 @@ package com.vio.calendar.repository
 
 import retrofit2.Call
 import retrofit2.http.*
-import com.vio.calendar.model.arcticle.Article
-import com.vio.calendar.model.arcticle.LikesCount
+import com.vio.calendar.model.article.Article
+import com.vio.calendar.model.article.LikesCount
 
 interface ServerAPI {
 

@@ -32,7 +32,9 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="AppThemeSec" parent="Theme.AppCompat.Light.DarkActionBar" />
+    <style name="AppThemeSec" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/colorPinkWhite</item>
+    </style>
 
     <style name="AppThemeSec.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -61,12 +63,22 @@
     </style>
 
     <style name="BottomNavigationTheme">
-        <item name="android:background">@color/colorBottomPanelDefault</item>
-        <item name="itemBackground">@color/colorBottomPanelDefault</item>
+        <item name="android:background">@color/colorPink</item>
+        <item name="itemBackground">@color/colorPink</item>
         <item name="itemIconTint">@android:color/white</item>
         <item name="itemTextColor">@android:color/white</item>
         <item name="colorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@color/colorMainGray</item>
+    </style>
+
+    <style name="ArticleCardViewStyle" parent="Theme.AppCompat.Light">
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPaddingBottom">@dimen/dp_double</item>
+        <item name="contentPaddingTop">@dimen/dp_double</item>
+        <item name="contentPaddingLeft">@dimen/dp_double</item>
+        <item name="contentPaddingRight">@dimen/dp_double</item>
+        <item name="cardBackgroundColor">@color/backgroundLight</item>
     </style>
 
 

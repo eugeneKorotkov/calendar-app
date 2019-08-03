@@ -110,6 +110,9 @@
     <string name="empty_title">Esta vacio</string>
     <string name="days">días</string>
 
+    <string name="send">send</string>
+
+
     <string name="next_cycle">pronto</string>
     <string name="ovulation">ovulación</string>
     
@@ -151,5 +154,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="preferences">settings</string>
 
 </resources>

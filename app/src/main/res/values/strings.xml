@@ -155,6 +155,8 @@
     <string name="menstrual_end">End date of the period</string>
     <string name="menstrual_start">Start date of the period</string>
 
+    <string name="send">send</string>
+
     <string name="chance_get_pregnant">chance to get pregnant</string>
 
     <string name="prompt_email">Email</string>
@@ -167,6 +169,7 @@
     <string name="login_failed">"Login failed"</string>
 
     <string name="facebook_app_id" translatable="false">336077194008249</string>
+    <string name="preferences">settings</string>
 
     <string-array name="cycle_length_entry_values">
         <item>21</item>

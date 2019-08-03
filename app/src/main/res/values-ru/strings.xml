@@ -15,6 +15,8 @@
     <string name="accept_all">принять всё</string>
     <string name="next">далее</string>
 
+    <string name="send">send</string>
+
     <string name="info_restart_application">
         Перезагрузите приложение, чтобы изменения вступили в силу
     </string>
@@ -157,4 +159,5 @@
     <string name="menstrual_two_days">Месячные через пару дней</string>
     <string name="menstrual_end">Окончание месячных</string>
     <string name="menstrual_start">Начало месячных</string>
+    <string name="preferences">settings</string>
 </resources>
