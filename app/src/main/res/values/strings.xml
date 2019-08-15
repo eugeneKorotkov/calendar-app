@@ -147,7 +147,8 @@
     <string name="menstrual_length">period length</string>
     <string name="probability_pregnant">probability of getting pregnant</string>
     <string name="cycle_settings_tip_0">Initially, the VIO makes predictions based on the data entered here</string>
-    <string name="cycle_settings_tip_1">If you turn off this setting, you will only see the day of ovulation but not the possibility to get pregnant
+    <string name="cycle_settings_tip_1">If you turn off this setting, you will only see the day of ovulation but not the
+        possibility to get pregnant
     </string>
 
 
@@ -170,6 +171,14 @@
 
     <string name="facebook_app_id" translatable="false">336077194008249</string>
     <string name="preferences">settings</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="whats_your_name">What\'s your name?</string>
+
+    <string-array name="notification_settings">
+        <item>pref_notification_m_two_days</item>
+        <item>period_length</item>
+        <item>pref_cycle_length</item>
+    </string-array>
 
     <string-array name="cycle_length_entry_values">
         <item>21</item>

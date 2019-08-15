@@ -30,8 +30,6 @@ import kotlin.collections.ArrayList
 
 class CalendarFragment : Fragment() {
 
-    private var listWithDates = ArrayList<CalendarCell>()
-
     private var firstIsShowing = true
     private var monthCurrent = GregorianCalendar().get(Calendar.MONTH) + 1
 
@@ -42,8 +40,6 @@ class CalendarFragment : Fragment() {
     private val monthToday = calToday.get(GregorianCalendar.MONTH) + 1
     private val yearToday = calToday.get(GregorianCalendar.YEAR)
 
-    private val STATE_MONTH = "month"
-    private val STATE_YEAR = "year"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

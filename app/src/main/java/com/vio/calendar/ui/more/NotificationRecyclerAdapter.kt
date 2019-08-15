@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vio.calendar.R
 import com.vio.calendar.inflate
+import com.vio.calendar.model.dialog.NotificationItem
 import kotlinx.android.synthetic.main.item_notfication.view.*
 
 class NotificationRecyclerAdapter(val list: ArrayList<NotificationItem>, val listener: (NotificationItem) -> Unit): RecyclerView.Adapter<NotificationRecyclerAdapter.ViewHolder>() {

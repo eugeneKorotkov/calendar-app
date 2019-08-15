@@ -17,6 +17,7 @@ import com.vio.calendar.model.date.CalendarCell
 import com.vio.calendar.show
 import com.vio.calendar.ui.main.MainActivity
 import com.vio.calendar.utils.PreferenceUtils
+import com.vio.calendar.view.adapters.StepsRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_steps.*
 import kotlinx.android.synthetic.main.weekday_name.view.*
 import java.util.*
@@ -34,6 +35,8 @@ class StepsActivity : LocalizationActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps)
+
+
 
         stepsTopView.state
             .stepsNumber(3)
@@ -62,7 +65,6 @@ class StepsActivity : LocalizationActivity() {
             step(stepCounter)
         }
     }
-    //TODO fix too much code
 
     private fun step(i: Int) {
         when (i) {
@@ -297,8 +299,8 @@ class StepsActivity : LocalizationActivity() {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
             val name = this.namesDayWeek[position]
-            val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflator.inflate(R.layout.weekday_name, null)
+            val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view = inflater.inflate(R.layout.weekday_name, null)
             view.dayWeekName.text = name
             return view
         }

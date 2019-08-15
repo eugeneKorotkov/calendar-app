@@ -155,5 +155,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="preferences">settings</string>
+    <string name="whats_your_name">Cual es tu nombre?</string>
 
 </resources>

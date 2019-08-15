@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.vio.calendar">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.vio.calendar">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -16,6 +17,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:usesCleartextTraffic="true"
             tools:targetApi="m">
+        <activity android:name=".view.activities.StepsActivityNew">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"
@@ -28,28 +36,21 @@
                 android:name=".ui.main.MainActivity"
                 android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.action.VIEW"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
-
         <activity
                 android:name=".ui.steps.StepsActivity"
                 android:screenOrientation="portrait">
         </activity>
-
         <activity
                 android:name=".ui.license.LicenseActivity"
                 android:screenOrientation="portrait"/>
-
         <activity
                 android:name=".ui.splash.SplashActivity"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait">
 
-        <activity android:name="com.vio.calendar.ui.more.LanguageActivity"/>
+        </activity>
+
+        <activity android:name=".ui.more.LanguageActivity"/>
 
         <meta-data
                 android:name="preloaded_fonts"

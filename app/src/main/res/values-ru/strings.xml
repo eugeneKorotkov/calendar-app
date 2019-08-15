@@ -123,6 +123,8 @@
     <string name="length_cycle">длина цикла</string>
     <string name="length_menstrual_cycle">длина месячных</string>
 
+    <string name="whats_your_name">Как вас зовут?</string>
+
     <string name="tip_pref_0">Изначально Vio
         делает прогнозы повведеным здесь
         длинам цикла и менструации. регулярно отмечая

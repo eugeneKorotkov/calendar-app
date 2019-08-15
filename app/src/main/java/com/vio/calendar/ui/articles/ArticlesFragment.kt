@@ -7,46 +7,50 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.vio.calendar.R
-import com.vio.calendar.model.article.Article
 import com.vio.calendar.ui.main.MainActivity
-import com.vio.calendar.viewmodel.ArticleViewModel
+import com.vio.calendar.viewmodel.article.ArticleViewModel
 import kotlinx.android.synthetic.main.fragment_articles.*
 
 class ArticlesFragment: Fragment()  {
 
-    private lateinit var articleViewModel: ArticleViewModel
     private lateinit var adapter: ArticleAdapter
+    private lateinit var articleViewModel: ArticleViewModel
+
+    var code: String = "es"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        val view = inflater.inflate(R.layout.fragment_articles, container, false)
-        articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
-
-        return view
+        return inflater.inflate(R.layout.fragment_articles, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        articlesRecyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = ArticleAdapter(mutableListOf(), activity as MainActivity)
+        articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
+        adapter = ArticleAdapter(mutableListOf(), this, (activity as MainActivity).applicationContext)
         articlesRecyclerView.adapter = adapter
-
+        code = (activity as MainActivity).code
         getArticles()
+    }
 
-        articlesSwipeRefresh.setOnRefreshListener {
-            getArticles()
-        }
+    private fun showLoading() {
+        articlesRecyclerView.isEnabled = false
+        progressBar.visibility = View.VISIBLE
+    }
 
-
+    private fun hideLoading() {
+        articlesRecyclerView.isEnabled = true
+        progressBar.visibility = View.GONE
     }
 
     private fun getArticles() {
-        articleViewModel.getArticles().observe(this, Observer<List<Article>> {
-            adapter.updateArticles(it)
-            articlesSwipeRefresh.isRefreshing = false
+        showLoading()
+        articleViewModel.getArticles(code).observe(this, Observer { articles ->
+            hideLoading()
+            if (articles == null) {
+            } else {
+                adapter.setArticles(articles)
+            }
         })
     }
+
 }

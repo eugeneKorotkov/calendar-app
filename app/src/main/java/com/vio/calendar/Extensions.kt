@@ -33,7 +33,7 @@ fun Activity.startActivityForResult(activityClass: Class<Any>) {
     )
 }
 
-fun EditText.validate(validator: (String) -> Boolean, message: String)  {
+fun EditText.validate(validator: (String) -> Boolean, message: String) {
     this.afterTextChanged {
         this.error = if (validator(it)) null else message
     }
@@ -43,13 +43,14 @@ fun EditText.validate(validator: (String) -> Boolean, message: String)  {
 fun View.show() {
     this.animate().alpha(1f).setDuration(1000)
 }
+
 fun View.hide() {
     this.animate().alpha(0f).duration = 100
 }
 
 fun String.isValidPass(): Boolean = this.length >= 6 && this.matches("^[a-zA-Z0-9]+$".toRegex())
 
-fun sendPostRequest(login:String, pass:String): String {
+fun sendPostRequest(login: String, pass: String): String {
 
     var reqParam = URLEncoder.encode("login", "UTF-8") + "=" + URLEncoder.encode(login, "UTF-8")
     reqParam += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(pass, "UTF-8")
@@ -88,7 +89,7 @@ fun sendPostRequest(login:String, pass:String): String {
     }
 }
 
-fun TextView.underline(){
+fun TextView.underline() {
     /*
         Keyword 'this' represent the object/widget which functionality
         we want to extend. In this function 'this' represent the 'TextView'
@@ -96,18 +97,18 @@ fun TextView.underline(){
     this.paintFlags = this.paintFlags or Paint.UNDERLINE_TEXT_FLAG;
 }
 
-fun String.isValidEmail(): Boolean
-        = this.isNotEmpty() &&
+fun String.isValidEmail(): Boolean = this.isNotEmpty() &&
         Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object: TextWatcher {
+    this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
             afterTextChanged.invoke(s.toString())
         }
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
 }
 
@@ -162,7 +163,7 @@ fun Activity.setTransparentStatusBar() {
 }
 
 fun getMonthNameId(i: Int): Int {
-    return when(i) {
+    return when (i) {
         1 -> R.string.jan
         2 -> R.string.feb
         3 -> R.string.mar
@@ -176,37 +177,40 @@ fun getMonthNameId(i: Int): Int {
         11 -> R.string.nov
         12 -> R.string.dec
         else -> R.string.jan
-    } }
-
-    fun getWeekNameList(context: Context): ArrayList<String> {
-        var nameDayWeekList = ArrayList<String>()
-        nameDayWeekList.clear()
-        nameDayWeekList.add(context.getString(R.string.mon).substring(0,1))
-        nameDayWeekList.add(context.getString(R.string.tue).substring(0,1))
-        nameDayWeekList.add(context.getString(R.string.wed).substring(0,1))
-        nameDayWeekList.add(context.getString(R.string.thu).substring(0,1))
-        nameDayWeekList.add(context.getString(R.string.fri).substring(0,1))
-        nameDayWeekList.add(context.getString(R.string.sat).substring(0,1))
-        nameDayWeekList.add(context.getString(R.string.sun).substring(0,1))
-        return nameDayWeekList
     }
-
-    fun getMonthNameForTitle(i: Int): Int {
-        return when(i) {
-            1 -> R.string.jant
-            2 -> R.string.febt
-            3 -> R.string.mart
-            4 -> R.string.aprt
-            5 -> R.string.mayt
-            6 -> R.string.junt
-            7 -> R.string.jult
-            8 -> R.string.augt
-            9 -> R.string.sept
-            10 -> R.string.octt
-            11 -> R.string.novt
-            12 -> R.string.dect
-            else -> R.string.jant
-        }
-
-
 }
+
+fun getWeekNameList(context: Context): ArrayList<String> {
+    var nameDayWeekList = ArrayList<String>()
+    nameDayWeekList.clear()
+    nameDayWeekList.add(context.getString(R.string.mon).substring(0, 1))
+    nameDayWeekList.add(context.getString(R.string.tue).substring(0, 1))
+    nameDayWeekList.add(context.getString(R.string.wed).substring(0, 1))
+    nameDayWeekList.add(context.getString(R.string.thu).substring(0, 1))
+    nameDayWeekList.add(context.getString(R.string.fri).substring(0, 1))
+    nameDayWeekList.add(context.getString(R.string.sat).substring(0, 1))
+    nameDayWeekList.add(context.getString(R.string.sun).substring(0, 1))
+    return nameDayWeekList
+}
+
+fun getMonthNameForTitle(i: Int): Int {
+    return when (i) {
+        1 -> R.string.jant
+        2 -> R.string.febt
+        3 -> R.string.mart
+        4 -> R.string.aprt
+        5 -> R.string.mayt
+        6 -> R.string.junt
+        7 -> R.string.jult
+        8 -> R.string.augt
+        9 -> R.string.sept
+        10 -> R.string.octt
+        11 -> R.string.novt
+        12 -> R.string.dect
+        else -> R.string.jant
+    }
+}
+
+
+
+

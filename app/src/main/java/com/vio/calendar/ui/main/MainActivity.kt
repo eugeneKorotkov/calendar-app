@@ -1,33 +1,48 @@
 package com.vio.calendar.ui.main
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.akexorcist.localizationactivity.core.LanguageSetting.getLanguage
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.google.android.gms.ads.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.vio.calendar.PreferenceHelper.defaultPrefs
 import com.vio.calendar.R
+import com.vio.calendar.model.dialog.CycleItem
+import com.vio.calendar.model.dialog.LanguageItem
+import com.vio.calendar.model.dialog.NotificationItem
 import com.vio.calendar.setTransparentStatusBar
 import com.vio.calendar.ui.articles.ArticlesFragment
 import com.vio.calendar.ui.calendar.CalendarFragment
-import com.vio.calendar.ui.prefs.PrefsFragment
+import com.vio.calendar.view.adapters.DialogLanguageAdapter
+import com.vio.calendar.view.adapters.DialogNotificationAdapter
+import com.vio.calendar.view.fragments.PrefsFragment
+import com.yarolegovich.lovelydialog.LovelyChoiceDialog
 
 
 class MainActivity : LocalizationActivity() {
 
     private var par = true
+    private val languages = ArrayList<LanguageItem>()
+
 
     private var adsCounter = 1
+
+    var code: String = "es"
+    private lateinit var preferences: SharedPreferences
 
     private val articlesFragment = ArticlesFragment()
     private val todayFragment = CalendarFragment()
     private val prefsFragment = PrefsFragment()
 
-    lateinit var mAdView : AdView
+    lateinit var mAdView: AdView
 
     private lateinit var mAdSplash: InterstitialAd
 
@@ -78,17 +93,39 @@ class MainActivity : LocalizationActivity() {
         this.setTransparentStatusBar()
         setContentView(R.layout.activity_main)
 
+
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
 
         MobileAds.initialize(this, "ca-app-pub-1890073619173649~8908748583")
-
         loadSplashAd()
+
+
+
+        //LanguagePrefs
+        languages.add(
+            LanguageItem(
+                R.drawable.ic_english,
+                "en",
+                "English"
+            )
+        )
+        languages.add(LanguageItem(R.drawable.ic_spain, "es", "Spain"))
+        languages.add(
+            LanguageItem(
+                R.drawable.ic_russia,
+                "ru",
+                "Русский"
+            )
+        )
+        ///
+
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
 
@@ -98,6 +135,7 @@ class MainActivity : LocalizationActivity() {
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY_THIRD)
 
+        preferences = defaultPrefs(this)
 
         mInterstitialAdScreens = InterstitialAd(this)
         mInterstitialAdScreens.adUnitId = "ca-app-pub-1890073619173649/8078882648"
@@ -121,6 +159,9 @@ class MainActivity : LocalizationActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
+        code = getLanguage(this).language
+        Log.d("MainActitivty", code)
+
         switchToFragment(todayFragment)
 
     }
@@ -141,5 +182,125 @@ class MainActivity : LocalizationActivity() {
             mAdSplash.show()
         }
     }
+
+    private fun getCyclePreferences(): List<CycleItem> {
+        val cyclePreferences = ArrayList<CycleItem>()
+
+        cyclePreferences.add(
+            CycleItem(
+                R.drawable.ic_cycle_length,
+                "pref_cycle_length",
+                getString(R.string.cycle_length),
+                ""
+            )
+        )
+
+        cyclePreferences.add(
+            CycleItem(
+                R.drawable.ic_menstrual_length,
+                "period_length",
+                getString(R.string.menstrual_length),
+                getString(R.string.cycle_settings_tip_0)
+            )
+        )
+
+        return cyclePreferences
+    }
+
+    private fun getNotificationPreferences(): List<NotificationItem> {
+        val notificationPreferences = ArrayList<NotificationItem>()
+
+        notificationPreferences.add(
+            NotificationItem(
+                getString(R.string.menstrual_two_days),
+                "pref_notification_m_two_days",
+                R.drawable.ic_notification_m_two_days,
+                preferences.getBoolean("pref_notification_m_two_days", false)
+            )
+        )
+
+        notificationPreferences.add(
+            NotificationItem(
+                getString(R.string.menstrual_end),
+                "pref_notification_m_end",
+                R.drawable.ic_notification_m_end,
+                preferences.getBoolean("pref_notification_m_end", false)
+            )
+        )
+
+        notificationPreferences.add(
+            NotificationItem(
+                getString(R.string.menstrual_start),
+                "pref_notification_m_start",
+                R.drawable.ic_menstrual_start,
+                preferences.getBoolean("pref_notification_m_start", false)
+            )
+        )
+
+        notificationPreferences.add(
+            NotificationItem(
+                getString(R.string.ovulation),
+                "pref_notification_o",
+                R.drawable.ic_ovulation,
+                preferences.getBoolean("pref_notification_o", false)
+            )
+        )
+
+        return notificationPreferences
+    }
+
+    /*fun showCycleDialog() {
+        val adapter = DialogCycleAdapter(this, getCyclePrefernces())
+    }*/
+
+    fun showLanguageDialog() {
+
+        val adapter = DialogLanguageAdapter(this, languages)
+        LovelyChoiceDialog(this)
+            .setTopColorRes(R.color.colorPink)
+            .setTitle(R.string.change_language)
+            .setIcon(R.drawable.ic_change_language)
+            .setItems(adapter) { _, item ->
+                setLanguage(item.code)
+            }
+            .show()
+    }
+
+    fun showNotificationDialog() {
+
+        val adapter = DialogNotificationAdapter(this, getNotificationPreferences())
+        LovelyChoiceDialog(this)
+            .setTopColorRes(R.color.colorPink)
+            .setTitle(R.string.notification_settings)
+            .setIcon(R.drawable.ic_notifications)
+            .setItemsMultiChoice(adapter) { positions, items ->
+
+                for (position in positions) Log.d("NotificationDialog", "position: $position")
+
+                for (item in items) {
+                    preferences.edit().putBoolean(item.code, true).apply()
+                    Log.d("NotificationDialog", "put boolean ${item.code} true")
+                }
+            }
+            .show()
+    }
+
+
+/*fun showCycleAndSettingsDialog() {
+
+    val adapter = DialogCycleAndSettingsAdapter(this, "")
+    LovelyChoiceDialog(this)
+        .setTopColorRes(R.color.colorPink)
+        .setTitle(R.string.change_language)
+        .setIcon(R.drawable.ic_change_language)
+        .setItems(adapter) { _, item ->
+            val prefs = defaultPrefs(this)
+            prefs.edit().putBoolean(item.code, ite)
+            val value: String? = prefs[Consts.SharedPrefs.KEY] //getter
+            val anotherValue: Int? = prefs[Consts.SharedPrefs.KEY, 10] //getter with default value            }
+                .show()
+        }*/
+
+
 }
 

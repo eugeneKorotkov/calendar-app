@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.R
+import com.vio.calendar.model.dialog.LanguageItem
 import kotlinx.android.synthetic.main.activity_language.*
 
 class LanguageActivity : LocalizationActivity() {

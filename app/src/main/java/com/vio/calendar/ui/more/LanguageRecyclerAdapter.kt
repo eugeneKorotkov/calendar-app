@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.vio.calendar.R
 import com.vio.calendar.inflate
+import com.vio.calendar.model.dialog.LanguageItem
 import kotlinx.android.synthetic.main.item_language.view.*
 
 class LanguageRecyclerAdapter(private val languages: ArrayList<LanguageItem>, private val listener: (LanguageItem) -> Unit): RecyclerView.Adapter<LanguageRecyclerAdapter.ViewHolder>() {
@@ -20,7 +21,7 @@ class LanguageRecyclerAdapter(private val languages: ArrayList<LanguageItem>, pr
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(languageItem: LanguageItem, listener: (LanguageItem) -> Unit) {
-            itemView.textLanguage.text = languageItem.name
+            itemView.textN.text = languageItem.name
             itemView.imageLanguage.setImageResource(languageItem.image)
             itemView.setOnClickListener{ listener(languageItem)}
         }
