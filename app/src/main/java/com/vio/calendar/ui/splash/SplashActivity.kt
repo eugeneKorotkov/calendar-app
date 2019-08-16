@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
 
     internal val mRunnable: Runnable = Runnable {
 
-        if (CalendarApplication.prefs.getBoolean(Constants.LICENSE, false)) {
+        if (CalendarApplication.preferences.getBoolean(Constants.LICENSE, false)) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

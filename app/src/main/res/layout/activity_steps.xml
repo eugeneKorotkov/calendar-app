@@ -74,7 +74,7 @@
             <Button
                     android:text="@string/next"
                     android:layout_margin="20dp"
-                    android:background="@drawable/button_green"
+                    android:background="@drawable/button_pink"
                     android:textColor="@android:color/white"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"

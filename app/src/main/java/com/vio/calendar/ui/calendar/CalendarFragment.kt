@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
 import com.vio.calendar.app.CalendarApplication.Companion.getAppContext
-import com.vio.calendar.app.CalendarApplication.Companion.prefs
+import com.vio.calendar.app.CalendarApplication.Companion.preferences
 import com.vio.calendar.db.PeriodicalDatabase.DayEntry.*
 import com.vio.calendar.getMonthNameForTitle
 import com.vio.calendar.getMonthNameId
@@ -90,8 +90,10 @@ class CalendarFragment : Fragment() {
         )
 
         initMonth()
-
+        handleDatabaseEdit()
         initCalendar()
+        handleDatabaseEdit()
+
     }
 
     private fun initMonth() {
@@ -106,7 +108,7 @@ class CalendarFragment : Fragment() {
         var firstDayOfWeekFirst = calFirst.get(Calendar.DAY_OF_WEEK)
         val daysCountFirst = calFirst.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        val startOfWeek = prefs.getInt("startofweek", 0)
+        val startOfWeek = preferences.getInt("startofweek", 0)
 
         if (startOfWeek == 1) {
             firstDayOfWeekFirst--
@@ -439,7 +441,7 @@ class CalendarFragment : Fragment() {
         var firstDayOfWeekSecond = calSecond.get(Calendar.DAY_OF_WEEK)
 
         val daysCountSecond = calSecond.getActualMaximum(Calendar.DAY_OF_MONTH)
-        val startOfWeek = prefs.getInt("startofweek", 0)
+        val startOfWeek = preferences.getInt("startofweek", 0)
 
         if (startOfWeek == 1) {
             firstDayOfWeekSecond--

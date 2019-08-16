@@ -43,7 +43,7 @@ class StepsActivity : LocalizationActivity() {
             .animationDuration(600)
             .commit()
 
-        CalendarApplication.prefs.edit().putInt("startofweek", 1).apply()
+        CalendarApplication.preferences.edit().putInt("startofweek", 1).apply()
 
 
         step(stepCounter)
@@ -177,7 +177,7 @@ class StepsActivity : LocalizationActivity() {
         var firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
         val daysCount = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        val startOfWeek = CalendarApplication.prefs.getInt("startofweek", 0)
+        val startOfWeek = CalendarApplication.preferences.getInt("startofweek", 0)
 
         if (startOfWeek == 1) {
             firstDayOfWeek--

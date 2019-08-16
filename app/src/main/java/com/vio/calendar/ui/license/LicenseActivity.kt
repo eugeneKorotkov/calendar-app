@@ -44,7 +44,7 @@ class LicenseActivity : LocalizationActivity() {
         }
 
         button_next.setOnClickListener {
-            CalendarApplication.prefs.edit().putBoolean(Constants.LICENSE, true).apply()
+            CalendarApplication.preferences.edit().putBoolean(Constants.LICENSE, true).apply()
             val intent = Intent(this, StepsActivity::class.java)
             startActivity(intent)
             finish()
@@ -54,7 +54,7 @@ class LicenseActivity : LocalizationActivity() {
     private fun licenseAgree() {
         button_next.isClickable = true
         button_next.setTextColor(ContextCompat.getColor(this, android.R.color.white))
-        button_next.setBackgroundResource(R.drawable.button_green)
+        button_next.setBackgroundResource(R.drawable.button_pink)
         button_accept_all.visibility = View.GONE
     }
 }

@@ -294,10 +294,10 @@ class MainActivity : LocalizationActivity() {
         .setTitle(R.string.change_language)
         .setIcon(R.drawable.ic_change_language)
         .setItems(adapter) { _, item ->
-            val prefs = defaultPrefs(this)
-            prefs.edit().putBoolean(item.code, ite)
-            val value: String? = prefs[Consts.SharedPrefs.KEY] //getter
-            val anotherValue: Int? = prefs[Consts.SharedPrefs.KEY, 10] //getter with default value            }
+            val preferences = defaultPrefs(this)
+            preferences.edit().putBoolean(item.code, ite)
+            val value: String? = preferences[Consts.SharedPrefs.KEY] //getter
+            val anotherValue: Int? = preferences[Consts.SharedPrefs.KEY, 10] //getter with default value            }
                 .show()
         }*/
 

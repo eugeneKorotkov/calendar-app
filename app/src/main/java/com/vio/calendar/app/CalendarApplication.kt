@@ -21,7 +21,7 @@ class CalendarApplication: Application() {
 
 
     companion object {
-        lateinit var prefs: SharedPreferences
+        lateinit var preferences: SharedPreferences
 
         private lateinit var instance: CalendarApplication
         fun getAppContext(): Context = instance.applicationContext
@@ -43,7 +43,7 @@ class CalendarApplication: Application() {
         YandexMetrica.activate(applicationContext, config)
         YandexMetrica.enableActivityAutoTracking(this)
 
-        prefs = this.getSharedPreferences(Constants.PREFERENCES_NAME, 0)
+        preferences = this.getSharedPreferences(Constants.PREFERENCES_NAME, 0)
     }
 
     fun initDatabase() {
