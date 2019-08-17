@@ -1,5 +1,6 @@
 package com.vio.calendar.ui.license
 
+
 import android.os.Build
 import android.text.Html
 import android.text.method.LinkMovementMethod

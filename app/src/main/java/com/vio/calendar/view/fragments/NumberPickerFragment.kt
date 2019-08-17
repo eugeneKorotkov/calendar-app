@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vio.calendar.R
-import kotlinx.android.synthetic.main.activity_steps.numberPicker
 import kotlinx.android.synthetic.main.fragment_number_picker.*
 
 class NumberPickerFragment: Fragment() {

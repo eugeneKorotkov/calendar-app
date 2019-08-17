@@ -32,6 +32,8 @@ class MainActivity : LocalizationActivity() {
     private var par = true
     private val languages = ArrayList<LanguageItem>()
 
+    lateinit var prefs: SharedPreferences
+
 
     private var adsCounter = 1
 
@@ -93,6 +95,7 @@ class MainActivity : LocalizationActivity() {
         this.setTransparentStatusBar()
         setContentView(R.layout.activity_main)
 
+        prefs = defaultPrefs(applicationContext)
 
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -135,7 +138,7 @@ class MainActivity : LocalizationActivity() {
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY_THIRD)
 
-        preferences = defaultPrefs(this)
+        preferences = defaultPrefs(applicationContext)
 
         mInterstitialAdScreens = InterstitialAd(this)
         mInterstitialAdScreens.adUnitId = "ca-app-pub-1890073619173649/8078882648"
@@ -284,23 +287,5 @@ class MainActivity : LocalizationActivity() {
             }
             .show()
     }
-
-
-/*fun showCycleAndSettingsDialog() {
-
-    val adapter = DialogCycleAndSettingsAdapter(this, "")
-    LovelyChoiceDialog(this)
-        .setTopColorRes(R.color.colorPink)
-        .setTitle(R.string.change_language)
-        .setIcon(R.drawable.ic_change_language)
-        .setItems(adapter) { _, item ->
-            val preferences = defaultPrefs(this)
-            preferences.edit().putBoolean(item.code, ite)
-            val value: String? = preferences[Consts.SharedPrefs.KEY] //getter
-            val anotherValue: Int? = preferences[Consts.SharedPrefs.KEY, 10] //getter with default value            }
-                .show()
-        }*/
-
-
 }
 

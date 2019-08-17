@@ -3,6 +3,7 @@ package com.vio.calendar.ui.articles
 import android.content.Context
 import android.os.Build
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -18,7 +19,7 @@ import com.vio.calendar.data.article.model.CommentSend
 import com.vio.calendar.inflate
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class ArticleAdapter(private val articles: MutableList<Article>, private val lifecycleOwner: LifecycleOwner, private val context: Context) :
+class ArticleAdapter(private val articles: MutableList<Article>, private val lifecycleOwner: LifecycleOwner, private val context: Context, private val token: String) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
     val repository = ArticleRepositoryImpl()
@@ -73,17 +74,21 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
             itemView.commentRecycler.layoutManager = LinearLayoutManager(context)
             itemView.commentRecycler.adapter = adapter
 
+            repository.getLikes(article)
 
             itemView.articleLike.setOnClickListener {
-
+                Log.d("ArticleAdapter", "token $token")
+                repository.like(article, token)
             }
 
             itemView.sendCommentButton.setOnClickListener {
-                repository.sendComment(article.id!!, "56t0gjza7kwpi", CommentSend( itemView.commentInputField.text.toString()))
+                repository.sendComment(article.id!!, token, CommentSend(itemView.commentInputField.text.toString()))
             }
 
             repository.getLikesCount(article).observe(lifecycleOwner, Observer {
-                likeResponseCount ->  itemView.articleLikeCount.text = likeResponseCount?.likesCount.toString()
+                likeResponseCount ->
+                Log.d("getLikesCount", "article.id ${article.id}")
+                itemView.articleLikeCount.text = likeResponseCount?.likesCount.toString()
             })
 
 

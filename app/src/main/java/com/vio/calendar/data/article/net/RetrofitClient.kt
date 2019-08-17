@@ -1,9 +1,7 @@
 package com.vio.calendar.data.article.net
 
-import com.vio.calendar.data.article.model.Article
-import com.vio.calendar.data.article.model.Comment
-import com.vio.calendar.data.article.model.CommentSend
-import com.vio.calendar.data.article.model.LikesResponseCount
+import android.util.Log
+import com.vio.calendar.data.article.model.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -37,6 +35,7 @@ class RetrofitClient {
     }
 
     fun getLikesCount(article: Article): Call<LikesResponseCount> {
+        Log.d("getLikesCount", "retrofit - article ${article.id}")
         return articlesApi.getLikesCount(article.id!!)
     }
 
@@ -50,5 +49,9 @@ class RetrofitClient {
 
     fun unlike(article: Article,  token: String): Call<Any> {
         return articlesApi.like(article.id!!, token)
+    }
+
+    fun getLikes(article: Article): Call<List<LikesResponseItem>> {
+        return articlesApi.getLikes(article.id!!)
     }
 }

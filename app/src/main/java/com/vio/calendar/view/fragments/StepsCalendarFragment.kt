@@ -11,7 +11,6 @@ import android.widget.BaseAdapter
 import androidx.fragment.app.Fragment
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
-import com.vio.calendar.data.user.UserRepository
 import com.vio.calendar.db.PeriodicalDatabase
 import com.vio.calendar.getMonthNameId
 import com.vio.calendar.model.date.CalendarCell
@@ -28,7 +27,6 @@ import kotlin.collections.ArrayList
 
 class StepsCalendarFragment: Fragment() {
 
-    private val userRepository = UserRepository()
     private var firstIsShowing = true
     private var monthCurrent = GregorianCalendar().get(Calendar.MONTH) + 1
 
@@ -52,7 +50,6 @@ class StepsCalendarFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         calendarRecyclerFirst.layoutManager = CalendarGridLayoutManager(context, 7)
         calendarRecyclerSecond.layoutManager = CalendarGridLayoutManager(context, 7)
 
@@ -159,18 +156,25 @@ class StepsCalendarFragment: Fragment() {
         }
         calendarRecyclerFirst.adapter = CalendarRecyclerAdapter(listFirst, firstDayOfWeekFirst, ({
 
+            if (date != null && dateSecond != null) {
+                date?.add(GregorianCalendar.DATE, -1)
+                ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(date)
+                handleDatabaseEdit()
+
+                dateSecond?.add(GregorianCalendar.DATE, -1)
+                ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(dateSecond)
+                handleDatabaseEdit()
+
+            }
+
             date = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
             ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(date)
-            handleDatabaseEdit()
-            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(date)
             handleDatabaseEdit()
 
             dateSecond = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
             dateSecond?.add(GregorianCalendar.DATE, (activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
 
             ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(dateSecond)
-            handleDatabaseEdit()
-            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(dateSecond)
             handleDatabaseEdit()
 
         }))
@@ -239,18 +243,27 @@ class StepsCalendarFragment: Fragment() {
         }
         calendarRecyclerSecond.adapter = CalendarRecyclerAdapter(listSecond, firstDayOfWeekSecond, ({
 
+            if (date != null && dateSecond != null) {
+                date?.add(GregorianCalendar.DATE, -1)
+                ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(date)
+                handleDatabaseEdit()
 
-            _date = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
-            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(_date)
-            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(_date)
+                dateSecond?.add(GregorianCalendar.DATE, -1)
+                ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(dateSecond)
+                handleDatabaseEdit()
 
-            _dateSecond = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
-            _dateSecond?.add(GregorianCalendar.DATE, (activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
+            }
 
-            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(_dateSecond)
-            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.removePeriod(_dateSecond)
-
+            date = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
+            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(date)
             handleDatabaseEdit()
+
+            dateSecond = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
+            dateSecond?.add(GregorianCalendar.DATE, (activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
+
+            ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(dateSecond)
+            handleDatabaseEdit()
+
         }))
         calendarRecyclerSecond.invalidate()
     }

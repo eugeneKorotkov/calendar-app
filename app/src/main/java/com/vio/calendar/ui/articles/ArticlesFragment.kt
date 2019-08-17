@@ -1,6 +1,7 @@
 package com.vio.calendar.ui.articles
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,9 @@ class ArticlesFragment: Fragment()  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("MainActivity", (activity as MainActivity).prefs.getString("token", "token"))
         articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
-        adapter = ArticleAdapter(mutableListOf(), this, (activity as MainActivity).applicationContext)
+        adapter = ArticleAdapter(mutableListOf(), this, (activity as MainActivity).applicationContext, (activity as MainActivity).prefs.getString("token", "s")!!)
         articlesRecyclerView.adapter = adapter
         code = (activity as MainActivity).code
         getArticles()

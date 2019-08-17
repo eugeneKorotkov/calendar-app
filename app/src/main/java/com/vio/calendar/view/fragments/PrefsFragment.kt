@@ -27,7 +27,7 @@ class PrefsFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        prefs = defaultPrefs(context)
+        prefs = defaultPrefs(context.applicationContext)
         list.clear()
         list.add(
             PreferenceItem(

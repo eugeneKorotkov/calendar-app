@@ -18,11 +18,7 @@
             android:usesCleartextTraffic="true"
             tools:targetApi="m">
         <activity android:name=".view.activities.StepsActivityNew">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
 
         <meta-data
@@ -37,16 +33,19 @@
                 android:screenOrientation="portrait">
 
         </activity>
-        <activity
-                android:name=".ui.steps.StepsActivity"
-                android:screenOrientation="portrait">
-        </activity>
+
         <activity
                 android:name=".ui.license.LicenseActivity"
                 android:screenOrientation="portrait"/>
         <activity
                 android:name=".ui.splash.SplashActivity"
                 android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity>
 

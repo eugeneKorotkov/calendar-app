@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 class LikesResponseCount {
     @SerializedName("count")
-    var likesCount: Int = 0
+    var likesCount: Int = 3
 }

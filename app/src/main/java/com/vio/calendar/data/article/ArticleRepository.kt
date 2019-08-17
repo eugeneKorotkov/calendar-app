@@ -1,10 +1,7 @@
 package com.vio.calendar.data.article
 
 import androidx.lifecycle.LiveData
-import com.vio.calendar.data.article.model.Article
-import com.vio.calendar.data.article.model.Comment
-import com.vio.calendar.data.article.model.CommentSend
-import com.vio.calendar.data.article.model.LikesResponseCount
+import com.vio.calendar.data.article.model.*
 
 interface ArticleRepository {
 
@@ -17,6 +14,8 @@ interface ArticleRepository {
     fun getArticles(code: String): LiveData<List<Article>?>
 
     fun getLikesCount(article: Article): LiveData<LikesResponseCount?>
+
+    fun getLikes(article: Article): LiveData<List<LikesResponseItem>?>
 
     fun like(article: Article, token: String)
 

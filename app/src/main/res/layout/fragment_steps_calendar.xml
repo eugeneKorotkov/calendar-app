@@ -54,6 +54,7 @@
             app:layout_constraintTop_toTopOf="@id/guidelineTopBody"
             app:layout_constraintBottom_toBottomOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@drawable/article_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/firstConstraint">
@@ -100,10 +101,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:background="@drawable/rounded_linear_white" android:id="@+id/secondConstraint">
+                android:background="@drawable/article_background" android:id="@+id/secondConstraint">
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guidelineTopMonthNameSecond"

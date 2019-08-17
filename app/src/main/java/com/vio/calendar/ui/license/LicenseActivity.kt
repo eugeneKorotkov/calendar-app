@@ -9,7 +9,7 @@ import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.Constants
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
-import com.vio.calendar.ui.steps.StepsActivity
+import com.vio.calendar.view.activities.StepsActivityNew
 import kotlinx.android.synthetic.main.activity_license.*
 
 
@@ -45,7 +45,7 @@ class LicenseActivity : LocalizationActivity() {
 
         button_next.setOnClickListener {
             CalendarApplication.preferences.edit().putBoolean(Constants.LICENSE, true).apply()
-            val intent = Intent(this, StepsActivity::class.java)
+            val intent = Intent(this, StepsActivityNew::class.java)
             startActivity(intent)
             finish()
         }

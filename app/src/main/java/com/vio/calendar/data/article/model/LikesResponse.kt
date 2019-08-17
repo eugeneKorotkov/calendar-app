@@ -1,4 +1,8 @@
 package com.vio.calendar.data.article.model
 
-class LikesResponse {
-}
+import com.google.gson.annotations.SerializedName
+
+data class LikesResponseItem (
+    @SerializedName("user_id")
+    var userId: String
+)

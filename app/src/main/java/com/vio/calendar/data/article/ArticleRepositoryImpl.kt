@@ -3,10 +3,7 @@ package com.vio.calendar.data.article
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.vio.calendar.data.article.model.Article
-import com.vio.calendar.data.article.model.Comment
-import com.vio.calendar.data.article.model.CommentSend
-import com.vio.calendar.data.article.model.LikesResponseCount
+import com.vio.calendar.data.article.model.*
 import com.vio.calendar.data.article.net.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,10 +56,29 @@ class ArticleRepositoryImpl: ArticleRepository {
     }
 
     override fun like(article: Article, token: String) {
+        retrofitClient.like(article, token).enqueue(object: Callback<Any> {
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("ArticleRepositoryImpl", "failure")
+            }
 
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.d("ArticleRepositoryImpl", "response")
+            }
+
+        })
     }
 
     override fun unlike(article: Article, token: String) {
+        retrofitClient.unlike(article, token).enqueue(object: Callback<Any> {
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("ArticleRepositoryImpl", "unlike failure")
+            }
+
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.d("ArticleRepositoryImpl", "response")
+            }
+
+        })
     }
 
 
@@ -87,6 +103,8 @@ class ArticleRepositoryImpl: ArticleRepository {
         return data
     }
 
+
+
     override fun getArticles(code: String): LiveData<List<Article>?> {
 
         val data = MutableLiveData<List<Article>>()
@@ -100,6 +118,25 @@ class ArticleRepositoryImpl: ArticleRepository {
             override fun onFailure(call: Call<List<Article>?>, t: Throwable) {
                 data.value = null
                 Log.d("ArticleRepository", "getArticles - failure ${t.localizedMessage}")
+            }
+        })
+
+        return data
+    }
+
+    override fun getLikes(article: Article): LiveData<List<LikesResponseItem>?> {
+
+        val data = MutableLiveData<List<LikesResponseItem>>()
+
+        retrofitClient.getLikes(article).enqueue(object: Callback<List<LikesResponseItem>?> {
+            override fun onResponse(call: Call<List<LikesResponseItem>?>, response: Response<List<LikesResponseItem>?>) {
+                data.value = response.body()
+                Log.d("LikesResponseItem", "Response: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<List<LikesResponseItem>?>, t: Throwable) {
+                data.value = null
+                Log.d("LikesResponseItem", "getArticles - failure ${t.localizedMessage}")
             }
         })
 
@@ -121,5 +158,7 @@ class ArticleRepositoryImpl: ArticleRepository {
         })
 
     }
+
+
 
 }

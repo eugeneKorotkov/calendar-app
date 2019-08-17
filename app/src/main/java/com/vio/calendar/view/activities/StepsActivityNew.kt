@@ -12,19 +12,24 @@ import com.vio.calendar.PreferenceHelper
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
 import com.vio.calendar.data.user.UserRepository
+import com.vio.calendar.data.user.model.User
+import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.ui.main.MainActivity
 import com.vio.calendar.view.fragments.NumberPickerFragment
 import com.vio.calendar.view.fragments.StepsCalendarFragment
 import com.vio.calendar.view.fragments.UserInfoFragment
 import kotlinx.android.synthetic.main.activity_steps.*
+import java.util.*
 
 class StepsActivityNew : AppCompatActivity() {
 
     private val userInfoFragment = UserInfoFragment()
     private val stepsCalendarFragment = StepsCalendarFragment()
     private val numberPickerFragment = NumberPickerFragment()
-    private val userRepository = UserRepository()
+    private lateinit var userRepository: UserRepository
     lateinit var prefs: SharedPreferences
+
+    private var token: String? = null
 
     private var stepCounter = 0
 
@@ -35,6 +40,7 @@ class StepsActivityNew : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_steps_new)
 
+        userRepository = UserRepository(this)
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 
@@ -44,7 +50,7 @@ class StepsActivityNew : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
 
-        prefs = PreferenceHelper.defaultPrefs(this)
+        prefs = PreferenceHelper.defaultPrefs(applicationContext)
 
 
         val transaction = supportFragmentManager.beginTransaction()
@@ -66,11 +72,12 @@ class StepsActivityNew : AppCompatActivity() {
                 }
                 1 -> {
                     stepsTopView.go(1, true)
-                    numberPickerFragment.switchToMenstrual()
+                 //    numberPickerFragment.switchToMenstrual()
                 }
                 2 -> {
                     switchToFragment(numberPickerFragment)
-                        //numberPickerFragment.switchToLength()
+                        // numberPickerFragment.switchToLength()
+
                 }
             }
         }
@@ -81,6 +88,7 @@ class StepsActivityNew : AppCompatActivity() {
                 1 -> {
                     stepsTopView.go(1, true)
                     prefs.edit().putString("user_name", userInfoFragment.getName()).apply()
+                    token = userRepository.getToken(User(UUID.randomUUID().toString(), "defOsucy", UserData(userInfoFragment.getName(), 1)))
                     switchToFragment(numberPickerFragment)
                 }
                 2 -> {
@@ -94,7 +102,6 @@ class StepsActivityNew : AppCompatActivity() {
                 3 -> {
                     stepsTopView.go(3, true)
                     prefs.edit().putInt("cycle_length", numberPickerFragment.value()).apply()
-
                     switchToFragment(stepsCalendarFragment)
                 }
                 4 -> {
