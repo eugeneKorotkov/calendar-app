@@ -1,9 +1,11 @@
 package com.vio.calendar.ui.articles
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.text.Html
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -15,16 +17,28 @@ import com.bumptech.glide.request.RequestOptions
 import com.vio.calendar.R
 import com.vio.calendar.data.article.ArticleRepositoryImpl
 import com.vio.calendar.data.article.model.Article
+import com.vio.calendar.data.article.model.Comment
 import com.vio.calendar.data.article.model.CommentSend
+import com.vio.calendar.data.article.model.LikesResponseItem
+import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.inflate
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class ArticleAdapter(private val articles: MutableList<Article>, private val lifecycleOwner: LifecycleOwner, private val context: Context, private val token: String) :
+
+
+class ArticleAdapter(private val articles: MutableList<Article>, private val lifecycleOwner: LifecycleOwner, private val context: Context, private val prefs: SharedPreferences) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
     val repository = ArticleRepositoryImpl()
 
     val adapter = CommentAdapter(mutableListOf())
+    var likesCount: Int = 0
+    var isLiked: Boolean = false
+
+    val token = prefs.getString("token", "s")!!
+    val name = prefs.getString("user_name", "")!!
+    val id = prefs.getString("userid", "")!!
+    val color = prefs.getString("color", "")!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.item_article))
@@ -71,33 +85,86 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
                 }
             }
 
-            itemView.commentRecycler.layoutManager = LinearLayoutManager(context)
+            val linearLayoutManager = LinearLayoutManager(context)
+            linearLayoutManager.reverseLayout = true
+
+            itemView.commentRecycler.layoutManager = linearLayoutManager
             itemView.commentRecycler.adapter = adapter
 
-            repository.getLikes(article)
+            val mScrollTouchListener = object : RecyclerView.OnItemTouchListener {
+                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                     val action = e.action
+                    when (action) {
+                        MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+                    return false
+                }
+
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+
+                }
+
+                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+
+                }
+            }
+
+            itemView.commentRecycler.addOnItemTouchListener(mScrollTouchListener)
+
+            repository.getLikes(article).observe(lifecycleOwner, Observer {
+                likesList ->
+                if (likesList!!.contains(LikesResponseItem(id))) {
+                    isLiked = true
+                    itemView.articleLike.setImageResource(R.drawable.ic_like_true)
+                } else {
+                    isLiked = false
+                    itemView.articleLike.setImageResource(R.drawable.ic_like_false)
+                }
+
+            })
 
             itemView.articleLike.setOnClickListener {
-                Log.d("ArticleAdapter", "token $token")
-                repository.like(article, token)
+
+                if (!isLiked) {
+                    Log.d("ArticleAdapter", "token $token")
+                    repository.like(article, token)
+                    isLiked = true
+                    itemView.articleLike.setImageResource(R.drawable.ic_like_true)
+                    likesCount++
+                    itemView.articleLikeCount.text = likesCount.toString()
+                } else {
+                    Log.d("ArticleAdapter", "token $token")
+                    repository.unlike(article, token)
+                    isLiked = false
+                    Log.d("userId", "sss: $id")
+                    itemView.articleLike.setImageResource(R.drawable.ic_like_false)
+                    likesCount--
+                    itemView.articleLikeCount.text = likesCount.toString()
+                }
+
+
             }
 
             itemView.sendCommentButton.setOnClickListener {
-                repository.sendComment(article.id!!, token, CommentSend(itemView.commentInputField.text.toString()))
+                val comment = CommentSend(itemView.commentInputField.text.toString())
+                repository.sendComment(article.id!!, token, comment)
+                adapter.addComment(Comment("", UserData(name), itemView.commentInputField.text.toString()))
             }
 
             repository.getLikesCount(article).observe(lifecycleOwner, Observer {
                 likeResponseCount ->
                 Log.d("getLikesCount", "article.id ${article.id}")
-                itemView.articleLikeCount.text = likeResponseCount?.likesCount.toString()
+                likesCount = likeResponseCount?.likesCount!!
+                itemView.articleLikeCount.text = likesCount.toString()
             })
 
 
-
             repository.getComments(article).observe(lifecycleOwner, Observer {
-                    articles ->
-                if (articles == null) {
+                    comments ->
+                if (comments == null) {
                 } else {
-                    adapter.setArticles(articles)
+                    Log.d("articleAdapter", "size: ${comments.size}")
+                    adapter.setComments(comments)
                 }
             })
 

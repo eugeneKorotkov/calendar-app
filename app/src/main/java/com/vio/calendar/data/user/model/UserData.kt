@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UserData(
     @SerializedName("name")
-    var name: String,
+    var name: String = "",
     @SerializedName("color")
-    var color: Int
+    val color: String = "#51d0de"
 )

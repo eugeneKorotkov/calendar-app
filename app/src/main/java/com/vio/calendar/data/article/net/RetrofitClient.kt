@@ -48,7 +48,7 @@ class RetrofitClient {
     }
 
     fun unlike(article: Article,  token: String): Call<Any> {
-        return articlesApi.like(article.id!!, token)
+        return articlesApi.unlike(article.id!!, token)
     }
 
     fun getLikes(article: Article): Call<List<LikesResponseItem>> {

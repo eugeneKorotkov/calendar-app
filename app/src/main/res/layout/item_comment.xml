@@ -9,7 +9,7 @@
     <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/avatar_circle"
+            android:background="@drawable/avatar_circle"
             app:layout_constraintDimensionRatio="H,1:1"
             android:layout_marginStart="8dp"
             android:id="@+id/circle"
@@ -28,7 +28,7 @@
             app:layout_constraintStart_toEndOf="@+id/circle"
             android:layout_marginStart="8dp"/>
     <TextView
-            android:text="A"
+            android:text="V"
             android:layout_width="0dp"
             android:gravity="center"
             android:layout_height="0dp"

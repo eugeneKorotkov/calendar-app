@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.vio.calendar.R
+import com.vio.calendar.app.CalendarApplication
 import com.vio.calendar.ui.main.MainActivity
 import com.vio.calendar.viewmodel.article.ArticleViewModel
 import kotlinx.android.synthetic.main.fragment_articles.*
@@ -28,8 +30,12 @@ class ArticlesFragment: Fragment()  {
         super.onViewCreated(view, savedInstanceState)
         Log.d("MainActivity", (activity as MainActivity).prefs.getString("token", "token"))
         articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
-        adapter = ArticleAdapter(mutableListOf(), this, (activity as MainActivity).applicationContext, (activity as MainActivity).prefs.getString("token", "s")!!)
+        adapter = ArticleAdapter(mutableListOf(), this, (activity as MainActivity).applicationContext, ((activity as MainActivity).application as CalendarApplication).prefs)
+        ViewCompat.setNestedScrollingEnabled(articlesRecyclerView, false);
         articlesRecyclerView.adapter = adapter
+        articlesRecyclerView.isNestedScrollingEnabled = false
+
+        ViewCompat.setNestedScrollingEnabled(articlesRecyclerView, false);
         code = (activity as MainActivity).code
         getArticles()
     }

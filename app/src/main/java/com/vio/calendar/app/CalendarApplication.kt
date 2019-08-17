@@ -8,6 +8,7 @@ import com.akexorcist.localizationactivity.core.LocalizationApplicationDelegate
 import com.onesignal.OneSignal
 import com.vio.calendar.Constants
 import com.vio.calendar.Constants.API_KEY
+import com.vio.calendar.PreferenceHelper.defaultPrefs
 import com.vio.calendar.db.PeriodicalDatabase
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
@@ -18,6 +19,7 @@ class CalendarApplication: Application() {
     var localizationDelegate = LocalizationApplicationDelegate(this)
 
     lateinit var dbMain: PeriodicalDatabase
+    lateinit var prefs: SharedPreferences
 
 
     companion object {
@@ -34,6 +36,8 @@ class CalendarApplication: Application() {
         super.onCreate()
         initDatabase()
 
+
+
         OneSignal.startInit(this)
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)
@@ -42,6 +46,8 @@ class CalendarApplication: Application() {
         val config = YandexMetricaConfig.newConfigBuilder(API_KEY).build()
         YandexMetrica.activate(applicationContext, config)
         YandexMetrica.enableActivityAutoTracking(this)
+
+        prefs = defaultPrefs(this)
 
         preferences = this.getSharedPreferences(Constants.PREFERENCES_NAME, 0)
     }

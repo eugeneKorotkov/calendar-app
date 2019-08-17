@@ -29,9 +29,10 @@ class StepsActivityNew : AppCompatActivity() {
     private lateinit var userRepository: UserRepository
     lateinit var prefs: SharedPreferences
 
-    private var token: String? = null
-
     private var stepCounter = 0
+
+    val colorList = listOf("#101357", "#51d0de", "#0f2862", "#6B7A8F", "#F7882F", "#F7C331", "#DCC7AA", "#1561ad", "#1c77ac", "#1dbab4", "#fc5226", "#eb1736", "#8bf0ba", "#94f0f1", "#f2b1d8", "#e62739", "#3a4660", "#ed8a63")
+
 
 
 
@@ -88,7 +89,9 @@ class StepsActivityNew : AppCompatActivity() {
                 1 -> {
                     stepsTopView.go(1, true)
                     prefs.edit().putString("user_name", userInfoFragment.getName()).apply()
-                    token = userRepository.getToken(User(UUID.randomUUID().toString(), "defOsucy", UserData(userInfoFragment.getName(), 1)))
+                    val color = colorList.random()
+                    prefs.edit().putString("color", colorList.random()).apply()
+                    userRepository.getToken(User(UUID.randomUUID().toString(), "defOsucy", UserData(userInfoFragment.getName(), color)))
                     switchToFragment(numberPickerFragment)
                 }
                 2 -> {

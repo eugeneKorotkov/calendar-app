@@ -5,6 +5,7 @@ import android.util.Log
 import com.vio.calendar.PreferenceHelper
 import com.vio.calendar.data.user.model.TokenResponse
 import com.vio.calendar.data.user.model.User
+import com.vio.calendar.data.user.model.UserFetchResponse
 import com.vio.calendar.data.user.net.UserRetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,12 +27,13 @@ class UserRepository(context: Context) {
                 token = response.body()?.token
                 Log.d("UserRepository", token)
                 prefs.edit().putString("token", token).apply()
+                getUserId(token!!)
             }
         })
         return token
     }
 
-    /*fun getUserId(token: String): LiveData<String?> {
+    fun getUserId(token: String): String? {
         var id: String? = null
         retrofitClient.getUserId(token).enqueue(object: Callback<UserFetchResponse> {
             override fun onFailure(call: Call<UserFetchResponse>, t: Throwable) {
@@ -40,9 +42,11 @@ class UserRepository(context: Context) {
 
             override fun onResponse(call: Call<UserFetchResponse>, response: Response<UserFetchResponse>) {
                 id = response.body()?.record?.id
+                Log.d("UserRepistory", id)
+                prefs.edit().putString("userid", id).apply()
             }
         })
 
-        return null
-    }*/
+        return id
+    }
 }
