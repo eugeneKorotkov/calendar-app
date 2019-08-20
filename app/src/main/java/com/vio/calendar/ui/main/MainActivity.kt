@@ -15,6 +15,8 @@ import com.google.android.gms.ads.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vio.calendar.PreferenceHelper.defaultPrefs
 import com.vio.calendar.R
+import com.vio.calendar.data.user.UserRepository
+import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.model.dialog.CycleItem
 import com.vio.calendar.model.dialog.LanguageItem
 import com.vio.calendar.model.dialog.NotificationItem
@@ -25,6 +27,9 @@ import com.vio.calendar.view.adapters.DialogLanguageAdapter
 import com.vio.calendar.view.adapters.DialogNotificationAdapter
 import com.vio.calendar.view.fragments.PrefsFragment
 import com.yarolegovich.lovelydialog.LovelyChoiceDialog
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog
+
+
 
 
 class MainActivity : LocalizationActivity() {
@@ -105,6 +110,8 @@ class MainActivity : LocalizationActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
+
+
 
         MobileAds.initialize(this, "ca-app-pub-1890073619173649~8908748583")
         loadSplashAd()
@@ -284,6 +291,20 @@ class MainActivity : LocalizationActivity() {
                     preferences.edit().putBoolean(item.code, true).apply()
                     Log.d("NotificationDialog", "put boolean ${item.code} true")
                 }
+            }
+            .show()
+    }
+
+    fun showEditTextDialog() {
+        LovelyTextInputDialog(this, R.style.EditTextTintTheme)
+            .setTopColorRes(R.color.colorPink)
+            .setTitle(R.string.whats_your_name)
+            .setMessage(R.string.enter_name)
+            .setIcon(R.drawable.ic_info_outline_black_24dp)
+            .setConfirmButton(android.R.string.ok
+            ) { text ->
+                    preferences.edit().putString("user_name", text).apply()
+                    UserRepository(this).updateUser(prefs.getString("token", "")!!, UserData(text, prefs.getString("color", "#333333")!!))
             }
             .show()
     }

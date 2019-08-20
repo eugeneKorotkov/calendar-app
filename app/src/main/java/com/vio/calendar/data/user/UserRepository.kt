@@ -5,6 +5,7 @@ import android.util.Log
 import com.vio.calendar.PreferenceHelper
 import com.vio.calendar.data.user.model.TokenResponse
 import com.vio.calendar.data.user.model.User
+import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.data.user.model.UserFetchResponse
 import com.vio.calendar.data.user.net.UserRetrofitClient
 import retrofit2.Call
@@ -48,5 +49,17 @@ class UserRepository(context: Context) {
         })
 
         return id
+    }
+
+    fun updateUser(token: String, userData: UserData) {
+        retrofitClient.updateUser(token, userData).enqueue(object: Callback<Any> {
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                Log.d("UserRepistory", "updateuser+")
+            }
+
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                Log.d("UserRepistory", "updateuser+")
+            }
+        })
     }
 }

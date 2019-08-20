@@ -2,6 +2,7 @@ package com.vio.calendar.data.user.net
 
 import com.vio.calendar.data.user.model.TokenResponse
 import com.vio.calendar.data.user.model.User
+import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.data.user.model.UserFetchResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -16,5 +17,8 @@ interface UserApi {
 
     @GET("current/fetch")
     fun getUserId(@Query("token") token: String): Call<UserFetchResponse>
+
+    @POST("current/update")
+    fun updateUser(@Query("token") token: String, @Body userData: UserData): Call<Any>
 
 }

@@ -1,13 +1,11 @@
 package com.vio.calendar.view.fragments
 
 import android.app.backup.BackupManager
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import androidx.fragment.app.Fragment
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
@@ -20,7 +18,6 @@ import com.vio.calendar.ui.calendar.CalendarGridLayoutManager
 import com.vio.calendar.ui.calendar.CalendarRecyclerAdapter
 import com.vio.calendar.utils.AnimationHelper
 import com.vio.calendar.view.activities.StepsActivityNew
-import kotlinx.android.synthetic.main.day_item_row.view.*
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -34,9 +31,6 @@ class StepsCalendarFragment: Fragment() {
 
     private var date: GregorianCalendar? = null
     private var dateSecond: GregorianCalendar? = null
-
-    private var _date: GregorianCalendar? = null
-    private var _dateSecond: GregorianCalendar? = null
 
     private val calToday = GregorianCalendar()
     private val dayToday = calToday.get(GregorianCalendar.DATE)
@@ -172,7 +166,7 @@ class StepsCalendarFragment: Fragment() {
             handleDatabaseEdit()
 
             dateSecond = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
-            dateSecond?.add(GregorianCalendar.DATE, (activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
+            dateSecond?.add(GregorianCalendar.DATE, -(activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
 
             ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(dateSecond)
             handleDatabaseEdit()
@@ -259,7 +253,7 @@ class StepsCalendarFragment: Fragment() {
             handleDatabaseEdit()
 
             dateSecond = GregorianCalendar(yearCurrent, monthCurrent - 1, it.day)
-            dateSecond?.add(GregorianCalendar.DATE, (activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
+            dateSecond?.add(GregorianCalendar.DATE, -(activity as StepsActivityNew).prefs.getInt("cycle_length", 25))
 
             ((activity as StepsActivityNew).application as CalendarApplication).dbMain.addPeriod(dateSecond)
             handleDatabaseEdit()
@@ -272,8 +266,8 @@ class StepsCalendarFragment: Fragment() {
         Log.d("CalendarFragment", "init working: $firstIsShowing")
         firstIsShowing = if (firstIsShowing) {
             updateSecondCalendar()
-            viewFlipper.showNext()
-            false
+                viewFlipper.showNext()
+                false
         } else {
             updateFirstCalendar()
             true
@@ -335,36 +329,6 @@ class StepsCalendarFragment: Fragment() {
         // Notify backup agent about the change and mark DB as clean
         val bm = BackupManager(CalendarApplication.getAppContext())
         bm.dataChanged()
-    }
-
-    class DayWeekAdapter: BaseAdapter {
-        var namesDayWeek = ArrayList<String>()
-        var context: Context? = null
-
-        constructor(context: Context, list: ArrayList<String>) : super() {
-            this.context = context
-            this.namesDayWeek = list
-        }
-
-        override fun getCount(): Int {
-            return namesDayWeek.size
-        }
-
-        override fun getItem(position: Int): Any {
-            return namesDayWeek[position]
-        }
-
-        override fun getItemId(position: Int): Long {
-            return position.toLong()
-        }
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            val name = this.namesDayWeek[position]
-            val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = inflator.inflate(R.layout.day_item_row, null)
-            view.dayName.text = name
-            return view
-        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.vio.calendar.data.article.net
 
 import android.util.Log
+import com.google.gson.GsonBuilder
 import com.vio.calendar.data.article.model.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -16,11 +17,12 @@ class RetrofitClient {
     }
 
     init {
+        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'").create()
         val builder = OkHttpClient.Builder()
         val okHttpClient = builder.build()
         val retrofit = Retrofit.Builder()
             .baseUrl(API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
         articlesApi = retrofit.create(ArticlesApi::class.java)

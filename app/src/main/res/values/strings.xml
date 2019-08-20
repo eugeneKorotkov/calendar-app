@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">VIO</string>
 
-    <string name="title_today">today</string>
+    <string name="title_today">Today</string>
     <string name="title_calendar">the calendar</string>
     <string name="title_advices">tips</string>
     <string name="title_more">more</string>
@@ -114,7 +114,7 @@
     <string name="year">year</string>
 
     <string name="fertility_title">There is a possibility to get pregnant</string>
-    <string name="ovulation_title">Possibility to get pregnant high</string>
+    <string name="ovulation_title">Ovulation \n Possibility to get pregnant high</string>
     <string name="menstrual_title">Period</string>
     <string name="infertility_title">Possibility to get pregnant low</string>
     <string name="empty_title">Empty</string>

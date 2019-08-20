@@ -410,8 +410,7 @@ public class PeriodicalDatabase {
                             intensity);
                     db.execSQL(statement);
 
-                    type = DayEntry.PERIOD_CONFIRMED;
-
+                    
                     // Second day gets a higher intensity, the following ones decrease it every day
                     if(day == 0) intensity = 4;
                     else {

@@ -2,6 +2,7 @@ package com.vio.calendar.data.user.net
 
 import com.vio.calendar.data.user.model.TokenResponse
 import com.vio.calendar.data.user.model.User
+import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.data.user.model.UserFetchResponse
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -33,5 +34,9 @@ class UserRetrofitClient {
 
     fun getUserId(token: String): Call<UserFetchResponse> {
         return userApi.getUserId(token)
+    }
+
+    fun updateUser(token: String, userData: UserData): Call<Any> {
+        return userApi.updateUser(token, userData)
     }
   }

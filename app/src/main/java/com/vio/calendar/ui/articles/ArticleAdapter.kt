@@ -23,7 +23,7 @@ import com.vio.calendar.data.article.model.LikesResponseItem
 import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.inflate
 import kotlinx.android.synthetic.main.item_article.view.*
-
+import java.util.*
 
 
 class ArticleAdapter(private val articles: MutableList<Article>, private val lifecycleOwner: LifecycleOwner, private val context: Context, private val prefs: SharedPreferences) :
@@ -31,8 +31,11 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
 
     val repository = ArticleRepositoryImpl()
 
+
+
     val adapter = CommentAdapter(mutableListOf())
     var likesCount: Int = 0
+    var commentsCount: Int = 0
     var isLiked: Boolean = false
 
     val token = prefs.getString("token", "s")!!
@@ -86,10 +89,10 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
             }
 
             val linearLayoutManager = LinearLayoutManager(context)
-            linearLayoutManager.reverseLayout = true
 
             itemView.commentRecycler.layoutManager = linearLayoutManager
             itemView.commentRecycler.adapter = adapter
+
 
             val mScrollTouchListener = object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -148,7 +151,12 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
             itemView.sendCommentButton.setOnClickListener {
                 val comment = CommentSend(itemView.commentInputField.text.toString())
                 repository.sendComment(article.id!!, token, comment)
-                adapter.addComment(Comment("", UserData(name), itemView.commentInputField.text.toString()))
+
+                commentsCount++
+
+                itemView.articleCommentCount.text = commentsCount.toString()
+
+                adapter.addComment(Comment("", UserData(name), itemView.commentInputField.text.toString(), Date()))
             }
 
             repository.getLikesCount(article).observe(lifecycleOwner, Observer {
@@ -163,8 +171,14 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
                     comments ->
                 if (comments == null) {
                 } else {
+
+                    commentsCount = comments.size
+
+                    itemView.articleCommentCount.text = comments.size.toString()
+
+                    comments.sortedWith(compareBy {it.createdAt})
                     Log.d("articleAdapter", "size: ${comments.size}")
-                    adapter.setComments(comments)
+                    adapter.setComments(comments.asReversed())
                 }
             })
 

@@ -11,8 +11,7 @@ import com.vio.calendar.inflate
 import com.vio.calendar.model.date.CalendarCell
 import com.vio.calendar.underline
 import kotlinx.android.synthetic.main.day_item_row.view.*
-
-
+import java.util.*
 
 
 class CalendarRecyclerAdapter(val days: ArrayList<CalendarCell>, private val firstDay: Int, private val listener: (CalendarCell) -> Unit) :
@@ -43,15 +42,18 @@ class CalendarRecyclerAdapter(val days: ArrayList<CalendarCell>, private val fir
 
                 when (calendarCell.type) {
 
-                    OVULATION_PREDICTED -> {
+
+
+
+                    /*OVULATION_PREDICTED -> {
                         itemView.dayName.setTextColor(Color.WHITE)
                         if (calendarCell.iscurrent) {
                             itemView.dayName.underline()
                         } else {
                             itemView.dayLinear.setBackgroundResource(R.drawable.ovulation_predicted)
                         }
-                    }
-                    OVULATION_FUTURE -> {
+                    }*/
+                    OVULATION_FUTURE, OVULATION_PREDICTED -> {
                         itemView.dayName.setTextColor(Color.WHITE)
                         if (calendarCell.iscurrent) {
                             itemView.dayName.underline()
@@ -72,9 +74,18 @@ class CalendarRecyclerAdapter(val days: ArrayList<CalendarCell>, private val fir
                     }
                     PERIOD_PREDICTED -> {
                         itemView.dayName.setTextColor(Color.WHITE)
+                        /*
+                        val i = GregorianCalendar(calendarCell.year, calendarCell.month - 1, calendarCell.day)
+                        Log.d("CalendarRecyclerAdapter", "calendarCell: $i, today: $today")
 
+                        if (i <= today) {
+                            secondListener(i)
+                        }
+                        */
                         if (calendarCell.iscurrent) {
                             itemView.dayName.underline()
+                        } else {
+                            itemView.dayLinear.setBackgroundResource(R.drawable.period_predicted)
                         }
 
                     }

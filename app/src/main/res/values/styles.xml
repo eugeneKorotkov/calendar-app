@@ -14,6 +14,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="progressBarBlue" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@android:color/white</item>
+    </style>
+
 
     <!-- Light application theme -->
     
@@ -75,6 +79,10 @@
         <item name="cardCornerRadius">10dp</item>
         <item name="cardElevation">2dp</item>
     </style>
+
+    <style name="EditTextTintTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+s    </style>
+
 
 
 

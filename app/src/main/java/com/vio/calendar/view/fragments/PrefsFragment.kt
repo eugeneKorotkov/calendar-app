@@ -66,7 +66,8 @@ class PrefsFragment: Fragment() {
             list,
             prefs,
             {(activity as MainActivity).showLanguageDialog()},
-            {(activity as MainActivity).showNotificationDialog()}
+            {(activity as MainActivity).showNotificationDialog()},
+            {(activity as MainActivity).showEditTextDialog()}
         )
 
     }

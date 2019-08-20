@@ -37,7 +37,6 @@ class CalendarApplication: Application() {
         initDatabase()
 
 
-
         OneSignal.startInit(this)
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)

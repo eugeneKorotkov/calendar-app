@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.Constants
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
@@ -13,7 +13,7 @@ import com.vio.calendar.ui.license.LicenseActivity
 import com.vio.calendar.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : LocalizationActivity() {
 
     private var mDelayHandler: Handler? = null
     private val SPLASH_DELAY: Long = 3000 //3 seconds

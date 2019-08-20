@@ -6,8 +6,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.vio.calendar.PreferenceHelper
 import com.vio.calendar.R
 import com.vio.calendar.app.CalendarApplication
@@ -18,10 +18,10 @@ import com.vio.calendar.ui.main.MainActivity
 import com.vio.calendar.view.fragments.NumberPickerFragment
 import com.vio.calendar.view.fragments.StepsCalendarFragment
 import com.vio.calendar.view.fragments.UserInfoFragment
-import kotlinx.android.synthetic.main.activity_steps.*
+import kotlinx.android.synthetic.main.activity_steps_new.*
 import java.util.*
 
-class StepsActivityNew : AppCompatActivity() {
+class StepsActivityNew : LocalizationActivity() {
 
     private val userInfoFragment = UserInfoFragment()
     private val stepsCalendarFragment = StepsCalendarFragment()
@@ -71,14 +71,13 @@ class StepsActivityNew : AppCompatActivity() {
                     stepsTopView.go(0, true)
                     switchToFragment(userInfoFragment)
                 }
-                1 -> {
+                1-> {
                     stepsTopView.go(1, true)
                  //    numberPickerFragment.switchToMenstrual()
                 }
                 2 -> {
                     switchToFragment(numberPickerFragment)
                         // numberPickerFragment.switchToLength()
-
                 }
             }
         }

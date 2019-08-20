@@ -16,7 +16,8 @@ class PrefsRecyclerAdapter(
     private val prefsList: ArrayList<PreferenceItem>,
     private val prefs: SharedPreferences,
     private val listenerLanguage: () -> Unit,
-    private val listenerNotification: () -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val listenerNotification: () -> Unit,
+    private val listenerEditText: () -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -66,6 +67,9 @@ class PrefsRecyclerAdapter(
         fun bind() {
             itemView.userName.text = prefs.getString("user_name", "default_name")
             itemView.dotUserInfo.setTextColor(prefs.getInt("user_color", R.color.colorPink))
+            itemView.setOnClickListener {
+                listenerEditText()
+            }
         }
     }
 }

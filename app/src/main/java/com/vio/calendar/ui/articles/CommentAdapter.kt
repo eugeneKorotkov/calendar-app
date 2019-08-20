@@ -10,6 +10,8 @@ import com.vio.calendar.data.article.model.Comment
 import com.vio.calendar.inflate
 import kotlinx.android.synthetic.main.item_comment.view.*
 
+
+
 class CommentAdapter(private val comments: MutableList<Comment>) :
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
@@ -31,9 +33,10 @@ class CommentAdapter(private val comments: MutableList<Comment>) :
     }
 
     fun addComment(comment: Comment) {
-        this.comments.add(comment)
+        this.comments.add(0, comment)
         notifyDataSetChanged()
     }
+
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
@@ -42,9 +45,20 @@ class CommentAdapter(private val comments: MutableList<Comment>) :
         fun bind(comment: Comment) {
             this.comment = comment
             itemView.name.text = comment.userData.name
-            itemView.circle.background.setColorFilter(Color.parseColor(comment.userData.color), PorterDuff.Mode.SRC_ATOP)
+
+            try {
+                val color = Color.parseColor(comment.userData.color)
+                itemView.circle.background.setColorFilter(
+                    Color.parseColor(comment.userData.color),
+                    PorterDuff.Mode.SRC_ATOP
+                )
+            } catch (iae: IllegalArgumentException) {
+                // This color string is not valid
+            }
+
             if (comment.userData.name.isNotEmpty())itemView.circleLetter.text = comment.userData.name[0].toUpperCase().toString()
             itemView.comment.text = comment.content
+            itemView.commentDate.text = comment.createdAt.toString()
         }
     }
 

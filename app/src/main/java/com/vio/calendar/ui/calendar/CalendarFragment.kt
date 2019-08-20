@@ -31,8 +31,8 @@ import kotlin.collections.ArrayList
 class CalendarFragment : Fragment() {
 
     private var firstIsShowing = true
-    private var monthCurrent = GregorianCalendar().get(Calendar.MONTH) + 1
 
+    private var monthCurrent = GregorianCalendar().get(Calendar.MONTH) + 1
     private var yearCurrent = GregorianCalendar().get(Calendar.YEAR)
 
     private val calToday = GregorianCalendar()
@@ -431,7 +431,11 @@ class CalendarFragment : Fragment() {
             }
             calendarRecyclerFirst.invalidate()
 
-        }))
+        }))/*, {
+            Log.d("CalendarFragment", "addPeriod: $it")
+            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(it)
+            handleDatabaseEdit()
+        })*/
     }
 
     private fun updateSecondCalendar() {
@@ -847,7 +851,7 @@ class CalendarFragment : Fragment() {
 
 
     class DayWeekAdapter: BaseAdapter {
-        var namesDayWeek = ArrayList<String>()
+        private var namesDayWeek = ArrayList<String>()
         var context: Context? = null
 
         constructor(context: Context, list: ArrayList<String>) : super() {
