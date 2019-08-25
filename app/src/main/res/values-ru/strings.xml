@@ -1,153 +1,130 @@
 <resources>
     <string name="title_today">Сегодня</string>
-    <string name="title_calendar">календарь</string>
-    <string name="title_advices">советы</string>
-    <string name="title_more">больше</string>
-
-    <string name="change_language">сменить язык</string>
-
+    <string name="title_calendar">Календарь</string>
+    <string name="title_advices">Советы</string>
+    <string name="title_more">Больше</string>
+    <string name="change_language">Cменить язык</string>
     <string name="notification_settings">напоминания</string>
     <string name="notification_question_0">Месячные через пару дней</string>
     <string name="notification_question_1">Окончание месячных</string>
     <string name="notification_question_2">Начало месячных</string>
     <string name="notification_question_3">Овуляция</string>
-
-    <string name="accept_all">принять всё</string>
-    <string name="next">далее</string>
-
+    <string name="accept_all">Принять всё</string>
+    <string name="next">Далее</string>
     <string name="send">send</string>
-
     <string name="info_restart_application">
         Перезагрузите приложение, чтобы изменения вступили в силу
     </string>
-    
-    <string name="skip">пропустить</string>
-    <string name="pass">пароль</string>
-    <string name="email">e-mail</string>
-    <string name="error_email">неправильный e-mail</string>
-    <string name="error_pass">неправильный пароль</string>
-
-    <string name="description_login">введите свой e-mail и пароль</string>
+    <string name="skip">Пропустить</string>
+    <string name="pass">Пароль</string>
+    <string name="email">E-mail</string>
+    <string name="error_email">Неправильный e-mail</string>
+    <string name="error_pass">Неправильный пароль</string>
+    <string name="description_login">Введите свой e-mail и пароль</string>
     <string name="choose_date">Выберите первый день месячных</string>
-
-    <string name="license_comment">*Вы можете отозвать своё согласие в любое время,
-        написав по адресу example@rtrd.hert
+    <string name="license_comment">
+        *Вы можете отозвать своё согласие в любое время, написав по адресу example@rtrd.hert
     </string>
-
-    <string name="license_0"><![CDATA[Я соглашаюсь с
-        <a href="https://google.com">Политикой конфиденциальности</a>
-        и
-        <a href="https://google.com">Условиями использования</a>]]>
+    <string name="license_0">
+        <![CDATA[
+Я соглашаюсь с <a href="https://www.privacypolicies.com/privacy/view/914cdd79d430a3e86db382b4137e34cd">Политикой конфиденциальности</a> и <a href="https://www.privacypolicies.com/privacy/view/914cdd79d430a3e86db382b4137e34cd">Условиями использования</a>
+]]>
     </string>
-    <string name="license_1"><![CDATA[Я соглашаюсь с обработкой персональных
-        данных о здоровье для целей функционирования приложения. Узнайте больше
-        в
-        <a href="https://google.com">Политике конфиденциальности</a>]]>
+    <string name="license_1">
+        <![CDATA[
+Я соглашаюсь с обработкой персональных данных о здоровье для целей функционирования приложения. Узнайте больше в <a href="https://www.privacypolicies.com/privacy/view/914cdd79d430a3e86db382b4137e34cd">Политике конфиденциальности</a>
+]]>
     </string>
-    <string name="license_2"><![CDATA[Я соглащаюсь на использования моих
-        <a href="https://google.com">персональных данных</a>
-        для персонализации предложений,
-        включая партнёрские рекомендации**]]>
+    <string name="license_2">
+        <![CDATA[
+Я соглащаюсь на использования моих <a href="https://www.privacypolicies.com/privacy/view/914cdd79d430a3e86db382b4137e34cd">персональных данных</a> для персонализации предложений, включая партнёрские рекомендации**
+]]>
     </string>
-    <string name="license_3"><![CDATA[Я соглашаюсь с тем, что appflayer и его
-        интегрированные партнёры могут получать мои личные данные с целью
-        расширения аудитории и популяризации приложения*]]>
+    <string name="license_3">
+        <![CDATA[
+Я соглашаюсь с тем, что appflayer и его интегрированные партнёры могут получать мои личные данные с целью расширения аудитории и популяризации приложения*
+]]>
     </string>
-
-    <!-- Steps questions -->
+    <!--  Steps questions  -->
     <string name="steps_question_0">Когда начались ваши последние месячные?</string>
     <string name="steps_question_1">Сколько в среднем у вас идут месячные?</string>
     <string name="steps_question_2">Сколько в среднем длится ваш цикл?</string>
-
-    <string name="choose">choose</string>
-
+    <string name="choose">Сhoose</string>
     <string name="pregnant_question">На какой вы неделе беременности?</string>
-    <string name="average_length_cycle">средняя длина цикла</string>
-
-    <!--month names -->
-    <string name="jan">январь</string>
-    <string name="feb">февраль</string>
-    <string name="mar">март</string>
-    <string name="apr">апрель</string>
-    <string name="may">май</string>
-    <string name="jun">июнь</string>
-    <string name="jul">июль</string>
-    <string name="aug">август</string>
-    <string name="sep">сентябрь</string>
-    <string name="oct">октябрь</string>
-    <string name="nov">ноябрь</string>
-    <string name="dec">декабрь</string>
-    <!--month names for title -->
-    <string name="jant">января</string>
-    <string name="febt">февраля</string>
-    <string name="mart">марта</string>
-    <string name="aprt">апреля</string>
-    <string name="mayt">мая</string>
-    <string name="junt">июня</string>
-    <string name="jult">июля</string>
-    <string name="augt">августа</string>
-    <string name="sept">сентября</string>
-    <string name="octt">октября</string>
-    <string name="novt">ноября</string>
-    <string name="dect">декабря</string>
-    <!--day on week names-->
-    <string name="mon">понедельник</string>
-    <string name="tue">вторник</string>
-    <string name="wed">среда</string>
-    <string name="thu">четверг</string>
-    <string name="fri">пятница</string>
-    <string name="sat">суббота</string>
-    <string name="sun">воскресенье</string>
-
-    <string name="check_menstrual">отметить месячные</string>
-    <string name="delete_menstrual">удалить месячные</string>
-
-    <string name="day">день</string>
-    <string name="week">неделя</string>
-    <string name="month">месяц</string>
-    <string name="year">год</string>
-
+    <string name="average_length_cycle">Средняя длина цикла</string>
+    <!-- month names  -->
+    <string name="jan">Январь</string>
+    <string name="feb">Февраль</string>
+    <string name="mar">Март</string>
+    <string name="apr">Апрель</string>
+    <string name="may">Май</string>
+    <string name="jun">Июнь</string>
+    <string name="jul">Июль</string>
+    <string name="aug">Август</string>
+    <string name="sep">Сентябрь</string>
+    <string name="oct">Октябрь</string>
+    <string name="nov">Ноябрь</string>
+    <string name="dec">Декабрь</string>
+    <!-- month names for title  -->
+    <string name="jant">Января</string>
+    <string name="febt">Февраля</string>
+    <string name="mart">Марта</string>
+    <string name="aprt">Апреля</string>
+    <string name="mayt">Мая</string>
+    <string name="junt">Июня</string>
+    <string name="jult">Июля</string>
+    <string name="augt">Августа</string>
+    <string name="sept">Сентября</string>
+    <string name="octt">Октября</string>
+    <string name="novt">Ноября</string>
+    <string name="dect">Декабря</string>
+    <!-- day on week names -->
+    <string name="mon">Понедельник</string>
+    <string name="tue">Вторник</string>
+    <string name="wed">Среда</string>
+    <string name="thu">Четверг</string>
+    <string name="fri">Пятница</string>
+    <string name="sat">Суббота</string>
+    <string name="sun">Воскресенье</string>
+    <string name="check_menstrual">Отметить месячные</string>
+    <string name="delete_menstrual">Удалить месячные</string>
+    <string name="day">День</string>
+    <string name="week">Неделя</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
     <string name="fertility_title">Есть вероятность забеременеть</string>
-    <string name="ovulation_title">Высокая вероятность забеременеть</string>
+    <string name="ovulation_title">Овуляция \n Высокая вероятность забеременеть</string>
     <string name="menstrual_title">Месячные</string>
     <string name="infertility_title">Вероятность забеременеть низкая</string>
     <string name="empty_title">Пусто</string>
-    <string name="days">дней</string>
-
-    <string name="next_cycle">скоро</string>
-    <string name="ovulation">овуляция</string>
-    
-    <string name="tip_today_new">легче забеременеть</string>
-    <string name="tip_today_old">есть вероятность забеременеть</string>
-    <string name="menstrual">месячные</string>
-    <string name="length_cycle">длина цикла</string>
-    <string name="length_menstrual_cycle">длина месячных</string>
-
+    <string name="days">Дней</string>
+    <string name="next_cycle">Скоро</string>
+    <string name="ovulation">Овуляция</string>
+    <string name="tip_today_new">Легче забеременеть</string>
+    <string name="tip_today_old">Есть вероятность забеременеть</string>
+    <string name="menstrual">Месячные</string>
+    <string name="length_cycle">Длина цикла</string>
+    <string name="length_menstrual_cycle">Длина месячных</string>
     <string name="whats_your_name">Как вас зовут?</string>
-
-    <string name="tip_pref_0">Изначально Vio
-        делает прогнозы повведеным здесь
-        длинам цикла и менструации. регулярно отмечая
-        месячные,вы дадите приложению возможность
-         выстраивать прогнозы по этим данным</string>
-    
-    <string name="forgot">Не помню</string>
-    <string name="tip_pref_1">При отключении этого параметра вы будете видеть
-    только день овуляции без вероятности забеременеть</string>
-
-    <string name="more_title">больше</string>
-
-    <string name="cycle_settings">цикл и овуляция</string>
-    <string name="cycle_length">длина цикла</string>
-    <string name="menstrual_length">длина месячных</string>
-    <string name="probability_pregnant">вероятность забеременнеть</string>
-    <string name="cycle_settings_tip_0">Изначально VIO делает прогнозы по введённым здесь данным</string>
-    <string name="cycle_settings_tip_1">При отключении этого параметрпа вы будете видеть только день овуляции без
-        вероятности забеременнеть
+    <string name="tip_pref_0">
+        Изначально Vio делает прогнозы повведеным здесь длинам цикла и менструации. регулярно отмечая месячные,вы дадите приложению возможность выстраивать прогнозы по этим данным
     </string>
-
-    <string name="chance_get_pregnant">вероятность забеременнеть</string>
-
+    <string name="forgot">Не помню</string>
+    <string name="tip_pref_1">
+        При отключении этого параметра вы будете видеть только день овуляции без вероятности забеременеть
+    </string>
+    <string name="more_title">Больше</string>
+    <string name="cycle_settings">Цикл и овуляция</string>
+    <string name="cycle_length">Длина цикла</string>
+    <string name="menstrual_length">длина месячных</string>
+    <string name="probability_pregnant">Вероятность забеременнеть</string>
+    <string name="cycle_settings_tip_0">
+        Изначально VIO делает прогнозы по введённым здесь данным
+    </string>
+    <string name="cycle_settings_tip_1">
+        При отключении этого параметрпа вы будете видеть только день овуляции без вероятности забеременнеть
+    </string>
+    <string name="chance_get_pregnant">Вероятность забеременнеть</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Пароль</string>
     <string name="action_sign_in">Войдите или зарегестрируйтесь</string>
@@ -156,8 +133,6 @@
     <string name="invalid_username">Неверное имя пользователя</string>
     <string name="invalid_password">Пароль должен быть> 5 символов</string>
     <string name="login_failed">"Ошибка входа"</string>
-
-
     <string name="menstrual_two_days">Месячные через пару дней</string>
     <string name="menstrual_end">Окончание месячных</string>
     <string name="menstrual_start">Начало месячных</string>

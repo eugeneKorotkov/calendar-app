@@ -2,6 +2,7 @@ package com.vio.calendar.ui.articles
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.os.Build
 import android.text.Html
 import android.util.Log
@@ -13,6 +14,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.vio.calendar.R
 import com.vio.calendar.data.article.ArticleRepositoryImpl
@@ -22,6 +25,7 @@ import com.vio.calendar.data.article.model.CommentSend
 import com.vio.calendar.data.article.model.LikesResponseItem
 import com.vio.calendar.data.user.model.UserData
 import com.vio.calendar.inflate
+import jp.wasabeef.glide.transformations.gpu.VignetteFilterTransformation
 import kotlinx.android.synthetic.main.item_article.view.*
 import java.util.*
 
@@ -29,14 +33,11 @@ import java.util.*
 class ArticleAdapter(private val articles: MutableList<Article>, private val lifecycleOwner: LifecycleOwner, private val context: Context, private val prefs: SharedPreferences) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
+    val transformation = MultiTransformation<Bitmap>(
+        VignetteFilterTransformation(), CenterCrop()
+    )
+
     val repository = ArticleRepositoryImpl()
-
-
-
-    val adapter = CommentAdapter(mutableListOf())
-    var likesCount: Int = 0
-    var commentsCount: Int = 0
-    var isLiked: Boolean = false
 
     val token = prefs.getString("token", "s")!!
     val name = prefs.getString("user_name", "")!!
@@ -62,6 +63,11 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private lateinit var article: Article
+        private val adapter = CommentAdapter(mutableListOf())
+
+        var likesCount: Int = 0
+        var commentsCount: Int = 0
+        var isLiked: Boolean = false
 
         fun bind(article: Article) {
             this.article = article
@@ -96,8 +102,7 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
 
             val mScrollTouchListener = object : RecyclerView.OnItemTouchListener {
                 override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                     val action = e.action
-                    when (action) {
+                    when (e.action) {
                         MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(true)
                     }
                     return false
@@ -149,14 +154,23 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
             }
 
             itemView.sendCommentButton.setOnClickListener {
+
+                commentsCount++
                 val comment = CommentSend(itemView.commentInputField.text.toString())
                 repository.sendComment(article.id!!, token, comment)
 
-                commentsCount++
-
                 itemView.articleCommentCount.text = commentsCount.toString()
+                adapter.addComment(
+                    Comment(
+                        "",
+                        UserData(name, color),
+                        itemView.commentInputField.text.toString(),
+                        Date()
+                    )
+                )
 
-                adapter.addComment(Comment("", UserData(name), itemView.commentInputField.text.toString(), Date()))
+                itemView.commentInputField.text.clear()
+
             }
 
             repository.getLikesCount(article).observe(lifecycleOwner, Observer {
@@ -171,22 +185,21 @@ class ArticleAdapter(private val articles: MutableList<Article>, private val lif
                     comments ->
                 if (comments == null) {
                 } else {
-
+                    Log.d("ArticleAdapter", "article: ${article.id}, comments: $comments")
                     commentsCount = comments.size
-
                     itemView.articleCommentCount.text = comments.size.toString()
-
                     comments.sortedWith(compareBy {it.createdAt})
-                    Log.d("articleAdapter", "size: ${comments.size}")
+                    Log.d("ArticleAdapter", "size: ${comments.size}")
                     adapter.setComments(comments.asReversed())
                 }
             })
 
+
+
             Glide
                 .with(itemView.context)
                 .load(article.image)
-                .apply(
-                    RequestOptions().centerCrop())
+                .apply(RequestOptions.bitmapTransform(transformation))
                 .into(itemView.articleImage)
 
         }

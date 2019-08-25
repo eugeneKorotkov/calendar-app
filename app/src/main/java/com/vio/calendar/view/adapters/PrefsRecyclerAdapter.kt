@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.item_profile.view.*
 class PrefsRecyclerAdapter(
     private val prefsList: ArrayList<PreferenceItem>,
     private val prefs: SharedPreferences,
+    private val listenerCycle: () -> Unit,
     private val listenerLanguage: () -> Unit,
     private val listenerNotification: () -> Unit,
     private val listenerEditText: () -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -58,6 +59,10 @@ class PrefsRecyclerAdapter(
                 1 -> itemView.setOnClickListener {
                     listenerNotification()
                 }
+
+                0 -> itemView.setOnClickListener {
+                    listenerCycle()
+                }
             }
         }
 
@@ -66,7 +71,6 @@ class PrefsRecyclerAdapter(
     inner class ViewHolderProfile(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind() {
             itemView.userName.text = prefs.getString("user_name", "default_name")
-            itemView.dotUserInfo.setTextColor(prefs.getInt("user_color", R.color.colorPink))
             itemView.setOnClickListener {
                 listenerEditText()
             }

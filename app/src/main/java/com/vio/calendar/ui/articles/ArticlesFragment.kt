@@ -30,6 +30,7 @@ class ArticlesFragment: Fragment()  {
         super.onViewCreated(view, savedInstanceState)
         Log.d("MainActivity", (activity as MainActivity).prefs.getString("token", "token"))
         articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
+
         adapter = ArticleAdapter(mutableListOf(), this, (activity as MainActivity).applicationContext, ((activity as MainActivity).application as CalendarApplication).prefs)
         ViewCompat.setNestedScrollingEnabled(articlesRecyclerView, false);
         articlesRecyclerView.adapter = adapter

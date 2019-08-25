@@ -431,11 +431,7 @@ class CalendarFragment : Fragment() {
             }
             calendarRecyclerFirst.invalidate()
 
-        }))/*, {
-            Log.d("CalendarFragment", "addPeriod: $it")
-            ((activity as MainActivity).application as CalendarApplication).dbMain.addPeriod(it)
-            handleDatabaseEdit()
-        })*/
+        }))
     }
 
     private fun updateSecondCalendar() {

@@ -37,7 +37,6 @@ class CommentAdapter(private val comments: MutableList<Comment>) :
         notifyDataSetChanged()
     }
 
-
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private lateinit var comment: Comment
@@ -47,7 +46,6 @@ class CommentAdapter(private val comments: MutableList<Comment>) :
             itemView.name.text = comment.userData.name
 
             try {
-                val color = Color.parseColor(comment.userData.color)
                 itemView.circle.background.setColorFilter(
                     Color.parseColor(comment.userData.color),
                     PorterDuff.Mode.SRC_ATOP

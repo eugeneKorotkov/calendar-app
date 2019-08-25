@@ -288,7 +288,6 @@ public class PeriodicalDatabase {
     int cycleLongest;
     /** Calculated shortest cycle length */
     int cycleShortest;
-
     /** Private reference to application context */
     private final Context context;
 
@@ -299,10 +298,11 @@ public class PeriodicalDatabase {
      * Application context
      */
     public PeriodicalDatabase(Context context) {
+
         this.context = context;
         open();
-
         dayEntries = new Vector<>();
+
     }
 
     /**
@@ -410,7 +410,8 @@ public class PeriodicalDatabase {
                             intensity);
                     db.execSQL(statement);
 
-                    
+                    type = DayEntry.PERIOD_CONFIRMED;
+
                     // Second day gets a higher intensity, the following ones decrease it every day
                     if(day == 0) intensity = 4;
                     else {
@@ -525,90 +526,90 @@ public class PeriodicalDatabase {
 
             switch(eventtype)
             {
-            case DayEntry.PERIOD_START:
-                if (isFirst) {
-                    // First event at all - just create an initial start entry
-                    dayofcycle = 1;
-                    entryPrevious = new DayEntry(eventtype, eventdate, 1, intensity);
-                    entryPreviousStart = entryPrevious;
-                    this.dayEntries.add(entryPrevious);
-                    isFirst = false;
-                }
-                else {
-                    // Create new day entry
-                    entry = new DayEntry(eventtype, eventdate, 1, intensity);
-                    int length = entryPreviousStart.date.diffDayPeriods(entry.date);
+                case DayEntry.PERIOD_START:
+                    if (isFirst) {
+                        // First event at all - just create an initial start entry
+                        dayofcycle = 1;
+                        entryPrevious = new DayEntry(eventtype, eventdate, 1, intensity);
+                        entryPreviousStart = entryPrevious;
+                        this.dayEntries.add(entryPrevious);
+                        isFirst = false;
+                    }
+                    else {
+                        // Create new day entry
+                        entry = new DayEntry(eventtype, eventdate, 1, intensity);
+                        int length = entryPreviousStart.date.diffDayPeriods(entry.date);
 
-                    // Add calculated values from the last date to this day, if the period_predicted has not
-                    // unusual lengths (e.g. after a longer pause because of pregnancy etc.)
-                    if (length <= maximumcyclelength) {
-                        count++;
+                        // Add calculated values from the last date to this day, if the period_predicted has not
+                        // unusual lengths (e.g. after a longer pause because of pregnancy etc.)
+                        if (length <= maximumcyclelength) {
+                            count++;
 
-                        // Update values which are used to calculate the fertility
-                        // window for the last 12 entries
-                        if (count == countlimit) {
-                            // If we have at least one period_predicted the shortest and
-                            // and longest value is automatically the current length
-                            this.cycleShortest = length;
-                            this.cycleLongest = length;
-                        } else if (count > countlimit) {
-                            // We have more than two values, then update
-                            // longest/shortest
-                            // values
-                            if (length < this.cycleShortest)
+                            // Update values which are used to calculate the fertility
+                            // window for the last 12 entries
+                            if (count == countlimit) {
+                                // If we have at least one period_predicted the shortest and
+                                // and longest value is automatically the current length
                                 this.cycleShortest = length;
-                            if (length > this.cycleLongest)
                                 this.cycleLongest = length;
-                        }
-
-                        // Update average sum
-                        this.cycleAverage += length;
-
-                        // Calculate a predicted ovulation date
-                        int average = this.cycleAverage;
-                        if (count > 0) average /= count;
-                        ovulationday = average - luteallength;
-
-                        // Calculate days from the last event until now
-                        GregorianCalendar datePrevious = new GregorianCalendar();
-                        datePrevious.setTime(entryPrevious.date.getTime());
-                        for (int day = dayofcycle; day < length; day++) {
-                            datePrevious.add(GregorianCalendar.DATE, 1);
-                            dayofcycle++;
-
-                            int type;
-
-                            if (day == ovulationday) {
-                                // Day of ovulation
-                                type = DayEntry.OVULATION_PREDICTED;
-                            } else if (day >= this.cycleShortest - luteallength - 4
-                                    && day <= this.cycleLongest - luteallength + 3) {
-                                // Fertile days
-                                type = DayEntry.FERTILITY_PREDICTED;
-                            } else {
-                                // Infertile days
-                                type = DayEntry.INFERTILE_PREDICTED;
+                            } else if (count > countlimit) {
+                                // We have more than two values, then update
+                                // longest/shortest
+                                // values
+                                if (length < this.cycleShortest)
+                                    this.cycleShortest = length;
+                                if (length > this.cycleLongest)
+                                    this.cycleLongest = length;
                             }
 
-                            DayEntry entryCalculated = new DayEntry(type, datePrevious, dayofcycle, 1);
-                            dayEntries.add(entryCalculated);
+                            // Update average sum
+                            this.cycleAverage += length;
+
+                            // Calculate a predicted ovulation date
+                            int average = this.cycleAverage;
+                            if (count > 0) average /= count;
+                            ovulationday = average - luteallength;
+
+                            // Calculate days from the last event until now
+                            GregorianCalendar datePrevious = new GregorianCalendar();
+                            datePrevious.setTime(entryPrevious.date.getTime());
+                            for (int day = dayofcycle; day < length; day++) {
+                                datePrevious.add(GregorianCalendar.DATE, 1);
+                                dayofcycle++;
+
+                                int type;
+
+                                if (day == ovulationday) {
+                                    // Day of ovulation
+                                    type = DayEntry.OVULATION_PREDICTED;
+                                } else if (day >= this.cycleShortest - luteallength - 4
+                                        && day <= this.cycleLongest - luteallength + 3) {
+                                    // Fertile days
+                                    type = DayEntry.FERTILITY_PREDICTED;
+                                } else {
+                                    // Infertile days
+                                    type = DayEntry.INFERTILE_PREDICTED;
+                                }
+
+                                DayEntry entryCalculated = new DayEntry(type, datePrevious, dayofcycle, 1);
+                                dayEntries.add(entryCalculated);
+                            }
                         }
+
+                        // Finally add the entry
+                        dayofcycle = 1;
+                        entryPrevious = entry;
+                        entryPreviousStart = entry;
+                        this.dayEntries.add(entry);
                     }
+                    break;
 
-                    // Finally add the entry
-                    dayofcycle = 1;
-                    entryPrevious = entry;
-                    entryPreviousStart = entry;
+                case DayEntry.PERIOD_CONFIRMED:
+                    dayofcycle++;
+                    entry = new DayEntry(eventtype, eventdate, dayofcycle, intensity);
                     this.dayEntries.add(entry);
-                }
-                break;
-
-            case DayEntry.PERIOD_CONFIRMED:
-                dayofcycle++;
-                entry = new DayEntry(eventtype, eventdate, dayofcycle, intensity);
-                this.dayEntries.add(entry);
-                entryPrevious = entry;
-                break;
+                    entryPrevious = entry;
+                    break;
             }
         }
         result.close();

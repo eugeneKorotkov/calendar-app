@@ -115,6 +115,8 @@ dependencies {
 
     implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
     implementation 'androidx.preference:preference:1.0.0'
+    implementation 'jp.co.cyberagent.android:gpuimage:2.0.4'
+
 
     implementation 'com.akexorcist:localizationactivity:1.2.2'
 

@@ -42,23 +42,21 @@ class CalendarRecyclerAdapter(val days: ArrayList<CalendarCell>, private val fir
 
                 when (calendarCell.type) {
 
-
-
-
-                    /*OVULATION_PREDICTED -> {
+                    OVULATION_PREDICTED -> {
                         itemView.dayName.setTextColor(Color.WHITE)
                         if (calendarCell.iscurrent) {
                             itemView.dayName.underline()
                         } else {
                             itemView.dayLinear.setBackgroundResource(R.drawable.ovulation_predicted)
                         }
-                    }*/
-                    OVULATION_FUTURE, OVULATION_PREDICTED -> {
+                    }
+                    OVULATION_FUTURE -> {
                         itemView.dayName.setTextColor(Color.WHITE)
                         if (calendarCell.iscurrent) {
                             itemView.dayName.underline()
                         } else {
                             itemView.dayLinear.setBackgroundResource(R.drawable.ovulation_future)
+                            //itemView.dayLinear.setBackgroundResource(R.drawable.ovulation_predicted)
                         }
                     }
 
@@ -74,14 +72,7 @@ class CalendarRecyclerAdapter(val days: ArrayList<CalendarCell>, private val fir
                     }
                     PERIOD_PREDICTED -> {
                         itemView.dayName.setTextColor(Color.WHITE)
-                        /*
-                        val i = GregorianCalendar(calendarCell.year, calendarCell.month - 1, calendarCell.day)
-                        Log.d("CalendarRecyclerAdapter", "calendarCell: $i, today: $today")
 
-                        if (i <= today) {
-                            secondListener(i)
-                        }
-                        */
                         if (calendarCell.iscurrent) {
                             itemView.dayName.underline()
                         } else {

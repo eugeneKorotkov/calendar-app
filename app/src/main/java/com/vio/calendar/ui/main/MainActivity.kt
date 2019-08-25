@@ -5,8 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
-import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.akexorcist.localizationactivity.core.LanguageSetting.getLanguage
@@ -27,9 +25,8 @@ import com.vio.calendar.view.adapters.DialogLanguageAdapter
 import com.vio.calendar.view.adapters.DialogNotificationAdapter
 import com.vio.calendar.view.fragments.PrefsFragment
 import com.yarolegovich.lovelydialog.LovelyChoiceDialog
+import com.yarolegovich.lovelydialog.LovelyCustomDialog
 import com.yarolegovich.lovelydialog.LovelyTextInputDialog
-
-
 
 
 class MainActivity : LocalizationActivity() {
@@ -102,21 +99,8 @@ class MainActivity : LocalizationActivity() {
 
         prefs = defaultPrefs(applicationContext)
 
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-
-
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
-
-
-
         MobileAds.initialize(this, "ca-app-pub-1890073619173649~8908748583")
         loadSplashAd()
-
-
 
         //LanguagePrefs
         languages.add(
@@ -134,7 +118,6 @@ class MainActivity : LocalizationActivity() {
                 "Русский"
             )
         )
-        ///
 
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
@@ -170,7 +153,6 @@ class MainActivity : LocalizationActivity() {
         mAdView.loadAd(adRequest)
 
         code = getLanguage(this).language
-        Log.d("MainActitivty", code)
 
         switchToFragment(todayFragment)
 
@@ -259,9 +241,16 @@ class MainActivity : LocalizationActivity() {
         return notificationPreferences
     }
 
-    /*fun showCycleDialog() {
-        val adapter = DialogCycleAdapter(this, getCyclePrefernces())
-    }*/
+
+    fun showCycleDialog() {
+        LovelyCustomDialog(this)
+            .setView(R.layout.dialog_prefs_cycle)
+            .setTopColorRes(R.color.colorPink)
+            .setTitle(R.string.cycle_settings)
+            .setIcon(R.drawable.ic_cycle_settings)
+            .show();
+
+    }
 
     fun showLanguageDialog() {
 
@@ -308,5 +297,6 @@ class MainActivity : LocalizationActivity() {
             }
             .show()
     }
+
 }
 

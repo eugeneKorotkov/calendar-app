@@ -65,6 +65,7 @@ class PrefsFragment: Fragment() {
         prefsRecycler.adapter = PrefsRecyclerAdapter(
             list,
             prefs,
+            {(activity as MainActivity).showCycleDialog()},
             {(activity as MainActivity).showLanguageDialog()},
             {(activity as MainActivity).showNotificationDialog()},
             {(activity as MainActivity).showEditTextDialog()}
