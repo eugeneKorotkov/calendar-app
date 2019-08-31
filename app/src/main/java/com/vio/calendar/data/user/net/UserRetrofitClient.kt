@@ -1,9 +1,6 @@
 package com.vio.calendar.data.user.net
 
-import com.vio.calendar.data.user.model.TokenResponse
-import com.vio.calendar.data.user.model.User
-import com.vio.calendar.data.user.model.UserData
-import com.vio.calendar.data.user.model.UserFetchResponse
+import com.vio.calendar.data.user.model.*
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -14,7 +11,7 @@ class UserRetrofitClient {
     private val userApi: UserApi
 
     companion object {
-        private const val API_BASE_URL = "http://134.209.23.52/api/v1/users/"
+        private const val API_BASE_URL = "http://134.209.23.52/api/v1/"
     }
 
     init {
@@ -38,5 +35,9 @@ class UserRetrofitClient {
 
     fun updateUser(token: String, userData: UserData): Call<Any> {
         return userApi.updateUser(token, userData)
+    }
+
+    fun getSettings(): Call<List<Settings>> {
+        return userApi.getSettings()
     }
   }

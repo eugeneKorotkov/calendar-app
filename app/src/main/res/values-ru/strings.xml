@@ -137,4 +137,6 @@
     <string name="menstrual_end">Окончание месячных</string>
     <string name="menstrual_start">Начало месячных</string>
     <string name="preferences">settings</string>
+    <string name="errorName">Имя должно быть больше четырёх символов</string>
+    <string name="errorDate">Пожалуйста выберите дату</string>
 </resources>

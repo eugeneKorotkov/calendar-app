@@ -1,15 +1,15 @@
 package com.vio.calendar.ui.license
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
-import com.vio.calendar.Constants
 import com.vio.calendar.R
-import com.vio.calendar.app.CalendarApplication
-import com.vio.calendar.view.activities.StepsActivityNew
+import com.vio.calendar.view.activities.StepsActivity
 import kotlinx.android.synthetic.main.activity_license.*
 
 
@@ -24,6 +24,7 @@ class LicenseActivity : LocalizationActivity() {
 
         setContentView(R.layout.activity_license)
 
+        hideBottomPanel()
         for (itemString in resources.getStringArray(R.array.license_menu)) {
             licenseContent.add(LicenseItem(false, itemString))
         }
@@ -44,8 +45,7 @@ class LicenseActivity : LocalizationActivity() {
         }
 
         button_next.setOnClickListener {
-            CalendarApplication.preferences.edit().putBoolean(Constants.LICENSE, true).apply()
-            val intent = Intent(this, StepsActivityNew::class.java)
+            val intent = Intent(this, StepsActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -57,4 +57,18 @@ class LicenseActivity : LocalizationActivity() {
         button_next.setBackgroundResource(R.drawable.button_pink)
         button_accept_all.visibility = View.GONE
     }
+
+    private fun hideBottomPanel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        }
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+    }
+
 }

@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,18 +31,11 @@
             app:layout_constraintGuide_percent="0.125" />
 
     <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineBottomHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.37619698"/>
-
-    <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineTopBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.11"/>
+            app:layout_constraintGuide_percent="0.2"/>
 
 
     <ViewFlipper
@@ -53,31 +46,54 @@
             android:id="@+id/viewFlipper"
             app:layout_constraintTop_toTopOf="@id/guidelineTopBody"
             app:layout_constraintBottom_toBottomOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:background="@drawable/article_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/firstConstraint">
 
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineTopMonthNameFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.05"/>
+
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineBottomMonthNameFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.15"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineTopRecyclerFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.25"/>
+
+
             <TextView
                     android:id="@+id/monthNameFirst"
                     android:text="Июль"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    app:autoSizeTextType="uniform"
                     android:textColor="@color/colorRedMonthName"
-                    android:layout_margin="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/weekDayNamesFirst"/>
+                    app:layout_constraintTop_toTopOf="@+id/firstConstraint"/>
 
             <GridView
                     android:id="@+id/weekDayNamesFirst"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:numColumns="7"
-                    app:layout_constraintBottom_toTopOf="@+id/topCalendarFirst"
+                    app:layout_constraintBottom_toTopOf="@id/calendarRecyclerFirst"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -88,15 +104,9 @@
                     android:layout_gravity="center_horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/topCalendarFirst">
+                    app:layout_constraintTop_toTopOf="@id/guidelineTopRecyclerFirst"
+                    app:layout_constraintEnd_toEndOf="parent">
             </androidx.recyclerview.widget.RecyclerView>
-            <androidx.constraintlayout.widget.Guideline
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintGuide_percent="0.3"
-                    android:id="@+id/topCalendarFirst"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,35 +114,40 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="@drawable/article_background" android:id="@+id/secondConstraint">
+                android:background="@drawable/article_background"
+                android:id="@+id/secondConstraint">
 
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guidelineTopMonthNameSecond"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.1"/>
+                    app:layout_constraintGuide_percent="0.05"/>
+
 
             <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guidelineBottomMonthSecond"
+                    android:id="@+id/guidelineBottomMonthNameSecond"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.2"/>
+                    app:layout_constraintGuide_percent="0.15"/>
 
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineTopRecyclerSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.25"/>
             <TextView
                     android:text="Июнь"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_margin="10dp"
                     android:gravity="center"
                     android:textColor="@color/colorRedMonthName"
-                    app:layout_constraintBottom_toBottomOf="@+id/guidelineBottomMonthSecond"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintStart_toEndOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guidelineTopMonthNameSecond"
+                    app:layout_constraintTop_toTopOf="@+id/secondConstraint"
                     android:id="@+id/monthNameSecond"/>
 
             <GridView
@@ -140,7 +155,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:numColumns="7"
-                    app:layout_constraintTop_toTopOf="@id/guidelineBottomMonthSecond"
+                    app:layout_constraintBottom_toTopOf="@id/calendarRecyclerSecond"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -149,11 +164,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/weekDayNamesSecond">
+                    app:layout_constraintTop_toTopOf="@id/guidelineTopRecyclerSecond"
+                    app:layout_constraintEnd_toEndOf="parent">
             </androidx.recyclerview.widget.RecyclerView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ViewFlipper>

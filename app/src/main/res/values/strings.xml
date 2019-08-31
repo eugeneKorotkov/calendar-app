@@ -150,6 +150,9 @@ I consent to making my personal information available to appflayer and its integ
     <string name="preferences">settings</string>
     <string name="enter_name">Enter your name</string>
     <string name="whats_your_name">What\'s your name?</string>
+    <string name="errorName">The name must contain more than four characters</string>
+    <string name="errorDate">Please select a date</string>
+
     <string-array name="notification_settings">
         <item>pref_notification_m_two_days</item>
         <item>period_length</item>

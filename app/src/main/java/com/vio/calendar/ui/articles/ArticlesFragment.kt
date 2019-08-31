@@ -57,7 +57,8 @@ class ArticlesFragment: Fragment()  {
             hideLoading()
             if (articles == null) {
             } else {
-                adapter.setArticles(articles)
+                articles.sortedWith(compareBy {it.creationDate})
+                adapter.setArticles(articles.reversed())
             }
         })
     }

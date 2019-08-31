@@ -2,11 +2,10 @@ package com.vio.calendar.data.user
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.vio.calendar.PreferenceHelper
-import com.vio.calendar.data.user.model.TokenResponse
-import com.vio.calendar.data.user.model.User
-import com.vio.calendar.data.user.model.UserData
-import com.vio.calendar.data.user.model.UserFetchResponse
+import com.vio.calendar.data.user.model.*
 import com.vio.calendar.data.user.net.UserRetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,4 +61,53 @@ class UserRepository(context: Context) {
             }
         })
     }
+
+    fun getSettings(): LiveData<List<Settings>?> {
+
+        val data = MutableLiveData<List<Settings>>()
+
+        retrofitClient.getSettings().enqueue(object: Callback<List<Settings>?> {
+            override fun onFailure(call: Call<List<Settings>?>, t: Throwable) {
+                data.value = null
+                Log.d("UserRepository", "failed to fetch settings")
+            }
+
+            override fun onResponse(call: Call<List<Settings>?>, response: Response<List<Settings>?>) {
+
+                Log.d("UserRepository", "fetched settings [${response.body()?.get(0)}]")
+
+                val splashId = response.body()?.get(0)?.idSplash
+                val screensId = response.body()?.get(0)?.idScreens
+                val topId = response.body()?.get(0)?.idTop
+                val counter = response.body()?.get(0)?.screenCounter
+                val inter = response.body()?.get(0)?.inter
+                val splash = response.body()?.get(0)?.splash
+                val top = response.body()?.get(0)?.top
+
+                if (inter != null) {
+                    prefs.edit().putInt("inter", inter).apply()
+                }
+
+                if (splash != null) {
+                    prefs.edit().putInt("splash", splash).apply()
+                }
+
+                if (top != null) {
+                    prefs.edit().putInt("splash", top).apply()
+                }
+
+                if (counter != null) {
+                    prefs.edit().putInt("counter", counter).apply()
+                }
+
+                prefs.edit().putString("splashId", splashId).apply()
+                prefs.edit().putString("screensId", screensId).apply()
+                prefs.edit().putString("topId", topId).apply()
+            }
+
+        })
+
+        return data
+    }
+
 }

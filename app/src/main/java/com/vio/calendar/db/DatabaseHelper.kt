@@ -1,18 +1,19 @@
 package com.vio.calendar.db
 
-import android.app.Application
 import android.app.backup.BackupManager
+import android.content.Context
 import com.vio.calendar.model.date.CalendarCell
 import java.util.*
 
-class DatabaseHelper(application: Application) {
+class DatabaseHelper(context: Context) {
 
-    private var dbMain: PeriodicalDatabase = PeriodicalDatabase(application)
-    private val bm = BackupManager(application)
+    private var dbMain: PeriodicalDatabase = PeriodicalDatabase(context)
+    private val bm = BackupManager(context)
 
     init {
         dbMain.restorePreferences()
         dbMain.loadCalculatedData()
+        setOption("launch", 1)
     }
 
     fun addPeriod(date: GregorianCalendar) {
@@ -27,6 +28,13 @@ class DatabaseHelper(application: Application) {
         bm.dataChanged()
     }
 
+    fun setOption(name: String, value: Int) {
+        dbMain.setOption(name, value)
+        dbMain.restorePreferences()
+        dbMain.loadCalculatedData()
+        bm.dataChanged()
+    }
+
     fun getDayType(date: GregorianCalendar): Int {
         return dbMain.getEntryType(date)
     }
@@ -34,7 +42,6 @@ class DatabaseHelper(application: Application) {
     fun getDaysList(year: Int, month: Int): ArrayList<CalendarCell> {
 
         val list = ArrayList<CalendarCell>()
-        list.add(CalendarCell(year))
 
         val calendar = GregorianCalendar(year, month - 1, 1)
 

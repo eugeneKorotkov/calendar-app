@@ -52,7 +52,6 @@ class ArticleRepositoryImpl: ArticleRepository {
         })
 
         return data
-
     }
 
     override fun like(article: Article, token: String) {

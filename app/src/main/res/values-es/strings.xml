@@ -137,4 +137,7 @@ Autorizo que mis datos personales estén disponibles para appflayer y sus socios
     <string name="login_failed">"Login failed"</string>
     <string name="preferences">Settings</string>
     <string name="whats_your_name">Cual es tu nombre?</string>
+    <string name="errorName">El nombre debe contener más de cuatro caracteres</string>
+    <string name="errorDate">Por favor seleccione una fecha</string>
+
 </resources>

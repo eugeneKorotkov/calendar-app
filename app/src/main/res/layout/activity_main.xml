@@ -30,17 +30,5 @@
             app:layout_constraintEnd_toEndOf="parent">
 
     </FrameLayout>
-    <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-1890073619173649/4909793826"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp">
-    </com.google.android.gms.ads.AdView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
